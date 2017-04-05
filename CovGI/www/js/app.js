@@ -79,14 +79,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           controller: 'menuCrtl'
       })
 
-      .state('menu.createOffer',{
-          url: '/createOffer',
-          views:{
-              'menuContent':{
-                  templateUrl:'templates/create_offer.html',
-              }
-          }
-      })
+
 
       //after login
   .state('menu.inside',{
@@ -101,6 +94,33 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
 
+      .state('menu.createOffer',{
+          url: '/createOffer',
+          views:{
+              'menuContent':{
+                  templateUrl:'templates/create_offer.html',
+
+              }
+          }
+      })
+
+      .state('menu.member_offer',{
+          url: '/createOffer',
+          views:{
+              'menuContent':{
+                  templateUrl:'templates/member_offer.html',
+              }
+          }
+      })
+      .state('menu.createDemand',{
+          url: '/createDemand',
+          views:{
+              'menuContent':{
+                  templateUrl:'templates/create_demand.html',
+
+              }
+          }
+      })
      /* .state('inside.offre-tab',{
           url: '/offre',
           views:{

@@ -1,3 +1,29 @@
-<ion-view title="Create Offer" >
-    <div id="map"></div>
+<ion-view title="Creer une offre" >
+    <ion-content ng-controller="MapsCtrl">
+        <div id="map"> </div>
+        <div class="list" >
+            <label class="item item-input">
+                <span class="input-label">Lieu de depart</span>
+                <input type="text">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Lieu d'arrivée</span>
+                <input type="text" >
+            </label>
+            <button class="button button-block button-calm">Chercher itineraire</button>
+            <label class="item item-input">
+                <span class="input-label">Place disponible</span>
+                <input type="number">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Date de deppart</span>
+                <input type="datetime-local">
+            </label>
+            <button class="button button-block button-calm">Ajouter cette Offre</button>
+        </div>
+    </ion-content>
 </ion-view>
+
+
+
+
