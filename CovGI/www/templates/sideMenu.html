@@ -20,17 +20,14 @@
                     <div class="card">
 
 
-                        <div class="item item-avatar"  >
-                            <img  src="..\img\adam.jpg" >
-
-                                <span style="font-weight: bold;">{{member_info.login}}</span> <br>
-                                {{member_info.email}}  <br>
-                                {{member_info.tel}}   <br>
-                                {{member_info.BU}}  <br>
-                                {{member_info.job}}
-
-
+                        <div class="item item-avatar" >
+                            <img  src="..\img\bel_med_amine.jpg">
                         </div>
+                        <span style="font-weight: bold;">{{member_info.login}}</span> <br>
+                        {{member_info.email}}  <br>
+                        {{member_info.tel}}   <br>
+                        {{member_info.BU}}  <br>
+                        {{member_info.job}}
 
 
 
@@ -38,10 +35,12 @@
                     </div>
 
                     <ion-list>
-                        <ion-item ng-click="logout()">Logout</ion-item>
-                        <ion-item>My rides</ion-item>
-                        <ion-item >Create a carpool offer</ion-item>
-                        <ion-item>Create a capool demand</ion-item>
+
+                        <ion-item ng-click="check_offers()" menu-close="">Mes Offres</ion-item>
+                        <ion-item>Mes Demandes</ion-item>
+                        <ion-item >Créer une offre</ion-item>
+                        <ion-item>Créer une demande</ion-item>
+                        <ion-item ng-click="logout()">Se déconnecter</ion-item>
                     </ion-list>
                 </div>
             </ion-content>
