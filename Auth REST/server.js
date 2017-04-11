@@ -12,6 +12,7 @@ var mongoose			= require('mongoose');
 var passport			= require('passport');
 var config				= require('./config/database');
 var User				= require('./app/models/user');
+var trajets				= require('./app/models/trajets');
 //num de port
 var port				= process.env.PORT || 8080;
 //Json Web Token
@@ -91,11 +92,14 @@ app.post('/api/authentication', function(req,res){
 	});
 });
 
+app.get('/api/listeTrajet', function(req, res){
+	//res.send(JSON.stringify(trajets.find()));
+	res.send(JSON.stringify(trajets.find()));
+});
 
 app.get('/api/member', passport.authenticate('jwt', {session: false}), function(req,res){
 	res.json({message:'succes authentication', user: req.user});
 });
-
 
 //demarrer le serv avec port specifier
 app.listen(port);

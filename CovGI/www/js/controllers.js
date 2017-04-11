@@ -111,6 +111,24 @@ angular.module('starter.controllers', [])
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            var directionsService = new google.maps.DirectionsService;
+            var directionsDisplay = new google.maps.DirectionsRenderer;
+            directionsDisplay.setMap(map);
+            DisplayRoute(directionsService, directionsDisplay);
+            function DisplayRoute(directionsService,directionsDisplay) {
+                directionsService.route({
+                    origin: 'kenitra',
+                    destination: 'rabat',
+                    travelMode: 'DRIVING'
+                },function (response, status) {
+                    if (status == 'OK'){
+                        directionsDisplay.setDirections(response);
+                    }else {
+                        window.alert('Error'+ status);
+                    }
+                });
+            }
+
             marker.setMap(map);
             $scope.map = map;
         });

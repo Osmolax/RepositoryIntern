@@ -1,15 +1,23 @@
 <ion-view title="Creer une offre" >
     <ion-content ng-controller="MapsCtrl">
         <div id="map"> </div>
+        <div class="list">
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Toppings
+                </div>
+                <select>
+                    <option>Black Olives</option>
+                    <option selected>Bacon</option>
+                    <option>Extra Cheese</option>
+                    <option>Mushrooms</option>
+                    <option>Pepperoni</option>
+                    <option>Sausage</option>
+                </select>
+            </label>
+        </div>
         <div class="list" >
-            <label class="item item-input">
-                <span class="input-label">Lieu de depart</span>
-                <input type="text">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Lieu d'arrivée</span>
-                <input type="text" >
-            </label>
+
             <button class="button button-block button-calm">Chercher itineraire</button>
             <label class="item item-input">
                 <span class="input-label">Place disponible</span>
