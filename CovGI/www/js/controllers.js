@@ -94,24 +94,27 @@ angular.module('starter.controllers', [])
 
     })
 
-        .controller('MapsCtrl', function($scope, $ionicLoading) {
-            google.maps.event.addDomListener(window, 'load', function() {
+.controller('MapsCtrl', function($scope, $ionicLoading) {
+    google.maps.event.addDomListener(window, 'load', function() {
 
+        var LatLingTechnopolice = {lat: 33.981979, lng: -6.726336};
 
-
-
-                navigator.geolocation.getCurrentPosition(function(pos) {
-                    var latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-
-                    var mapOptions = {
-                        center: latLng,
-                        zoom: 15,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    };
-
-                    $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-                });
-            })
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            //33.993207, -6.721752
+            var latLng = new google.maps.LatLng(33.993207,-6.721752);
+            var marker = new google.maps.Marker({
+                position: LatLingTechnopolice
+            });
+            var mapOptions = {
+                center: latLng,
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            marker.setMap(map);
+            $scope.map = map;
+        });
+    })
 })
 
 
