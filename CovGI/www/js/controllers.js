@@ -142,12 +142,13 @@ angular.module('starter.controllers', [])
             var LongSelectedPlace;
 
             var onChangePlace = function () {
-                if( document.getElementById('suburb').value.equal('PETIT PRINCE A COTER DE LA POSTE')){
+                if( document.getElementById('suburb').value == "string:PETIT PRINCE A COTER DE LA POSTE"){
                     LatSelectedPlace = 34.042083;
                     LongSelectedPlace = -6.793549;
                 }else {
                     //33.993005, -6.882308
-                   console.log(document.getElementById('suburb').value);
+                    console.log(document.getElementById('suburb').value);
+
                     LatSelectedPlace = 33.993005;
                     LongSelectedPlace = -6.882308;
                 }
