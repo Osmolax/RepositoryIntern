@@ -1,24 +1,30 @@
 <ion-view title="Creer une offre" >
     <ion-content ng-controller="MapsCtrl">
         <div id="map"> </div>
-        <div class="list">
+
+        <div ng-controller="StaticCtrl">
+            <h3 class="title">Choisir le trajet</h3>
             <label class="item item-input item-select">
                 <div class="input-label">
-                    Toppings
+                    Ville:
+                    <select id="country" ng-model="cities" ng-options="country for (country, cities) in countries">
+                        <option value=''>Select</option>
+                    </select>
                 </div>
-                <select>
-                    <option>Black Olives</option>
-                    <option selected>Bacon</option>
-                    <option>Extra Cheese</option>
-                    <option>Mushrooms</option>
-                    <option>Pepperoni</option>
-                    <option>Sausage</option>
-                </select>
             </label>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Quartier: <select id="city" ng-disabled="!cities" ng-model="suburbs" ng-options="city for (city, suburbs) in cities"><option value=''>Select</option></select>
+                </div>
+            </label>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Lieu: <select id="suburb" ng-disabled="!suburbs" ng-model="suburb" ng-options="suburb for suburb in suburbs"><option value=''>Select</option></select>
+                </div>
+            </label>
+
         </div>
         <div class="list" >
-
-            <button class="button button-block button-calm">Chercher itineraire</button>
             <label class="item item-input">
                 <span class="input-label">Place disponible</span>
                 <input type="number">

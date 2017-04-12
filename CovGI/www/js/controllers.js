@@ -94,11 +94,22 @@ angular.module('starter.controllers', [])
 
     })
 
+.controller('StaticCtrl', function ($scope) {
+    $scope.countries = {
+        'Salé' : {
+            'Salé Ville' : ['CAFE RAMSIS DIAR', 'BAB SABTA', 'BAB CHAAFA', 'SOUNBOULA'],
+            'Hay Chmaou/Said Hajji' : ['CENTRAL LAITIERE', 'CAFE ZAYTOUNA','COCA COLA','CAFE IMANE','T13','CAFE IHSANE'],
+            'Hay Rahma' : ['CAFE HILTON', 'SUPER']
+        }
+    };
+})
+
 .controller('MapsCtrl', function($scope, $ionicLoading) {
+
+
     google.maps.event.addDomListener(window, 'load', function() {
 
         var LatLingTechnopolice = {lat: 33.981979, lng: -6.726336};
-
         navigator.geolocation.getCurrentPosition(function(pos) {
             //33.993207, -6.721752
             var latLng = new google.maps.LatLng(33.993207,-6.721752);
@@ -113,7 +124,7 @@ angular.module('starter.controllers', [])
             var map = new google.maps.Map(document.getElementById("map"), mapOptions);
             var directionsService = new google.maps.DirectionsService;
             var directionsDisplay = new google.maps.DirectionsRenderer;
-            directionsDisplay.setMap(map);
+            //directionsDisplay.setMap(map);
             DisplayRoute(directionsService, directionsDisplay);
             function DisplayRoute(directionsService,directionsDisplay) {
                 directionsService.route({
@@ -128,8 +139,7 @@ angular.module('starter.controllers', [])
                     }
                 });
             }
-
-            marker.setMap(map);
+            //marker.setMap(map);
             $scope.map = map;
         });
     })
