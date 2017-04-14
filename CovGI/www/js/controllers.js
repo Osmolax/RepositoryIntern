@@ -115,6 +115,79 @@ angular.module('starter.controllers', [])
 
 
 })
+    .controller('memberOfferCtrl', function ($scope) {
+        $scope.member_info;
+    })
+    
+.controller('createDemandCtrl', function ($scope) {
+    //$scope.map;
+    $scope.suburb;
+    $scope.logInfoTrajet = function () {
+        console.log($scope.member_info);
+        console.log($scope.LatSelectedPlace, $scope.LongSelectedPlace);
+        console.log($scope.datetimeDemande);
+        console.log($scope.suburb);
+        console.log($scope.ville);
+
+    };
+
+    google.maps.event.addDomListener(window, 'load', function() {
+
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+
+        var latLng = new google.maps.LatLng(33.993207,-6.721752);
+
+        var mapOptions = {
+            center: latLng,
+            zoom: 14,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        directionsDisplay.setMap(map);
+
+
+
+        var onChangePlace = function () {
+            if( document.getElementById('suburb').value == "string:PETIT PRINCE A COTER DE LA POSTE"){
+                $scope.LatSelectedPlace = 34.042083;
+                $scope.LongSelectedPlace = -6.793549;
+            }else {
+                //33.993005, -6.882308
+                console.log(document.getElementById('suburb').value);
+                $scope.lieu = document.getElementById('suburb').value;
+                $scope.LatSelectedPlace = 33.993005;
+                $scope.LongSelectedPlace = -6.882308;
+            }
+            DisplayRoute(directionsService,directionsDisplay);
+        };
+
+
+        document.getElementById('suburb').addEventListener('change', onChangePlace);
+
+        function DisplayRoute(directionsService,directionsDisplay) {
+            directionsService.route({
+                origin: new google.maps.LatLng(33.981979,-6.726336),
+                destination: new google.maps.LatLng($scope.LatSelectedPlace,$scope.LongSelectedPlace),
+                travelMode: 'DRIVING'
+            },function (response, status) {
+                if (status == 'OK'){
+                    directionsDisplay.setDirections(response);
+                }else {
+                    window.alert('Error'+ status);
+                }
+            });
+        }
+
+
+        $scope.map = map;
+
+
+    })
+})
+
 
 .controller('MapsCtrl', function($scope, $ionicLoading, $rootScope) {
 
@@ -138,19 +211,19 @@ angular.module('starter.controllers', [])
 
             directionsDisplay.setMap(map);
 
-            var LatSelectedPlace;
-            var LongSelectedPlace;
+
 
             var onChangePlace = function () {
+                $scope.ville = document.getElementById('suburb').value;
                 if( document.getElementById('suburb').value == "string:PETIT PRINCE A COTER DE LA POSTE"){
-                    LatSelectedPlace = 34.042083;
-                    LongSelectedPlace = -6.793549;
+                    $scope.LatSelectedPlace = 34.042083;
+                    $scope.LongSelectedPlace = -6.793549;
                 }else {
                     //33.993005, -6.882308
-                    console.log(document.getElementById('suburb').value);
+                    console.log(document.getElementById('suburb').valueOf());
 
-                    LatSelectedPlace = 33.993005;
-                    LongSelectedPlace = -6.882308;
+                    $scope.LatSelectedPlace = 33.993005;
+                    $scope.LongSelectedPlace = -6.882308;
                 }
                 DisplayRoute(directionsService,directionsDisplay);
             };
@@ -161,7 +234,7 @@ angular.module('starter.controllers', [])
             function DisplayRoute(directionsService,directionsDisplay) {
                 directionsService.route({
                     origin: new google.maps.LatLng(33.981979,-6.726336),
-                    destination: new google.maps.LatLng(LatSelectedPlace,LongSelectedPlace),
+                    destination: new google.maps.LatLng($scope.LatSelectedPlace,$scope.LongSelectedPlace),
                     travelMode: 'DRIVING'
                 },function (response, status) {
                     if (status == 'OK'){
@@ -180,6 +253,7 @@ angular.module('starter.controllers', [])
 
             //marker.setMap(map);
             $scope.map = map;
+
 
     })
 })

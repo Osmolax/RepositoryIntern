@@ -94,7 +94,14 @@ app.post('/api/authentication', function(req,res){
 
 app.get('/api/listeTrajet', function(req, res){
 	//res.send(JSON.stringify(trajets.find()));
-	res.send(JSON.stringify(trajets.find()));
+	//res.send(JSON.stringify(trajets.find()));
+	var trajet;
+	var trajectsFromDb = db.trajets.find();
+	/*trajectsFromDb.forEach(function(race){
+		console.log(race);
+	});*/
+	res.send('ok');
+	console.log(trajectsFromDb);
 });
 
 app.get('/api/member', passport.authenticate('jwt', {session: false}), function(req,res){
