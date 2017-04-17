@@ -26,7 +26,19 @@ angular.module('starter.services', [])
         window.localStorage.setItem(TOKEN_KEY, token);
         useCredentials(token);
     }
-
+    
+    var createUserTrajet = function (userTrajet) {
+        return $q(function (resolve, reject) {
+            $http.post(API_ENDPOINT.url+'/createUserTrajet', userTrajet).then(function (result) {
+                if(result.data.success){
+                    resolve(result.data.message);
+                }
+                else {
+                    reject(result.data.message);
+                }
+            });
+        });
+    };
 
     //destroy user Credentials set authToken to false and remove it from the http header
     function destroyUserCredentials() {

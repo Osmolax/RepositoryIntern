@@ -193,6 +193,7 @@ angular.module('starter.controllers', [])
 
 
 
+
     google.maps.event.addDomListener(window, 'load', function() {
 
 
@@ -220,13 +221,16 @@ angular.module('starter.controllers', [])
                     $scope.LongSelectedPlace = -6.793549;
                 }else {
                     //33.993005, -6.882308
-                    console.log(document.getElementById('suburb').valueOf());
+                    //console.log(document.getElementById('suburb').value);
 
                     $scope.LatSelectedPlace = 33.993005;
                     $scope.LongSelectedPlace = -6.882308;
                 }
                 DisplayRoute(directionsService,directionsDisplay);
+
             };
+            
+
 
 
             document.getElementById('suburb').addEventListener('change', onChangePlace);
@@ -256,6 +260,28 @@ angular.module('starter.controllers', [])
 
 
     })
+
+
+    $scope.userTrajet = {
+        //idUser: $scope.member_info._id,
+        idTrajet: '1',
+        dateTrajet: $scope.dateTrajet,
+        nombrePlace: $scope.placeDispo,
+        lat: $scope.LatSelectedPlace,
+        long: $scope.LongSelectedPlace
+    };
+
+    $scope.test = function () {
+        console.log($scope.userTrajet);
+        console.log($scope.placeDispo);
+        console.log($scope.dateTrajet);
+    };
+
+    $scope.createUserTrajet = function () {
+        AuthService.createUserTrajet($scope.userTrajet).then(function (msg) {
+           $state.go('menu.inside');
+        });
+    };
 })
 
 

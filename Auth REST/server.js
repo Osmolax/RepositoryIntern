@@ -12,7 +12,7 @@ var mongoose			= require('mongoose');
 var passport			= require('passport');
 var config				= require('./config/database');
 var User				= require('./app/models/user');
-var trajets				= require('./app/models/trajets');
+var trajetUser			= require('./app/models/trajetUser');
 //num de port
 var port				= process.env.PORT || 8080;
 //Json Web Token
@@ -103,6 +103,23 @@ app.get('/api/listeTrajet', function(req, res){
 	res.send('ok');
 	console.log(trajectsFromDb);
 });
+
+
+app.post('/api/createUserTrajet', function(req, res){
+	if(!req.body.idUser || !req.body.idTrajet || !req.body.dateTrajet || !req.body.nombrePlace){
+		var UserTrajet = new trajetUser({ idUser: req.body.idUser, idTrajet: req.body.idTrajet, dateTrajet: req.body.dateTrajet, nombrePlace: req.body.nombrePlace});
+		UserTrajet.save(function(err){
+			if (err) { 
+				return res.json( {succes: false, message: 'Erreur creation trajetUser'});
+			}
+			else{
+				return res.json({ succes: true, message: 'trajetUser creer avec succes'});
+			}
+			console.log('UserTrajet creer avec succes');
+		});
+	}
+})
+
 
 app.get('/api/member', passport.authenticate('jwt', {session: false}), function(req,res){
 	res.json({message:'succes authentication', user: req.user});
