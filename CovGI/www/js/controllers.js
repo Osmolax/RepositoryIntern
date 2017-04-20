@@ -70,6 +70,10 @@ angular.module('starter.controllers', [])
         $location.path( path );
     };
 
+    $http.get(API_ENDPOINT.url+'/allOffre').then(function (result) {
+        console.log('liste des trajets ', result.data);
+    });
+
 })
 
 .controller('InsideCrtl', function ($scope , AuthService, API_ENDPOINT, $http, $state, $ionicPopup) {
@@ -92,7 +96,12 @@ angular.module('starter.controllers', [])
                     });
                 }
 
-    })
+                $http.get(API_ENDPOINT.url+'/allOffre').then(function (result) {
+                    console.log('liste des trajets '+ result.data);
+                });
+
+
+})
 
 .controller('StaticCtrl', function ($scope, $rootScope) {
     $scope.countries = {
@@ -189,7 +198,7 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('MapsCtrl', function($scope, $ionicLoading, $rootScope) {
+.controller('MapsCtrl', function($scope, $ionicLoading, $rootScope, AuthService, $ionicPopup, $state, $http , API_ENDPOINT) {
 
 
 
@@ -216,16 +225,20 @@ angular.module('starter.controllers', [])
 
             var onChangePlace = function () {
                 $scope.ville = document.getElementById('suburb').value;
+                //console.log($scope.suburb);
                 if( document.getElementById('suburb').value == "string:PETIT PRINCE A COTER DE LA POSTE"){
                     $scope.LatSelectedPlace = 34.042083;
                     $scope.LongSelectedPlace = -6.793549;
+                    $scope.lieu = 'PETIT PRINCE A COTER DE LA POSTE';
                 }else {
                     //33.993005, -6.882308
                     //console.log(document.getElementById('suburb').value);
 
                     $scope.LatSelectedPlace = 33.993005;
                     $scope.LongSelectedPlace = -6.882308;
+                    $scope.lieu = 'PETIT PRINCE A COTER DE LA POSTE';
                 }
+                console.log($scope.lieu);
                 DisplayRoute(directionsService,directionsDisplay);
 
             };
@@ -262,26 +275,37 @@ angular.module('starter.controllers', [])
     })
 
 
-    $scope.userTrajet = {
-        //idUser: $scope.member_info._id,
-        idTrajet: '1',
-        dateTrajet: $scope.dateTrajet,
-        nombrePlace: $scope.placeDispo,
-        lat: $scope.LatSelectedPlace,
-        long: $scope.LongSelectedPlace
-    };
+    $scope.addOffer = function () {
+        userTrajet = {
+            idUser: $scope.member_info._id,
+            lieu: $scope.lieu,
+            dateTrajet: $scope.dateTrajet,
+            nombrePlace: $scope.placeDispo,
+            lat: $scope.LatSelectedPlace,
+            long: $scope.LongSelectedPlace
+        };
 
-    $scope.test = function () {
-        console.log($scope.userTrajet);
-        console.log($scope.placeDispo);
-        console.log($scope.dateTrajet);
-    };
+        console.log(userTrajet);
 
-    $scope.createUserTrajet = function () {
-        AuthService.createUserTrajet($scope.userTrajet).then(function (msg) {
-           $state.go('menu.inside');
+        //AuthService.testService();$
+
+
+        $http.post(API_ENDPOINT.url+'/createUserTrajet',userTrajet).then(function (result) {
+            //$scope.member_info = result.data.user;
+            console.log('offre creer avec succes ');
+            var alertPopup = $ionicPopup.alert({
+                title: 'Offre creer',
+                template: 'Votre offre a été creer avec succées'
+            }).then(function () {
+                $state.go('menu.inside');
+            });
         });
+
+
     };
+
+
+
 })
 
 

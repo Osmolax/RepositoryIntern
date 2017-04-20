@@ -106,16 +106,19 @@ app.get('/api/listeTrajet', function(req, res){
 
 
 app.post('/api/createUserTrajet', function(req, res){
-	if(!req.body.idUser || !req.body.idTrajet || !req.body.dateTrajet || !req.body.nombrePlace){
-		var UserTrajet = new trajetUser({ idUser: req.body.idUser, idTrajet: req.body.idTrajet, dateTrajet: req.body.dateTrajet, nombrePlace: req.body.nombrePlace});
+	
+	if(!req.body.trajet){
+		var UserTrajet = new trajetUser({ idUser: req.body.idUser, lieu: req.body.lieu, dateTrajet: req.body.dateTrajet, nombrePlace: req.body.nombrePlace});
 		UserTrajet.save(function(err){
 			if (err) { 
 				return res.json( {succes: false, message: 'Erreur creation trajetUser'});
+
 			}
 			else{
 				return res.json({ succes: true, message: 'trajetUser creer avec succes'});
+				console.log('all is ok');
 			}
-			console.log('UserTrajet creer avec succes');
+			
 		});
 	}
 })
@@ -124,6 +127,20 @@ app.post('/api/createUserTrajet', function(req, res){
 app.get('/api/member', passport.authenticate('jwt', {session: false}), function(req,res){
 	res.json({message:'succes authentication', user: req.user});
 });
+
+
+app.get('/api/allOffre', function(req, res){
+	trajetUser.find({}, function(err, trajects){
+		if (err) {  throw err; }
+		else{
+			//res.render('trajetList', trajects);
+			console.log('liste of all trajects', trajects.length);
+			res.json(trajects);
+		}
+	});
+})
+
+
 
 //demarrer le serv avec port specifier
 app.listen(port);
