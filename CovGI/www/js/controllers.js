@@ -72,6 +72,7 @@ angular.module('starter.controllers', [])
 
     $http.get(API_ENDPOINT.url+'/allOffre').then(function (result) {
         console.log('liste des trajets ', result.data);
+        $scope.allOffer = result.data;
     });
 
 })
@@ -98,6 +99,7 @@ angular.module('starter.controllers', [])
 
                 $http.get(API_ENDPOINT.url+'/allOffre').then(function (result) {
                     console.log('liste des trajets '+ result.data);
+                    $scope.allOffer = result.data;
                 });
 
 

@@ -14,24 +14,11 @@
 
                           <div class="list">
 
-                                        <a class="item item-icon-left" >
+                                        <a class="item item-icon-left" ng-repeat="offre in allOffer">
                                             <i class="icon ion-ios-navigate-outline"></i>
-                                            Offre 1
-                                        </a>
-
-                                        <a class="item item-icon-left" >
-                                            <i class="icon ion-ios-navigate-outline"></i>
-                                            Offre 2
-                                        </a>
-
-                                        <a class="item item-icon-left" >
-                                            <i class="icon ion-ios-navigate-outline"></i>
-                                            Offre 3
-                                        </a>
-
-                                        <a class="item item-icon-left" >
-                                            <i class="icon ion-ios-navigate-outline"></i>
-                                            Offre 4
+                                            <p >Trajet:Technopolice - {{offre.lieu}}</p>
+                                            <p> Date: {{offre.dateTrajet}}</p>
+                                            <p> Nombre de place disponibile: {{offre.nombrePlace}}</p>
                                         </a>
                          </div>
 
