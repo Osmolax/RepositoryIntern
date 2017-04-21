@@ -12,7 +12,7 @@ var mongoose			= require('mongoose');
 var passport			= require('passport');
 var config				= require('./config/database');
 var User				= require('./app/models/user');
-var trajets				= require('./app/models/trajets');
+var trajetUser			= require('./app/models/trajetUser');
 //num de port
 var port				= process.env.PORT || 8080;
 //Json Web Token
@@ -40,7 +40,7 @@ app.use(passport.initialize());
 
 //webservice REST en GET pour tester la connectivite du serv 
 app.get('/api/index', function(req,res){
-	res.send('Hello, welcome to http://localhost:'+port+'/index OK');
+    res.send('Hello, welcome to http://localhost:'+port+'/index OK');
 });
 
 
@@ -54,52 +54,93 @@ require('./config/passport')(passport);
 //var route = express.Router();
 
 app.get('/api/test', function(req, res){
-	res.send('hello from the route /test');
-	console.log('I am gonna kill my self');
+    res.send('hello from the route /test');
+    console.log('I am gonna kill my self');
 });
 
 //ajouter l'utilisateur a la base de donnees avec ws REST en POST
 app.post('/api/createUser', function(req, res){
-	if (req.body.login==null || req.body.password==null) {
-		//si quelque chose manque on envoie un message d'erreur 
-		res.json({succes: false, message: 'Veuillez entrer le login et le mot de passe'});
-	}
-	else{
-		//sinon on enregistre le user
-		var newUser = new User({ login: req.body.login, password: req.body.password, email: req.body.email, tel: req.body.tel, address: req.body.address, BU: req.body.BU, job: req.body.job });
-		newUser.save(function(err){
-			if (err) { 
-				return res.json({ succes: false, message: 'Erreur login deja pris'});
-				 }
-			else{ return res.json({ succes: true, message: 'Utilisateur creer avec succes'}); }
-		});
-	}
+    if (req.body.login==null || req.body.password==null) {
+        //si quelque chose manque on envoie un message d'erreur
+        res.json({succes: false, message: 'Veuillez entrer le login et le mot de passe'});
+    }
+    else{
+        //sinon on enregistre le user
+        var newUser = new User({ login: req.body.login, password: req.body.password, email: req.body.email, tel: req.body.tel, address: req.body.address, BU: req.body.BU, job: req.body.job });
+        newUser.save(function(err){
+            if (err) {
+                return res.json({ succes: false, message: 'Erreur login deja pris'});
+            }
+            else{ return res.json({ succes: true, message: 'Utilisateur creer avec succes'}); }
+        });
+    }
 });
 
 //comparer login et password et generer token
 app.post('/api/authentication', function(req,res){
-	User.findOne({login: req.body.login}, function(err, user){
-		if (err) { throw err; }
-		if (!user) { return res.send({ succes: false, message: 'User not found'});}
-		else{ user.comparePassword(req.body.password, function(err, isMatch){
-			if (isMatch && !err) { var token = jwt.encode(user, config.secret);
-				res.json({succes: true, token: 'JWT '+token, message: 'successfully authenticated'}); 
-			}
-			else{
-				return res.send({succes: false, message:'Wrong password'});
-			}
-		});}
-	});
+    User.findOne({login: req.body.login}, function(err, user){
+        if (err) { throw err; }
+        if (!user) { return res.send({ succes: false, message: 'User not found'});}
+        else{ user.comparePassword(req.body.password, function(err, isMatch){
+            if (isMatch && !err) { var token = jwt.encode(user, config.secret);
+                res.json({succes: true, token: 'JWT '+token, message: 'successfully authenticated'});
+            }
+            else{
+                return res.send({succes: false, message:'Wrong password'});
+            }
+        });}
+    });
 });
 
 app.get('/api/listeTrajet', function(req, res){
-	//res.send(JSON.stringify(trajets.find()));
-	res.send(JSON.stringify(trajets.find()));
+    //res.send(JSON.stringify(trajets.find()));
+    //res.send(JSON.stringify(trajets.find()));
+    var trajet;
+    var trajectsFromDb = db.trajets.find();
+    /*trajectsFromDb.forEach(function(race){
+     console.log(race);
+     });*/
+    res.send('ok');
+    console.log(trajectsFromDb);
 });
 
+
+app.post('/api/createUserTrajet', function(req, res){
+
+    if(!req.body.trajet){
+        var UserTrajet = new trajetUser({ idUser: req.body.idUser, lieu: req.body.lieu, dateTrajet: req.body.dateTrajet, nombrePlace: req.body.nombrePlace});
+        UserTrajet.save(function(err){
+            if (err) {
+                return res.json( {succes: false, message: 'Erreur creation trajetUser'});
+
+            }
+            else{
+                return res.json({ succes: true, message: 'trajetUser creer avec succes'});
+                console.log('all is ok');
+            }
+
+        });
+    }
+})
+
+
 app.get('/api/member', passport.authenticate('jwt', {session: false}), function(req,res){
-	res.json({message:'succes authentication', user: req.user});
+    res.json({message:'succes authentication', user: req.user});
 });
+
+
+app.get('/api/allOffre', function(req, res){
+    trajetUser.find({}, function(err, trajects){
+        if (err) {  throw err; }
+        else{
+            //res.render('trajetList', trajects);
+            console.log('liste of all trajects', trajects.length);
+            res.json(trajects);
+        }
+    });
+})
+
+
 
 //demarrer le serv avec port specifier
 app.listen(port);
