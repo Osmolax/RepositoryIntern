@@ -14,29 +14,18 @@
 
                           <div class="list">
 
-                                        <a class="item item-icon-left" >
-                                            <i class="icon ion-ios-navigate-outline"></i>
-                                            Offre 1
-                                        </a>
+                        <a class="item item-icon-left" ng-repeat="offre in allOffer">
+                            <i class="icon ion-ios-navigate-outline"></i>
+                            <p >Trajet:Technopolice  - {{offre.lieu}}</p>
+                            <p> Date: {{offre.dateTrajet}}</p>
+                            <p> Nombre de places disponibles : {{offre.nombrePlace}}</p>
+                          
 
-                                        <a class="item item-icon-left" >
-                                            <i class="icon ion-ios-navigate-outline"></i>
-                                            Offre 2
-                                        </a>
-
-                                        <a class="item item-icon-left" >
-                                            <i class="icon ion-ios-navigate-outline"></i>
-                                            Offre 3
-                                        </a>
-
-                                        <a class="item item-icon-left" >
-                                            <i class="icon ion-ios-navigate-outline"></i>
-                                            Offre 4
-                                        </a>
-                         </div>
+                        </a>
+                    </div>
 
                         <ion-footer-bar class="bar bar-footer" >
-                            <a class="button  icon-right ion-chevron-right button-dark" href="#/menu/createOffer" style="width: 100%;" >Creer une offre</a>
+                            <a class="button  icon-right ion-chevron-right button-dark" href="#/menu/createOffer" style="width: 100%;" >Créer une offre</a>
                         </ion-footer-bar>
                     </ion-content>
                 </ion-view>
@@ -72,7 +61,7 @@
                     </ion-content>
                     <ion-footer-bar class="bar bar-footer">
                         <!--<button title="Create Demand"  class="button button-block button-dark">Create Demand</button>-->
-                        <a class="button  icon-right ion-chevron-right button-dark" style="width: 100%" href="#/menu/createOffer" >Creer une demande</a>
+                        <a class="button  icon-right ion-chevron-right button-dark" style="width: 100%" href="#/menu/createOffer" >Créer une demande</a>
                     </ion-footer-bar>
                 </ion-view>
             </ion-tab>

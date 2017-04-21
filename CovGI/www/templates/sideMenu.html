@@ -21,7 +21,7 @@
 
 
                         <div class="item item-avatar" >
-                            <img  src="..\img\bel_med_amine.jpg">
+                            <img  src="..\img\cgi-background.jpg">
                         </div>
                         <span style="font-weight: bold;">{{member_info.login}}</span> <br>
                         {{member_info.email}}  <br>
@@ -35,12 +35,12 @@
                     </div>
 
                     <ion-list>
-
-                        <ion-item ng-click="check_offers()" menu-close="">Mes Offres</ion-item>
-                        <ion-item>Mes Demandes</ion-item>
-                        <ion-item >Créer une offre</ion-item>
-                        <ion-item>Créer une demande</ion-item>
-                        <ion-item ng-click="logout()">Se déconnecter</ion-item>
+                        ion-plus-circled
+                        <ion-item ng-click="check_offers()" menu-close=""><i class="icon ion-android-car placeholder-icon"></i>Mes Offres</ion-item>
+                        <ion-item><i class="icon ion-android-car placeholder-icon"></i>Mes Demandes</ion-item>
+                        <ion-item ><i class="icon ion-plus-circled placeholder-icon"></i>Créer une offre</ion-item>
+                        <ion-item><i class="icon ion-plus-circled placeholder-icon"></i>Créer une demande</ion-item>
+                        <ion-item ng-click="logout()"><i class="icon ion-android-exit placeholder-icon"></i>Se déconnecter</ion-item>
                     </ion-list>
                 </div>
             </ion-content>

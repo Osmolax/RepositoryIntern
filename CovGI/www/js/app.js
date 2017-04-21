@@ -86,7 +86,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     url: '/inside',
     views:{
       'menuContent':{
-          templateUrl: '/templates/inside.html',
+          templateUrl: '/templates/inside.html'
       }
     }
 
@@ -98,7 +98,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           url: '/createOffer',
           views:{
               'menuContent':{
-                  templateUrl:'templates/create_offer.html',
+                  templateUrl:'templates/create_offer.html'
 
               }
           }
@@ -108,7 +108,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           url: '/createOffer',
           views:{
               'menuContent':{
-                  templateUrl:'templates/member_offer.html',
+                  templateUrl:'templates/member_offer.html'
               }
           }
       })
@@ -116,7 +116,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           url: '/createDemand',
           views:{
               'menuContent':{
-                  templateUrl:'templates/create_demand.html',
+                  templateUrl:'templates/create_demand.html'
 
               }
           }
@@ -134,7 +134,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/chats',
       views: {
         'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
+          templateUrl: 'templates/tab-chats.html'
           //controller: 'ChatsCtrl'
         }
       }
@@ -147,7 +147,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/sendMail',
       views: {
         'tab-account': {
-          templateUrl: 'templates/tab-sendMail.html',
+          templateUrl: 'templates/tab-sendMail.html'
         }
       }
     })
@@ -157,7 +157,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     url: '/account',
     views: {
       'tab-account': {
-        templateUrl: 'templates/tab-account.html',
+        templateUrl: 'templates/tab-account.html'
         //controller: 'AccountCtrl'
       }
     }
