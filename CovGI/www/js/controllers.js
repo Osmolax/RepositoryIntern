@@ -77,6 +77,7 @@ angular.module('starter.controllers', [])
 
 })
 
+
 .controller('InsideCrtl', function ($scope , AuthService, API_ENDPOINT, $http, $state, $ionicPopup) {
   //to destroy the session (destroy the token)
               $scope.destroySession = function () {
@@ -104,6 +105,13 @@ angular.module('starter.controllers', [])
 
 
 })
+.controller('memberOfferCtrl', function ($scope ,AuthService, API_ENDPOINT, $http) {
+
+    $http.post(API_ENDPOINT.url+'/trajetUser').then(function(result){
+        console.log(result.data);
+        console.log($scope.member_info._id);
+    });
+})
 
 .controller('StaticCtrl', function ($scope, $rootScope) {
     $scope.countries = {
@@ -126,9 +134,7 @@ angular.module('starter.controllers', [])
 
 
 })
-    .controller('memberOfferCtrl', function ($scope) {
-        $scope.member_info;
-    })
+
     
 .controller('createDemandCtrl', function ($scope) {
     //$scope.map;
@@ -299,7 +305,7 @@ angular.module('starter.controllers', [])
                 title: 'Offre creer',
                 template: 'Votre offre a été creer avec succées'
             }).then(function () {
-                $state.go('menu.inside');
+                $state.go('menu.inside', {}, { reload: 'menu.inside' });
             });
         });
 

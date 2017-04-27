@@ -140,6 +140,17 @@ app.get('/api/allOffre', function(req, res){
 	});
 })
 
+app.post('/api/trajetUser', function(req, res){
+    trajetUser.find({idUser:req.body.idUser},function(err, trajects){
+        if (err) {  throw err; }
+        else{
+            //res.render('trajetList', trajects);
+            console.log('liste of all trajects', trajects.length);
+            res.json(trajects);
+        }
+    });
+})
+
 
 
 //demarrer le serv avec port specifier

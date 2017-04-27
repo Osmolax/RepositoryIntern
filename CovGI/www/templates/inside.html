@@ -15,14 +15,14 @@
                           <div class="list">
 
                                         <a class="item item-icon-left" ng-repeat="offre in allOffer">
-                                            <i class="icon ion-ios-navigate-outline"></i>
+                                            <img src="..\img\from_to_icon.png" class="icon icon-right" style="height: 40px; margin-top: 25px;"></img>
                                             <p >Trajet:Technopolice - {{offre.lieu}}</p>
                                             <p> Date: {{offre.dateTrajet}}</p>
                                             <p> Nombre de place disponibile: {{offre.nombrePlace}}</p>
                                         </a>
                          </div>
 
-                        <ion-footer-bar class="bar bar-footer" >
+                        <ion-footer-bar class="bar bar-footer">
                             <a class="button  icon-right ion-chevron-right button-dark" href="#/menu/createOffer" style="width: 100%;" >Creer une offre</a>
                         </ion-footer-bar>
                     </ion-content>
