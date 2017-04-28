@@ -19,7 +19,11 @@
             </label>
             <label class="item item-input item-select">
                 <div class="input-label">
+<<<<<<< HEAD
                     <i class="icon ion-ios-flag"></i>&nbsp; Lieu <select id="suburb" ng-disabled="!suburbs" ng-model="suburb" ng-options="suburb for suburb in suburbs"><option value=''>Select</option></select>
+=======
+                    Lieu: <select  id="suburb" ng-disabled="!suburbs" ng-model="suburb" ng-options="suburb for suburb in suburbs"><option value=''>Select</option></select>
+>>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
                 </div>
             </label>
 
@@ -27,6 +31,7 @@
         </div>
         <div class="list" >
             <label class="item item-input">
+<<<<<<< HEAD
                 <span class="input-label"> <i class="icon ion-ios-people"></i>&nbsp;Nombre de passagers</span>
                 <input type="number" max="10" min="1" ng-model="placeDispo">
             </label>
@@ -35,7 +40,18 @@
                 <input type="datetime-local" ng-model="dateTrajet">
             </label>
             <button class="button button-block button-calm" ng-click="addOffer()">Ajouter</button>
+=======
+                <span class="input-label">Place disponible</span>
+                <input type="number" max="10" min="1" ng-model="placeDispo">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Date de deppart</span>
+                <input type="datetime-local" ng-model="dateTrajet">
+            </label>
+            <button class="button button-block button-calm" ng-click="addOffer()">Ajouter cette Offre</button>
+>>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
         </div>
+
     </ion-content>
 </ion-view>
 

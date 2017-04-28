@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <ion-view title="Créer une demande">
     <ion-content ng-controller="MapsCtrl">
         <div id="map"> </div>
@@ -6,6 +7,16 @@
             <label class="item item-input item-select">
                 <div class="input-label">
                     <i class="icon ion-ios-flag"></i>&nbsp;     Ville
+=======
+<ion-view title="Create Demand">
+    <ion-content ng-controller="createDemandCtrl">
+        <div id="map"> </div>
+        <div ng-controller="StaticCtrl">
+            <h3 class="title">Choisir le trajet</h3>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Ville:
+>>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
                     <select id="country" ng-model="cities" ng-options="country for (country, cities) in countries">
                         <option value=''>Select</option>
                     </select>
@@ -13,19 +24,30 @@
             </label>
             <label class="item item-input item-select">
                 <div class="input-label">
+<<<<<<< HEAD
                     <i class="icon ion-ios-flag"></i>&nbsp;   Quartier <select id="city" ng-disabled="!cities" ng-model="suburbs" ng-options="city for (city, suburbs) in cities"><option value=''>Select</option></select>
+=======
+                    Quartier: <select id="city" ng-disabled="!cities" ng-model="suburbs" ng-options="city for (city, suburbs) in cities"><option value=''>Select</option></select>
+>>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
                 </div>
             </label>
             <label class="item item-input item-select">
                 <div class="input-label">
+<<<<<<< HEAD
                     <i class="icon ion-ios-flag"></i>&nbsp; Lieu <select id="suburb" ng-disabled="!suburbs" ng-model="suburb" ng-options="suburb for suburb in suburbs"><option value=''>Select</option></select>
                 </div>
             </label>
 
+=======
+                    Lieu: <select  id="suburb" ng-disabled="!suburbs" ng-model="suburb" ng-options="suburb for suburb in suburbs"><option value=''>Select</option></select>
+                </div>
+            </label>
+>>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
 
         </div>
         <div class="list" >
             <label class="item item-input">
+<<<<<<< HEAD
                 <span class="input-label"> <i class="icon ion-ios-people"></i>&nbsp;Nombre de passagers</span>
                 <input type="number" max="10" min="1" ng-model="placeDispo">
             </label>
@@ -35,6 +57,12 @@
             </label>
 
             <button class="button button-block button-calm" ng-click="addDemand()">Ajouter</button>
+=======
+                <span class="input-label">Date de deppart</span>
+                <input type="datetime-local" ng-model="datetimeDemande">
+            </label>
+            <button class="button button-block button-calm" ng-click="logInfoTrajet()">Ajouter cette Demande</button>
+>>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
         </div>
     </ion-content>
 </ion-view>
