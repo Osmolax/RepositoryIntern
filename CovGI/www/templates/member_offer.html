@@ -3,20 +3,24 @@
     <ion-content ng-controller="memberOfferCtrl">
         <div class="buttons">
             <button class="button  button-icon icon ion-ios-minus-outline"
-                    ng-click="onShowDeleteIcons()"></button>
+                    ng-click="showDelete = !showDelete"></button>
         </div>
-
-    <div class="list" class="item-remove-animate">
-
-        <a class="item item-icon-left" href="#" ng-repeat="trajectUser in trajetsUser">
-            <i class="icon ion-arrow-right-b"></i>
-            {{trajectUser.lieu}} </br>
-            {{trajectUser.dateTrajet}}</br>
-            {{trajectUser.nombrePlace}}
-        </a>
+        <ion-list show-delete="showDelete">
+            <ion-item  ng-repeat="trajectUser in trajetsUser" class="list" class="item-icon-left item-button-right item-toggle item-icon-right" >
+                <ion-delete-button class="ion-minus-circled" ng-click="deleteItem(trajectUser)">
+                </ion-delete-button>
 
 
-    </div>
+                    <i class="icon ion-arrow-right-b"></i>
+                    {{trajectUser.lieu}} </br>
+                    {{trajectUser.dateTrajet}}</br>
+                    {{trajectUser.nombrePlace}}
+
+
+                <i ng-if="showDelete" style="right: 64px;"></i>
+            </ion-item>
+        </ion-list>
+  
 
     </ion-content>
 </ion-view>

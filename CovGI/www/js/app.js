@@ -109,6 +109,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   views:{
       'menuContent':{
           templateUrl:'templates/member_offer.html',
+          controller: 'memberOfferCrtl'
       }
   }
 })
@@ -116,7 +117,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   url: '/createDemand',
   views:{
       'menuContent':{
-          templateUrl:'templates/create_demand.html',
+          templateUrl:'templates/create_demand.html'
 
       }
   }
@@ -134,7 +135,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/chats',
       views: {
         'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
+          templateUrl: 'templates/tab-chats.html'
           //controller: 'ChatsCtrl'
         }
       }

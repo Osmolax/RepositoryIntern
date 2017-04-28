@@ -38,7 +38,24 @@ angular.module('starter.controllers', [])
 
     };
 })
+.controller('memberOfferCrtl', function($scope){
+    $scope.deleteItem = function (trajectUser) {
+        $scope.trajetsUser.splice($scope.trajetsUser.indexOf(trajectUser), 1);
+    };
+})
+.controller('memberOfferCtrl', function ($scope ,AuthService, API_ENDPOINT, $http) {
+    // var data=({"userId": $scope.member_info._id});
 
+
+    $http.post(API_ENDPOINT.url+'/trajetUser',{'idUser':$scope.member_info._id}).then(function(result){
+        console.log(result.data);
+        console.log($scope.member_info._id);
+        $scope.trajetsUser = result.data;
+    });
+        $scope.deleteItem = function (trajectUser) {
+            $scope.trajetsUser.splice($scope.trajetsUser.indexOf(trajectUser), 1);
+        };
+})
 
 .controller('menuCrtl',function ($scope, AuthService, API_ENDPOINT, $http, $state, $ionicPopup, $location) {
     $http.get(API_ENDPOINT.url+'/member').then(function (result) {
@@ -113,16 +130,6 @@ angular.module('starter.controllers', [])
                 });
 
 
-})
-.controller('memberOfferCtrl', function ($scope ,AuthService, API_ENDPOINT, $http) {
-       // var data=({"userId": $scope.member_info._id});
-
-
-    $http.post(API_ENDPOINT.url+'/trajetUser',{'idUser':$scope.member_info._id}).then(function(result){
-        console.log(result.data);
-        console.log($scope.member_info._id);
-        $scope.trajetsUser = result.data;
-    });
 })
 
 .controller('StaticCtrl', function ($scope, $rootScope) {
