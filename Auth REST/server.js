@@ -13,6 +13,7 @@ var passport			= require('passport');
 var config				= require('./config/database');
 var User				= require('./app/models/user');
 var trajetUser			= require('./app/models/trajetUser');
+var trajetDemande			= require('./app/models/trajetDemande');
 //num de port
 var port				= process.env.PORT || 8080;
 //Json Web Token
@@ -92,18 +93,6 @@ app.post('/api/authentication', function(req,res){
     });
 });
 
-app.get('/api/listeTrajet', function(req, res){
-    //res.send(JSON.stringify(trajets.find()));
-    //res.send(JSON.stringify(trajets.find()));
-    var trajet;
-    var trajectsFromDb = db.trajets.find();
-    /*trajectsFromDb.forEach(function(race){
-     console.log(race);
-     });*/
-    res.send('ok');
-    console.log(trajectsFromDb);
-});
-
 
 app.post('/api/createUserTrajet', function(req, res){
 
@@ -116,6 +105,24 @@ app.post('/api/createUserTrajet', function(req, res){
             }
             else{
                 return res.json({ succes: true, message: 'trajetUser creer avec succes'});
+                console.log('all is ok');
+            }
+
+        });
+    }
+})
+
+app.post('/api/createUserDemand', function(req, res){
+
+    if(!req.body.trajet){
+        var trajetDemand = new trajetDemande({ idUser: req.body.idUser, lieu: req.body.lieu, dateTrajet: req.body.dateTrajet, nombrePlace: req.body.nombrePlace});
+        trajetDemand.save(function(err){
+            if (err) {
+                return res.json( {succes: false, message: 'Erreur création trajetDemande'});
+
+            }
+            else{
+                return res.json({ succes: true, message: 'trajetDemande créée avec succes'});
                 console.log('all is ok');
             }
 
@@ -136,6 +143,17 @@ app.get('/api/allOffre', function(req, res){
             //res.render('trajetList', trajects);
             console.log('liste of all trajects', trajects.length);
             res.json(trajects);
+        }
+    });
+})
+
+app.get('/api/allDemand', function(req, res){
+    trajetDemande.find({}, function(err, demands){
+        if (err) {  throw err; }
+        else{
+            //res.render('trajetList', trajects);
+            console.log('liste of all demands', demands.length);
+            res.json(demands);
         }
     });
 })
