@@ -72,65 +72,65 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
 
-      .state('menu',{
-          url: '/menu',
-          //abstract: true,
-          templateUrl: '/templates/sideMenu.html',
-          controller: 'menuCrtl'
-      })
+.state('menu',{
+      cache: false,
+      url: '/menu',
+      //abstract: true,
+      templateUrl: '/templates/sideMenu.html',
+      controller: 'menuCrtl'
+})
 
 
 
-      //after login
-  .state('menu.inside',{
+  //after login
+.state('menu.inside',{
+    cache: false,
     url: '/inside',
     views:{
       'menuContent':{
-          templateUrl: '/templates/inside.html',
+          templateUrl: '/templates/inside.html'
       }
     }
-
-    //controller: 'InsideCrtl'
-  })
+})
 
 
-      .state('menu.createOffer',{
-          url: '/createOffer',
-          views:{
-              'menuContent':{
-                  templateUrl:'templates/create_offer.html',
+.state('menu.createOffer',{
+  url: '/createOffer',
+  views:{
+      'menuContent':{
+          templateUrl:'templates/create_offer.html',
 
-              }
-          }
-      })
+      }
+  }
+})
 
-      .state('menu.member_offer',{
-          url: '/createOffer',
-          views:{
-              'menuContent':{
-                  templateUrl:'templates/member_offer.html',
-              }
-          }
-      })
-      .state('menu.createDemand',{
-          url: '/createDemand',
-          views:{
-              'menuContent':{
-                  templateUrl:'templates/create_demand.html',
+.state('menu.member_offer',{
+  url: '/createOffer',
+  views:{
+      'menuContent':{
+          templateUrl:'templates/member_offer.html',
+      }
+  }
+})
+.state('menu.createDemand',{
+  url: '/createDemand',
+  views:{
+      'menuContent':{
+          templateUrl:'templates/create_demand.html',
 
-              }
-          }
-      })
-     /* .state('inside.offre-tab',{
-          url: '/offre',
-          views:{
-            'offre-tab':{
-                templateUrl: '/templates/offre-tab.html',
-            }
-          }
-      })*/
+      }
+  }
+})
+/* .state('inside.offre-tab',{
+  url: '/offre',
+  views:{
+    'offre-tab':{
+        templateUrl: '/templates/offre-tab.html',
+    }
+  }
+})*/
 
-  .state('tab.chats', {
+.state('tab.chats', {
       url: '/chats',
       views: {
         'tab-chats': {
@@ -138,22 +138,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           //controller: 'ChatsCtrl'
         }
       }
-    })
+})
 
 
 
 
-    .state('tab.sendMail', {
+.state('tab.sendMail', {
       url: '/sendMail',
       views: {
         'tab-account': {
           templateUrl: 'templates/tab-sendMail.html',
         }
       }
-    })
+})
 
 
-      .state('tab.account', {
+.state('tab.account', {
     url: '/account',
     views: {
       'tab-account': {
@@ -161,10 +161,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         //controller: 'AccountCtrl'
       }
     }
-
-
-
-  });
+});
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');

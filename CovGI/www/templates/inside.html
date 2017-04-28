@@ -8,7 +8,7 @@
         <ion-tabs class="tabs-icon-bottom tabs-dark tabs-color-active-light">
             <ion-tab title="Offre"  icon-off="ion-ios-list" icon-on="ion-ios-list">
 
-                <ion-view>
+                <ion-view cache-view="false">
 
                     <ion-content>
 
@@ -16,7 +16,7 @@
 
                                         <a class="item item-icon-left" ng-repeat="offre in allOffer">
                                             <img src="..\img\from_to_icon.png" class="icon icon-right" style="height: 40px; margin-top: 25px;"></img>
-                                            <p >Trajet:Technopolice - {{offre.lieu}}</p>
+                                            <p ><span>Trajet:</span>Technopolice - {{offre.lieu}}</p>
                                             <p> Date: {{offre.dateTrajet}}</p>
                                             <p> Nombre de place disponibile: {{offre.nombrePlace}}</p>
                                         </a>

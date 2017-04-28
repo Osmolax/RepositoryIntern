@@ -75,6 +75,15 @@ angular.module('starter.controllers', [])
         $scope.allOffer = result.data;
     });
 
+    //console.log($location.path());
+    /*$scope.$on('$stateChangeSuccess'), function(event, toState, toParams, fromState, fromParams){
+        console.log('state changed to ', toState);
+        if($location.path()=="#/menu/inside"){
+            //$scope.refreshItems();
+            console.log($location.path());
+        }
+        console.log($location.path());
+    }*/
 })
 
 
@@ -106,10 +115,13 @@ angular.module('starter.controllers', [])
 
 })
 .controller('memberOfferCtrl', function ($scope ,AuthService, API_ENDPOINT, $http) {
+       // var data=({"userId": $scope.member_info._id});
 
-    $http.post(API_ENDPOINT.url+'/trajetUser').then(function(result){
+
+    $http.post(API_ENDPOINT.url+'/trajetUser',{'idUser':$scope.member_info._id}).then(function(result){
         console.log(result.data);
         console.log($scope.member_info._id);
+        $scope.trajetsUser = result.data;
     });
 })
 
@@ -205,7 +217,15 @@ angular.module('starter.controllers', [])
     })
 })
 
-
+.controller('InsideCrtl', function($scope, $location){
+        console.log($location.path());
+        $scope.$on('$stateChangeSuccess'), function(event, toState, toParams, fromState, fromParams){
+            console.log('state changed to ', toState);
+            if($location.path()=="#/menu/inside"){
+                $scope.refreshItems();
+            }
+        }
+})
 .controller('MapsCtrl', function($scope, $ionicLoading, $rootScope, AuthService, $ionicPopup, $state, $http , API_ENDPOINT) {
 
 
@@ -244,7 +264,7 @@ angular.module('starter.controllers', [])
 
                     $scope.LatSelectedPlace = 33.993005;
                     $scope.LongSelectedPlace = -6.882308;
-                    $scope.lieu = 'PETIT PRINCE A COTER DE LA POSTE';
+                    $scope.lieu = 'TILIWIN';
                 }
                 console.log($scope.lieu);
                 DisplayRoute(directionsService,directionsDisplay);
@@ -284,36 +304,34 @@ angular.module('starter.controllers', [])
 
 
     $scope.addOffer = function () {
-        userTrajet = {
-            idUser: $scope.member_info._id,
-            lieu: $scope.lieu,
-            dateTrajet: $scope.dateTrajet,
-            nombrePlace: $scope.placeDispo,
-            lat: $scope.LatSelectedPlace,
-            long: $scope.LongSelectedPlace
-        };
-
-        console.log(userTrajet);
-
-        //AuthService.testService();$
-
-
-        $http.post(API_ENDPOINT.url+'/createUserTrajet',userTrajet).then(function (result) {
-            //$scope.member_info = result.data.user;
-            console.log('offre creer avec succes ');
+        if($scope.lieu == null || $scope.dateTrajet == null || $scope.placeDispo == null){
             var alertPopup = $ionicPopup.alert({
-                title: 'Offre creer',
-                template: 'Votre offre a été creer avec succées'
-            }).then(function () {
-                $state.go('menu.inside', {}, { reload: 'menu.inside' });
+                title: 'Erreur',
+                template: 'Veuillez remplir tout les champs'
             });
-        });
-
+        }else{
+            userTrajet = {
+                idUser: $scope.member_info._id,
+                lieu: $scope.lieu,
+                dateTrajet: $scope.dateTrajet,
+                nombrePlace: $scope.placeDispo,
+                lat: $scope.LatSelectedPlace,
+                long: $scope.LongSelectedPlace
+            };
+            //console.log(userTrajet);
+            $http.post(API_ENDPOINT.url+'/createUserTrajet',userTrajet).then(function (result) {
+                //$scope.member_info = result.data.user;
+                console.log('offre creer avec succes ');
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Offre creer',
+                    template: 'Votre offre a été creer avec succées'
+                }).then(function () {
+                    $state.go('menu.inside', {}, { reload:'menu.inside' ,inherit: false });
+                });
+            });
+        }
 
     };
-
-
-
 })
 
 

@@ -92,17 +92,7 @@ app.post('/api/authentication', function(req,res){
 	});
 });
 
-app.get('/api/listeTrajet', function(req, res){
-	//res.send(JSON.stringify(trajets.find()));
-	//res.send(JSON.stringify(trajets.find()));
-	var trajet;
-	var trajectsFromDb = db.trajets.find();
-	/*trajectsFromDb.forEach(function(race){
-		console.log(race);
-	});*/
-	res.send('ok');
-	console.log(trajectsFromDb);
-});
+
 
 
 app.post('/api/createUserTrajet', function(req, res){
@@ -111,8 +101,7 @@ app.post('/api/createUserTrajet', function(req, res){
 		var UserTrajet = new trajetUser({ idUser: req.body.idUser, lieu: req.body.lieu, dateTrajet: req.body.dateTrajet, nombrePlace: req.body.nombrePlace});
 		UserTrajet.save(function(err){
 			if (err) { 
-				return res.json( {succes: false, message: 'Erreur creation trajetUser'});
-
+				return res.json( {succes: false, message: 'Erreur creation trajetUser', error: err});
 			}
 			else{
 				return res.json({ succes: true, message: 'trajetUser creer avec succes'});
@@ -140,6 +129,7 @@ app.get('/api/allOffre', function(req, res){
 	});
 })
 
+
 app.post('/api/trajetUser', function(req, res){
     trajetUser.find({idUser:req.body.idUser},function(err, trajects){
         if (err) {  throw err; }
@@ -150,6 +140,16 @@ app.post('/api/trajetUser', function(req, res){
         }
     });
 })
+
+app.post('/api/dropTrajetUser', function(req, res){
+    trajetUser.remove({_id:req.body._id},function(err, trajects){
+        if (err) {  throw err; }
+        else{
+            console.log('Trajet dropé avec succes');
+        }
+    });
+})
+
 
 
 

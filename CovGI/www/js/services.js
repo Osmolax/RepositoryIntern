@@ -78,7 +78,7 @@ angular.module('starter.services', [])
     return{
         login : login,
         logout : logout,
-        isAuthenticated: function () {return isAuthenticated;},
+        isAuthenticated: function () {return isAuthenticated;}
     };
 
 })
