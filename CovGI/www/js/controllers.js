@@ -75,6 +75,11 @@ angular.module('starter.controllers', [])
             $scope.allOffer = result.data;
         });
 
+        $http.get(API_ENDPOINT.url+'/allDemand').then(function (result) {
+            console.log('liste des demandes ', result.data);
+            $scope.allDemand = result.data;
+        });
+
     })
 
     .controller('InsideCrtl', function ($scope , AuthService, API_ENDPOINT, $http, $state, $ionicPopup) {
@@ -100,6 +105,11 @@ angular.module('starter.controllers', [])
         $http.get(API_ENDPOINT.url+'/allOffre').then(function (result) {
             console.log('liste des trajets '+ result.data);
             $scope.allOffer = result.data;
+        });
+
+        $http.get(API_ENDPOINT.url+'/allDemand').then(function (result) {
+            console.log('liste des demandes '+ result.data);
+            $scope.allDemand = result.data;
         });
 
 
@@ -279,7 +289,7 @@ angular.module('starter.controllers', [])
 
         $scope.addOffer = function () {
             userTrajet = {
-                idUser: $scope.member_info._id,
+                idUser: $scope.member_info.id,
                 lieu: $scope.lieu,
                 dateTrajet: $scope.dateTrajet,
                 nombrePlace: $scope.placeDispo,
@@ -294,12 +304,43 @@ angular.module('starter.controllers', [])
 
             $http.post(API_ENDPOINT.url+'/createUserTrajet',userTrajet).then(function (result) {
                 //$scope.member_info = result.data.user;
-                console.log('offre creer avec succes ');
+                console.log('Offre créée avec succès  ');
                 var alertPopup = $ionicPopup.alert({
-                    title: 'Offre creer',
-                    template: 'Votre offre a été creer avec succées'
+                    title: 'Offre créée',
+                    template: 'Votre offre a été créée avec succès'
                 }).then(function () {
-                    $state.go('menu.inside');
+                    $state.go('menu.inside', {}, { reload: 'menu.inside' });
+
+                });
+            });
+
+
+        };
+
+
+        $scope.addDemand = function () {
+            userDemand = {
+                idUser: $scope.member_info.id,
+                lieu: $scope.lieu,
+                dateTrajet: $scope.dateTrajet,
+                nombrePlace: $scope.placeDispo,
+                lat: $scope.LatSelectedPlace,
+                long: $scope.LongSelectedPlace
+            };
+
+            console.log(userDemand);
+
+            //AuthService.testService();$
+
+
+            $http.post(API_ENDPOINT.url+'/createUserDemand',userDemand).then(function (result) {
+                //$scope.member_info = result.data.user;
+                console.log('Demande créée avec succès ');
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Demande Créée',
+                    template: 'Votre demande a été créée avec succès'
+                }).then(function () {
+                    $state.go('menu.inside', {}, { reload: 'menu.inside' });
                 });
             });
 

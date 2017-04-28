@@ -46,6 +46,20 @@ angular.module('starter.services', [])
             });
         }
 
+
+        function addUserDemand(userTrajet) {
+            return $q(function (resolve, reject) {
+                $http.post(API_ENDPOINT.url+'/createUserDemand', userTrajet).then(function (result) {
+                    if(result.data.success){
+                        resolve(result.data.message);
+                    }
+                    else {
+                        reject(result.data.message);
+                    }
+                });
+            });
+        }
+
         //destroy user Credentials set authToken to false and remove it from the http header
         function destroyUserCredentials() {
             authToken = undefined;
@@ -78,7 +92,7 @@ angular.module('starter.services', [])
         return{
             login : login,
             logout : logout,
-            isAuthenticated: function () {return isAuthenticated;},
+            isAuthenticated: function () {return isAuthenticated;}
         };
 
     })
