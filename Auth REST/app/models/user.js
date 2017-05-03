@@ -17,40 +17,40 @@ var UserSchema = new Schema({
 	login: {
 		type: String,
 		required: true,
-		unique: true,
+		unique: true
 	},
 	password: {
 		type: String,
-		required: true,
+		required: true
 	},
     email: {
         type: String,
-        required: true,
+        required: true
     },
     tel: {
         type: String,
-        required: true,
+        required: true
     },
     address: {
         type: String,
-        required: true,
+        required: true
     },
     BU: {
         type: String,
-        required: true,
+        required: true
     },
     job: {
         type: String,
-        required: true,
+        required: true
     },
     vehicule: {
-        type: String,
+        type: String
     },
     matricule: {
-        type: String,
+        type: String
     },
     nombre_place: {
-        type: Number,
+        type: Number
     }
 
 

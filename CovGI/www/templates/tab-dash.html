@@ -2,17 +2,27 @@
   <ion-content class="padding">
 
 
-    	<div class="list" >
-			<label class="item item-input">
-				<span class="input-label">Username</span>
-				<input type="text" name="username" ng-model="user.login" >
-			</label>
-			<label class="item item-input">
-				<span class="input-label">Password</span>
-				<input type="password" name="password" ng-model="user.password">
-			</label>
-			<button class="button button-block button-balanced" ng-click="login()">Login</button>
-    	</div>
-	  <div id="map"></div>
+
+	  <div class="card">
+		  <div class="item item-divider">
+			  Entrez vos identifiants
+		  </div>
+		  <div class="list" >
+			  <label class="item item-input">
+				  <span class="input-label"><i class="icon ion-person placeholder-icon"></i>Nom d'utilisateur</span>
+				  <input type="text" name="username" ng-model="user.login" required="true">
+			  </label>
+			  <label class="item item-input">
+				  <span class="input-label"><i class="icon ion-locked placeholder-icon"></i>Mot de passe</span>
+				  <input type="password" name="password" ng-model="user.password" required>
+
+
+			  </label>
+
+		  </div>
+	  </div>
+	  <button class="button icon-right ion-chevron-right button-assertive button-block" name="connect" style="margin-top: 4px;"  ng-click="login()">Valider</button>
+
   </ion-content>
 </ion-view>
+

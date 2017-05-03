@@ -10,61 +10,64 @@
 
                 <ion-view>
 
-                    <ion-content>
+                    <ion-content style="margin-top: -65px">
 
-                          <div class="list">
+                          <div class="list" >
 
-                                        <a class="item item-icon-left" >
-                                            <i class="icon ion-ios-navigate-outline"></i>
-                                            Offre 1
-                                        </a>
+                        <a class="item item-icon-left" ng-repeat="offre in allOffer">
 
-                                        <a class="item item-icon-left" >
-                                            <i class="icon ion-ios-navigate-outline"></i>
-                                            Offre 2
-                                        </a>
 
-                                        <a class="item item-icon-left" >
-                                            <i class="icon ion-ios-navigate-outline"></i>
-                                            Offre 3
-                                        </a>
+                            <div class="row">
+                                <div class="col"> <img src="..\img\from_to_icon.png" class="icon icon-right" style="height: 30px; margin-top: 30px; margin-left: 15px;"></div>
+                                <div class="col" style="margin-right: 150px"> <p>Technopolis </p>
+                                    <p>{{offre.lieu}}</p></div>
+                            </div>
 
-                                        <a class="item item-icon-left" >
-                                            <i class="icon ion-ios-navigate-outline"></i>
-                                            Offre 4
-                                        </a>
-                         </div>
+                            <div class="row">
+                                <div class="col"><i class="icon ion-android-calendar" style="font-size: 20px;  height: 30px; margin-top: 70px; margin-left: 15px;"></i></div>
 
-                        <ion-footer-bar class="bar bar-footer" style=" padding-top: inherit;">
-                            <button title="Create offer" class="button button-block button-dark" >Create Offer</button>
-                        </ion-footer-bar>
+                                <div class="col" style="margin-right: 150px"><p> Date: {{offre.dateTrajet}}</p></div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col"><i class="icon  ion-information-circled" style="font-size: 20px; height: 30px; margin-top: 103px; margin-left: 15px;"></i></div>
+                                <div class="col" style="margin-right: 150px"><p> Nombre de places disponibles : {{offre.nombrePlace}}</p></div>
+                            </div>
+
+                        </a>
+
+
+                    </div>
+
+
                     </ion-content>
+                    <ion-footer-bar class="bar bar-footer" >
+                        <a class="button  icon-right ion-chevron-right button-dark" href="#/menu/createOffer" style="width: 100%;" >Créer une offre</a>
+                    </ion-footer-bar>
                 </ion-view>
             </ion-tab>
+
+
             <ion-tab title="Demande"  icon-off="ion-ios-list" icon-on="ion-ios-list">
                 <ion-view>
-                    <ion-content>
+                    <ion-content style="margin-top: -65px">
 
                           <div class="list">
 
-                        <a class="item item-icon-left" >
-                            <i class="icon ion-ios-navigate-outline"></i>
-                            Demand 1
-                        </a>
+                        <a class="item item-icon-left" ng-repeat="demand in allDemand">
+                            <div class="row">
+                                <div class="col"> <img src="..\img\from_to_icon.png" class="icon icon-right" style="height: 30px; margin-top: 30px; margin-left: 15px;"></div>
+                                <div class="col" style="margin-right: 150px"> <p>Technopolis </p>
+                                    <p>{{demand.lieu}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><i class="icon ion-android-calendar" style="font-size: 20px; height: 30px; margin-top: 72px; margin-left: 15px;"></i></div>
 
-                        <a class="item item-icon-left" >
-                            <i class="icon ion-ios-navigate-outline"></i>
-                            Demand 2
-                        </a>
+                                <div class="col" style="margin-right: 150px"><p> Date: {{demand.dateTrajet}}</p></div>
 
-                        <a class="item item-icon-left" >
-                            <i class="icon ion-ios-navigate-outline"></i>
-                            Demand 3
-                        </a>
+                            </div>
 
-                        <a class="item item-icon-left" >
-                            <i class="icon ion-ios-navigate-outline"></i>
-                            Demand 4
                         </a>
                     </div>
 
@@ -72,7 +75,7 @@
                     </ion-content>
                     <ion-footer-bar class="bar bar-footer">
                         <!--<button title="Create Demand"  class="button button-block button-dark">Create Demand</button>-->
-                        <a class="button  icon-right ion-chevron-right button-dark" href="#/menu/createOffer" >Create Demand</a>
+                        <a class="button  icon-right ion-chevron-right button-dark"  href="#/menu/createDemand" style="width: 100%">Créer une demande</a>
                     </ion-footer-bar>
                 </ion-view>
             </ion-tab>

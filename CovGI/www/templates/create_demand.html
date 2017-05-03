@@ -1,7 +1,6 @@
-<ion-view title="Créer une offre" >
+<ion-view title="Créer une demande">
     <ion-content ng-controller="MapsCtrl">
         <div id="map"> </div>
-
         <div ng-controller="StaticCtrl">
             <h3 class="title">&nbsp;Choisir le trajet</h3>
             <label class="item item-input item-select">
@@ -19,9 +18,7 @@
             </label>
             <label class="item item-input item-select">
                 <div class="input-label">
-
                     <i class="icon ion-ios-flag"></i>&nbsp; Lieu <select id="suburb" ng-disabled="!suburbs" ng-model="suburb" ng-options="suburb for suburb in suburbs"><option value=''>Select</option></select>
-
                 </div>
             </label>
 
@@ -29,21 +26,12 @@
         </div>
         <div class="list" >
             <label class="item item-input">
-
-                <span class="input-label"> <i class="icon ion-ios-people"></i>&nbsp;Nombre de passagers</span>
-                <input type="number" max="10" min="1" ng-model="placeDispo">
-            </label>
-            <label class="item item-input">
                 <span class="input-label"><i class="icon ion-android-calendar"></i>&nbsp;Date de départ</span>
                 <input type="datetime-local" ng-model="dateTrajet">
             </label>
-            <button class="button button-block button-calm" ng-click="addOffer()">Ajouter</button>
+
+            <button class="button button-block button-calm" ng-click="addDemand()">Ajouter</button>
 
         </div>
-
     </ion-content>
 </ion-view>
-
-
-
-

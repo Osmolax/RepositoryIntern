@@ -61,6 +61,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   // Each tab has its own nav history stack:
   .state('tab.dash', {
+          cache: false,
     url: '/dash',
     views: {
       'tab-dash': {
@@ -73,27 +74,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 
       .state('menu',{
+          cache: false,
           url: '/menu',
           //abstract: true,
           templateUrl: '/templates/sideMenu.html',
           controller: 'menuCrtl'
       })
 
-      .state('menu.createOffer',{
-          url: '/createOffer',
-          views:{
-              'menuContent':{
-                  templateUrl:'templates/create_offer.html',
-              }
-          }
-      })
+
 
       //after login
   .state('menu.inside',{
+          cache: false,
     url: '/inside',
     views:{
       'menuContent':{
-          templateUrl: '/templates/inside.html',
+          templateUrl: '/templates/inside.html'
       }
     }
 
@@ -101,11 +97,38 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
 
-     /* .state('inside.offre-tab',{
+      .state('menu.createOffer',{
+          url: '/createOffer',
+          views:{
+              'menuContent':{
+                  templateUrl:'templates/create_offer.html'
+
+              }
+          }
+      })
+
+      .state('menu.member_offer',{
+          url: '/checkOffers',
+          views:{
+              'menuContent':{
+                  templateUrl:'templates/member_offer.html'
+              }
+          }
+      })
+      .state('menu.createDemand',{
+          url: '/createDemand',
+          views:{
+              'menuContent':{
+                  templateUrl:'templates/create_demand.html'
+
+              }
+          }
+      })
+    /*  .state('inside.offre-tab',{
           url: '/offre',
           views:{
             'offre-tab':{
-                templateUrl: '/templates/offre-tab.html',
+                templateUrl: '/templates/offre-tab.html'
             }
           }
       })*/
@@ -114,7 +137,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/chats',
       views: {
         'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
+          templateUrl: 'templates/tab-chats.html'
           //controller: 'ChatsCtrl'
         }
       }
@@ -127,7 +150,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/sendMail',
       views: {
         'tab-account': {
-          templateUrl: 'templates/tab-sendMail.html',
+          templateUrl: 'templates/tab-sendMail.html'
         }
       }
     })
@@ -137,7 +160,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     url: '/account',
     views: {
       'tab-account': {
-        templateUrl: 'templates/tab-account.html',
+        templateUrl: 'templates/tab-account.html'
         //controller: 'AccountCtrl'
       }
     }
