@@ -13,10 +13,8 @@ var passport			= require('passport');
 var config				= require('./config/database');
 var User				= require('./app/models/user');
 var trajetUser			= require('./app/models/trajetUser');
-<<<<<<< HEAD
 var trajetDemande			= require('./app/models/trajetDemande');
-=======
->>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
+
 //num de port
 var port				= process.env.PORT || 8080;
 //Json Web Token
@@ -96,7 +94,6 @@ app.post('/api/authentication', function(req,res){
     });
 });
 
-<<<<<<< HEAD
 
 app.post('/api/createUserTrajet', function(req, res){
 
@@ -119,7 +116,7 @@ app.post('/api/createUserTrajet', function(req, res){
 app.post('/api/createUserDemand', function(req, res){
 
     if(!req.body.trajet){
-        var trajetDemand = new trajetDemande({ idUser: req.body.idUser, lieu: req.body.lieu, dateTrajet: req.body.dateTrajet, nombrePlace: req.body.nombrePlace});
+        var trajetDemand = new trajetDemande({ idUser: req.body.idUser, lieu: req.body.lieu, dateTrajet: req.body.dateTrajet});
         trajetDemand.save(function(err){
             if (err) {
                 return res.json( {succes: false, message: 'Erreur création trajetDemande'});
@@ -134,19 +131,7 @@ app.post('/api/createUserDemand', function(req, res){
     }
 })
 
-=======
-app.get('/api/listeTrajet', function(req, res){
-	//res.send(JSON.stringify(trajets.find()));
-	//res.send(JSON.stringify(trajets.find()));
-	var trajet;
-	var trajectsFromDb = db.trajets.find();
-	/*trajectsFromDb.forEach(function(race){
-		console.log(race);
-	});*/
-	res.send('ok');
-	console.log(trajectsFromDb);
-});
->>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
+
 
 
 app.post('/api/createUserTrajet', function(req, res){
@@ -174,7 +159,7 @@ app.get('/api/member', passport.authenticate('jwt', {session: false}), function(
 
 
 app.get('/api/allOffre', function(req, res){
-<<<<<<< HEAD
+
     trajetUser.find({}, function(err, trajects){
         if (err) {  throw err; }
         else{
@@ -191,17 +176,8 @@ app.get('/api/allDemand', function(req, res){
         else{
             //res.render('trajetList', trajects);
             console.log('liste of all demands', demands.length);
-            res.json(demands);
-=======
-	trajetUser.find({}, function(err, trajects){
-		if (err) {  throw err; }
-		else{
-			//res.render('trajetList', trajects);
-			console.log('liste of all trajects', trajects.length);
-			res.json(trajects);
-		}
-	});
-})
+            res.json(demands);}
+}) })
 
 app.post('/api/trajetUser', function(req, res){
     trajetUser.find({idUser:req.body.idUser},function(err, trajects){
@@ -210,10 +186,11 @@ app.post('/api/trajetUser', function(req, res){
             //res.render('trajetList', trajects);
             console.log('liste of all trajects', trajects.length);
             res.json(trajects);
->>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
         }
     });
 })
+
+
 
 
 

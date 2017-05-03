@@ -2,31 +2,40 @@
     <ion-content ng-controller="memberOfferCtrl">
         <div class="buttons">
             <button class="button  button-icon icon ion-ios-minus-outline"
-                    ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
+                    ng-click="showDelete = !showDelete"></button>
         </div>
+        <ion-list show-delete="showDelete">
+            <ion-item ng-repeat="trajectUser in trajetsUser" class="list" class="item-icon-left item-button-right item-toggle item-icon-right">
+                <ion-delete-button class="ion-trash-b" ng-click="deleteItem(trajectUser)"></ion-delete-button>
 
-          <div class="list" class="item-remove-animate">
+                <div class="row">
+                    <div class="col"> <img src="..\img\from_to_icon.png" class="icon icon-right" style="height: 30px; margin-top: 7px; margin-left: 15px;"></div>
+                    <div class="col" style="margin-right: 150px"> <p>Technopolis </p>
+                        <p>{{trajectUser.lieu}}</p></div>
+                </div>
 
-        <a class="item item-icon-left" href="#">
-            <i class="icon ion-arrow-right-b"></i>
-            Offre 1
-        </a>
+                <div class="row">
+                    <div class="col"><i class="icon ion-android-calendar" style="font-size: 20px;  height: 30px; margin-top: 70px; margin-left: 15px;"></i></div>
 
-        <a class="item item-icon-left" href="#">
-            <i class="icon ion-arrow-right-b"></i>
-            Offre 2
-        </a>
+                    <div class="col" style="margin-right: 150px"><p> Date: {{trajectUser.dateTrajet}}</p></div>
 
-        <a class="item item-icon-left" href="#">
-            <i class="icon ion-arrow-right-b"></i>
-            Offre 3
-        </a>
+                </div>
 
-        <a class="item item-icon-left" href="#">
-            <i class="icon ion-arrow-right-b"></i>
-            Offre 4
-        </a>
-    </div>
+                <div class="row">
+                    <div class="col"><i class="icon  ion-information-circled" style="font-size: 20px; height: 30px; margin-top: 103px; margin-left: 15px;"></i></div>
+                    <div class="col" style="margin-right: 150px"><p> Nombre de places disponibles : {{trajectUser.nombrePlace}}</p></div>
+                </div>
 
+                <i ng-if="showDelete" style="right: 64px;"></i>
+            </ion-item>
+
+
+
+        </ion-list>
     </ion-content>
+    <ion-footer-bar class="bar bar-footer" >
+        <a class="button  icon-right ion-chevron-right button-dark" ng-click="createOffer()" style="width: 100%;" >Créer une offre</a>
+    </ion-footer-bar>
 </ion-view>
+
+

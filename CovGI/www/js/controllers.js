@@ -56,6 +56,14 @@ angular.module('starter.controllers', [])
             $state.go('tab.dash');
         };
 
+        $scope.createOffer = function () {
+            $state.go('menu.createOffer');
+        };
+
+        $scope.createDemand = function () {
+            $state.go('menu.createDemand');
+        };
+
         $scope.showPopupAddOffer = function () {
             var myPopup = $ionicPopup.show({
                 template: '<input type="text" placeholder="">',
@@ -70,7 +78,6 @@ angular.module('starter.controllers', [])
             $location.path( path );
         };
 
-<<<<<<< HEAD
         $http.get(API_ENDPOINT.url+'/allOffre').then(function (result) {
             console.log('liste des trajets ', result.data);
             $scope.allOffer = result.data;
@@ -80,21 +87,6 @@ angular.module('starter.controllers', [])
             console.log('liste des demandes ', result.data);
             $scope.allDemand = result.data;
         });
-=======
-    $http.get(API_ENDPOINT.url+'/allOffre').then(function (result) {
-        console.log('liste des trajets ', result.data);
-        $scope.allOffer = result.data;
-    });
-
-})
-
-
-.controller('InsideCrtl', function ($scope , AuthService, API_ENDPOINT, $http, $state, $ionicPopup) {
-  //to destroy the session (destroy the token)
-              $scope.destroySession = function () {
-                    AuthService.logout();
-                };
->>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
 
     })
 
@@ -110,7 +102,6 @@ angular.module('starter.controllers', [])
             //console.log($scope.membreInfo);
         });
 
-<<<<<<< HEAD
 
         //return the info of the user from the REST api
         $scope.getInfo = function () {
@@ -153,13 +144,12 @@ angular.module('starter.controllers', [])
 
 
     })
-    .controller('memberOfferCtrl', function ($scope) {
-        $scope.member_info;
-    })
+
 
     .controller('createDemandCtrl', function ($scope) {
         //$scope.map;
         $scope.suburb;
+
         $scope.logInfoTrajet = function () {
             console.log($scope.member_info);
             console.log($scope.LatSelectedPlace, $scope.LongSelectedPlace);
@@ -168,133 +158,12 @@ angular.module('starter.controllers', [])
             console.log($scope.ville);
 
         };
-=======
-                $http.get(API_ENDPOINT.url+'/allOffre').then(function (result) {
-                    console.log('liste des trajets '+ result.data);
-                    $scope.allOffer = result.data;
-                });
-
-
-})
-.controller('memberOfferCtrl', function ($scope ,AuthService, API_ENDPOINT, $http) {
-
-    $http.post(API_ENDPOINT.url+'/trajetUser').then(function(result){
-        console.log(result.data);
-        console.log($scope.member_info._id);
-    });
-})
-
-.controller('StaticCtrl', function ($scope, $rootScope) {
-    $scope.countries = {
-        'Salé' : {
-            'Salé Ville' : ['CAFE RAMSIS DIAR', 'BAB SABTA', 'BAB CHAAFA', 'SOUNBOULA'],
-            'Hay Chmaou/Said Hajji' : ['CENTRAL LAITIERE', 'CAFE ZAYTOUNA','COCA COLA','CAFE IMANE','T13','CAFE IHSANE'],
-            'Hay Rahma' : ['CAFE HILTON', 'SUPER'],
-            'Tabriket' : ['PHARMACIE IBTISSAM','BMCI','POSTE TABRIQUET','PHARMACIE DAHAB','GARE SALE TABRIKET','RESIDENCE NAKHIL'],
-            'Hay Karima' : ['CAFE BOUCHRA'],
-            'DOUAR CHEKH MFADAL' :['EN FACE DE DOUAR CHEKH MFADAL'],
-            'HAY SALAM' : ['TIJARI WAFA BANQUE','PETIT PRINCE A COTER DE LA POSTE'],
-            'Hay Inbiat' : ['terminus 14 cafe la lugua'],
-            'La base' : ['EN FACE DE LA BASE'],
-            'Rostal' : ['CAFE SOUK SALAM', 'PORTE RESIDENCE DOHA'],
-            'Bettana' : ['TILIWIN','LYCEE OMAR IBN KHATAB','CONSERVATION FONCIERE','ECOLE ALAMA'],
-            'Karia' : ['LYCEE IBN HASSAN WAZANI','BAB KARIA','METRO','CAFE HAJAR']
-        }
-    };
-
-
-
-})
-
-    
-.controller('createDemandCtrl', function ($scope) {
-    //$scope.map;
-    $scope.suburb;
-    $scope.logInfoTrajet = function () {
-        console.log($scope.member_info);
-        console.log($scope.LatSelectedPlace, $scope.LongSelectedPlace);
-        console.log($scope.datetimeDemande);
-        console.log($scope.suburb);
-        console.log($scope.ville);
-
-    };
->>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
 
         google.maps.event.addDomListener(window, 'load', function() {
 
             var directionsService = new google.maps.DirectionsService;
             var directionsDisplay = new google.maps.DirectionsRenderer;
 
-<<<<<<< HEAD
-=======
-        var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-
-        var latLng = new google.maps.LatLng(33.993207,-6.721752);
-
-        var mapOptions = {
-            center: latLng,
-            zoom: 14,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-
-        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-        directionsDisplay.setMap(map);
-
-
-
-        var onChangePlace = function () {
-            if( document.getElementById('suburb').value == "string:PETIT PRINCE A COTER DE LA POSTE"){
-                $scope.LatSelectedPlace = 34.042083;
-                $scope.LongSelectedPlace = -6.793549;
-            }else {
-                //33.993005, -6.882308
-                console.log(document.getElementById('suburb').value);
-                $scope.lieu = document.getElementById('suburb').value;
-                $scope.LatSelectedPlace = 33.993005;
-                $scope.LongSelectedPlace = -6.882308;
-            }
-            DisplayRoute(directionsService,directionsDisplay);
-        };
-
-
-        document.getElementById('suburb').addEventListener('change', onChangePlace);
-
-        function DisplayRoute(directionsService,directionsDisplay) {
-            directionsService.route({
-                origin: new google.maps.LatLng(33.981979,-6.726336),
-                destination: new google.maps.LatLng($scope.LatSelectedPlace,$scope.LongSelectedPlace),
-                travelMode: 'DRIVING'
-            },function (response, status) {
-                if (status == 'OK'){
-                    directionsDisplay.setDirections(response);
-                }else {
-                    window.alert('Error'+ status);
-                }
-            });
-        }
-
-
-        $scope.map = map;
-
-
-    })
-})
-
-
-.controller('MapsCtrl', function($scope, $ionicLoading, $rootScope, AuthService, $ionicPopup, $state, $http , API_ENDPOINT) {
-
-
-
-
-    google.maps.event.addDomListener(window, 'load', function() {
-
-
-            var directionsService = new google.maps.DirectionsService;
-            var directionsDisplay = new google.maps.DirectionsRenderer;
-
->>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
             var latLng = new google.maps.LatLng(33.993207,-6.721752);
 
             var mapOptions = {
@@ -310,7 +179,6 @@ angular.module('starter.controllers', [])
 
 
             var onChangePlace = function () {
-<<<<<<< HEAD
                 if( document.getElementById('suburb').value == "string:PETIT PRINCE A COTER DE LA POSTE"){
                     $scope.LatSelectedPlace = 34.042083;
                     $scope.LongSelectedPlace = -6.793549;
@@ -375,8 +243,6 @@ angular.module('starter.controllers', [])
 
 
             var onChangePlace = function () {
-=======
->>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
                 $scope.ville = document.getElementById('suburb').value;
                 //console.log($scope.suburb);
                 if( document.getElementById('suburb').value == "string:PETIT PRINCE A COTER DE LA POSTE"){
@@ -395,11 +261,7 @@ angular.module('starter.controllers', [])
                 DisplayRoute(directionsService,directionsDisplay);
 
             };
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
 
 
 
@@ -422,95 +284,58 @@ angular.module('starter.controllers', [])
             //var LatLingTechnopolice = {lat: 33.981979, lng: -6.726336};
 
             /*var marker = new google.maps.Marker({
-<<<<<<< HEAD
              position: LatLingTechnopolice
              });*/
 
             //marker.setMap(map);
             $scope.map = map;
-=======
-                position: LatLingTechnopolice
-            });*/
-
-            //marker.setMap(map);
-            $scope.map = map;
-
-
-    })
-
-
-    $scope.addOffer = function () {
-        userTrajet = {
-            idUser: $scope.member_info._id,
-            lieu: $scope.lieu,
-            dateTrajet: $scope.dateTrajet,
-            nombrePlace: $scope.placeDispo,
-            lat: $scope.LatSelectedPlace,
-            long: $scope.LongSelectedPlace
-        };
-
-        console.log(userTrajet);
-
-        //AuthService.testService();$
-
-
-        $http.post(API_ENDPOINT.url+'/createUserTrajet',userTrajet).then(function (result) {
-            //$scope.member_info = result.data.user;
-            console.log('offre creer avec succes ');
-            var alertPopup = $ionicPopup.alert({
-                title: 'Offre creer',
-                template: 'Votre offre a été creer avec succées'
-            }).then(function () {
-                $state.go('menu.inside', {}, { reload: 'menu.inside' });
-            });
-        });
-
-
-    };
-
-
-
-})
->>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
 
 
         })
 
 
         $scope.addOffer = function () {
-            userTrajet = {
-                idUser: $scope.member_info.id,
-                lieu: $scope.lieu,
-                dateTrajet: $scope.dateTrajet,
-                nombrePlace: $scope.placeDispo,
-                lat: $scope.LatSelectedPlace,
-                long: $scope.LongSelectedPlace
-            };
 
-            console.log(userTrajet);
-
-            //AuthService.testService();$
-
-
-            $http.post(API_ENDPOINT.url+'/createUserTrajet',userTrajet).then(function (result) {
-                //$scope.member_info = result.data.user;
-                console.log('Offre créée avec succès  ');
+          /*  if($scope.lieu == null || $scope.dateTrajet == null || $scope.placeDispo ==  null){
                 var alertPopup = $ionicPopup.alert({
-                    title: 'Offre créée',
-                    template: 'Votre offre a été créée avec succès'
-                }).then(function () {
-                    $state.go('menu.inside', {}, { reload: 'menu.inside' });
+                    title: 'Erreur',
+                    template: 'Veuillez remplir tout les champs'
 
+                })
+
+            }else{
+*/
+
+
+                userTrajet = {
+                    idUser: $scope.member_info._id,
+                    lieu: $scope.lieu,
+                    dateTrajet: $scope.dateTrajet,
+                    nombrePlace: $scope.placeDispo,
+                    lat: $scope.LatSelectedPlace,
+                    long: $scope.LongSelectedPlace
+                };
+
+                console.log(userTrajet);
+
+                $http.post(API_ENDPOINT.url+'/createUserTrajet',userTrajet).then(function (result) {
+                     var alertPopup = $ionicPopup.alert({
+                        title: 'Offre créée',
+                        template: 'Votre offre a été créée avec succès'
+                    }).then(function () {
+                        $state.go('menu.inside', {}, { reload: 'menu.inside' });
+
+                    });
                 });
-            });
 
+          //  }
 
         };
 
 
         $scope.addDemand = function () {
             userDemand = {
-                idUser: $scope.member_info.id,
+                idUser: $scope.member_info._id,
                 lieu: $scope.lieu,
                 dateTrajet: $scope.dateTrajet,
                 nombrePlace: $scope.placeDispo,
@@ -520,12 +345,7 @@ angular.module('starter.controllers', [])
 
             console.log(userDemand);
 
-            //AuthService.testService();$
-
-
             $http.post(API_ENDPOINT.url+'/createUserDemand',userDemand).then(function (result) {
-                //$scope.member_info = result.data.user;
-                console.log('Demande créée avec succès ');
                 var alertPopup = $ionicPopup.alert({
                     title: 'Demande Créée',
                     template: 'Votre demande a été créée avec succès'
@@ -538,5 +358,33 @@ angular.module('starter.controllers', [])
         };
 
 
+
+
+    })
+
+    .controller('memberOfferCtrl', function ($scope ,AuthService, API_ENDPOINT, $http) {
+        // var data=({"userId": $scope.member_info._id});
+
+
+        $http.post(API_ENDPOINT.url+'/trajetUser',{'idUser':$scope.member_info._id}).then(function(result){
+            console.log(result.data);
+            console.log($scope.member_info._id);
+            $scope.trajetsUser = result.data;
+        });
+
+        $scope.test = function () {
+                console.log('test');
+        };
+
+
+        //$scope.deleteItem = function (trajectUser) {
+        //    console.log('inside the deleteItem');
+        //    $scope.trajetsUser.splice($scope.trajetsUser.indexOf(trajectUser), 1);
+            //console.log($scope.trajectUser._id);
+            //console.log('item deleted');
+            /*$http.post(API_ENDPOINT.url+'/dropTrajetUser',{'_id':$scope.member_info._id}).then(function(result){
+                      console.log(result.data);
+                      });*/
+        //};
 
     })

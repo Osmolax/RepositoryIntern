@@ -21,10 +21,7 @@ var trajetDemandeSchema = new Schema({
         type: String,
         require: true
     },
-    nombrePlace:{
-        type: Number,
-        require: true
-    },
+
     dateTrajet:{
         type: Date,
         require: true

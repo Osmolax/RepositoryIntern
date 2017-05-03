@@ -61,6 +61,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   // Each tab has its own nav history stack:
   .state('tab.dash', {
+          cache: false,
     url: '/dash',
     views: {
       'tab-dash': {
@@ -73,6 +74,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 
       .state('menu',{
+          cache: false,
           url: '/menu',
           //abstract: true,
           templateUrl: '/templates/sideMenu.html',
@@ -83,6 +85,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
       //after login
   .state('menu.inside',{
+          cache: false,
     url: '/inside',
     views:{
       'menuContent':{
@@ -105,7 +108,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       })
 
       .state('menu.member_offer',{
-          url: '/createOffer',
+          url: '/checkOffers',
           views:{
               'menuContent':{
                   templateUrl:'templates/member_offer.html'
@@ -121,11 +124,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
               }
           }
       })
-     /* .state('inside.offre-tab',{
+    /*  .state('inside.offre-tab',{
           url: '/offre',
           views:{
             'offre-tab':{
-                templateUrl: '/templates/offre-tab.html',
+                templateUrl: '/templates/offre-tab.html'
             }
           }
       })*/

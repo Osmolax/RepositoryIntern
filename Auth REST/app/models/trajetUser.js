@@ -19,12 +19,9 @@ var trajetUserSchema = new Schema({
     },
     lieu: {
         type: String,
-<<<<<<< HEAD
         require: true
-=======
-        require: true,
->>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
     },
+
     nombrePlace:{
         type: Number,
         require: true
@@ -39,8 +36,4 @@ var trajetUserSchema = new Schema({
 
 
 
-<<<<<<< HEAD
 module.exports = mongoose.model('TrajetUser', trajetUserSchema);
-=======
-module.exports = mongoose.model('TrajetUser', trajetUserSchema);
->>>>>>> 36560b133cd4d967d6e2f4fe709aefc2547fd3bd
