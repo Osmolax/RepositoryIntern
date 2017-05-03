@@ -14,27 +14,27 @@
 
                           <div class="list">
 
-                                        <a class="item item-icon-left" ng-repeat="offre in allOffer">
-                                            <img src="..\img\from_to_icon.png" class="icon icon-right" style="height: 40px; margin-top: 25px;"></img>
-                                            <p ><span>Trajet:</span>Technopolice - {{offre.lieu}}</p>
-                                            <p> Date: {{offre.dateTrajet}}</p>
-                                            <p> Nombre de place disponibile: {{offre.nombrePlace}}</p>
-                                        </a>
+                            <item class="item item-icon-left" ng-repeat="offre in allOffer" ng-click="openModalOffer(offre)">
+                                <img  src="..\img\from_to_icon.png" class="icon icon-right" style="height: 40px; margin-top: 25px;"></img>
+                                <p ><span>Trajet:</span>Technopolice - {{offre.lieu}}</p>
+                                <p> Date: {{offre.dateTrajet}}</p>
+                                <p> Nombre de place disponibile: {{offre.nombrePlace}}</p>
+                            </item>
                          </div>
-
                         <ion-footer-bar class="bar bar-footer">
                             <a class="button  icon-right ion-chevron-right button-dark" href="#/menu/createOffer" style="width: 100%;" >Creer une offre</a>
                         </ion-footer-bar>
                     </ion-content>
                 </ion-view>
             </ion-tab>
+
             <ion-tab title="Demande"  icon-off="ion-ios-list" icon-on="ion-ios-list">
                 <ion-view>
                     <ion-content>
 
                           <div class="list">
 
-                        <a class="item item-icon-left" >
+                        <a class="item item-icon-left">
                             <i class="icon ion-ios-navigate-outline"></i>
                             Demand 1
                         </a>

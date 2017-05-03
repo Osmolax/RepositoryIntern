@@ -41,27 +41,39 @@ angular.module('starter.controllers', [])
 .controller('memberOfferCrtl', function($scope){
     $scope.deleteItem = function (trajectUser) {
         $scope.trajetsUser.splice($scope.trajetsUser.indexOf(trajectUser), 1);
+
     };
 })
-.controller('memberOfferCtrl', function ($scope ,AuthService, API_ENDPOINT, $http) {
+.controller('memberOfferCtrl', function ($scope ,AuthService, API_ENDPOINT, $http, $ionicPopup) {
     // var data=({"userId": $scope.member_info._id});
 
 
     $http.post(API_ENDPOINT.url+'/trajetUser',{'idUser':$scope.member_info._id}).then(function(result){
         console.log(result.data);
-        console.log($scope.member_info._id);
+
         $scope.trajetsUser = result.data;
     });
-        $scope.deleteItem = function (trajectUser) {
-            $scope.trajetsUser.splice($scope.trajetsUser.indexOf(trajectUser), 1);
-        };
+
+
+    $scope.deleteItem = function (trajectUser) {
+        $scope.deleteItemWithID = trajectUser._id;
+        $scope.trajetsUser.splice($scope.trajetsUser.indexOf(trajectUser), 1);
+        //console.log($scope.trajectUser);
+        //console.log('item deleted');
+        $http.post(API_ENDPOINT.url+'/dropTrajetUser',{'_id':$scope.deleteItemWithID}).then(function(result){
+         console.log(result.data);
+        });
+    };
+
 })
 
-.controller('menuCrtl',function ($scope, AuthService, API_ENDPOINT, $http, $state, $ionicPopup, $location) {
+.controller('menuCrtl',function ($scope, AuthService, API_ENDPOINT, $http, $state, $ionicPopup, $location, $ionicModal) {
     $http.get(API_ENDPOINT.url+'/member').then(function (result) {
         $scope.member_info = result.data.user;
         //console.log($scope.membreInfo);
     });
+
+
 
     $scope.check_offers = function () {
         $state.go('menu.member_offer');
@@ -73,15 +85,6 @@ angular.module('starter.controllers', [])
         $state.go('tab.dash');
     };
 
-    $scope.showPopupAddOffer = function () {
-        var myPopup = $ionicPopup.show({
-            template: '<input type="text" placeholder="">',
-            title: 'Add new Offer',
-            buttons:[{
-                text: 'Cancel'
-            }]
-        })
-    }
 
     $scope.go = function ( path ) {
         $location.path( path );
@@ -91,6 +94,21 @@ angular.module('starter.controllers', [])
         console.log('liste des trajets ', result.data);
         $scope.allOffer = result.data;
     });
+
+
+
+    $ionicModal.fromTemplateUrl('templates/modal.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.openModalOffer = function(offre){
+        $scope.lieuOffre = offre.lieu;
+        $scope.dateOffre = offre.dateTrajet;
+        $scope.nbrPlaceOffre = offre.nombrePlace;
+        $scope.modal.show();
+    }
 
     //console.log($location.path());
     /*$scope.$on('$stateChangeSuccess'), function(event, toState, toParams, fromState, fromParams){
@@ -106,28 +124,32 @@ angular.module('starter.controllers', [])
 
 .controller('InsideCrtl', function ($scope , AuthService, API_ENDPOINT, $http, $state, $ionicPopup) {
   //to destroy the session (destroy the token)
-              $scope.destroySession = function () {
-                    AuthService.logout();
-                };
+
+  $scope.destroySession = function () {
+        AuthService.logout();
+    };
 
 
-                $http.get(API_ENDPOINT.url+'/member').then(function (result) {
-                    $scope.member_info = result.data.user;
-                    //console.log($scope.membreInfo);
-                });
+    $http.get(API_ENDPOINT.url+'/member').then(function (result) {
+        $scope.member_info = result.data.user;
+        //console.log($scope.membreInfo);
+    });
+
+    console.log($scope.member_info._id);
 
 
-                //return the info of the user from the REST api
-                $scope.getInfo = function () {
-                    $http.get(API_ENDPOINT.url+'/member').then(function (result) {
-                        $scope.membreInfo = result.data.message;
-                    });
-                }
+    //return the info of the user from the REST api
+    $scope.getInfo = function () {
+        $http.get(API_ENDPOINT.url+'/member').then(function (result) {
+            $scope.membreInfo = result.data.message;
+        });
+    }
 
-                $http.get(API_ENDPOINT.url+'/allOffre').then(function (result) {
-                    console.log('liste des trajets '+ result.data);
-                    $scope.allOffer = result.data;
-                });
+    $http.get(API_ENDPOINT.url+'/allOffre').then(function (result) {
+        console.log('liste des trajets '+ result.data);
+        $scope.allOffer = result.data;
+    });
+
 
 
 })
@@ -190,10 +212,11 @@ angular.module('starter.controllers', [])
             if( document.getElementById('suburb').value == "string:PETIT PRINCE A COTER DE LA POSTE"){
                 $scope.LatSelectedPlace = 34.042083;
                 $scope.LongSelectedPlace = -6.793549;
+                //$scope.lieu = document.getElementById('suburb').value;
             }else {
                 //33.993005, -6.882308
                 console.log(document.getElementById('suburb').value);
-                $scope.lieu = document.getElementById('suburb').value;
+                //$scope.lieu = document.getElementById('suburb').value;
                 $scope.LatSelectedPlace = 33.993005;
                 $scope.LongSelectedPlace = -6.882308;
             }
@@ -259,21 +282,21 @@ angular.module('starter.controllers', [])
 
 
             var onChangePlace = function () {
-                $scope.ville = document.getElementById('suburb').value;
+                $scope.lieu = null;
                 //console.log($scope.suburb);
                 if( document.getElementById('suburb').value == "string:PETIT PRINCE A COTER DE LA POSTE"){
                     $scope.LatSelectedPlace = 34.042083;
                     $scope.LongSelectedPlace = -6.793549;
-                    $scope.lieu = 'PETIT PRINCE A COTER DE LA POSTE';
+                    //$scope.lieu = 'PETIT PRINCE A COTER DE LA POSTE';
                 }else {
                     //33.993005, -6.882308
                     //console.log(document.getElementById('suburb').value);
 
                     $scope.LatSelectedPlace = 33.993005;
                     $scope.LongSelectedPlace = -6.882308;
-                    $scope.lieu = 'TILIWIN';
+                    //$scope.lieu = 'TILIWIN';
                 }
-                console.log($scope.lieu);
+                //console.log($scope.lieu);
                 DisplayRoute(directionsService,directionsDisplay);
 
             };
@@ -311,15 +334,27 @@ angular.module('starter.controllers', [])
 
 
     $scope.addOffer = function () {
+        $scope.lieu = document.getElementById('suburb').value
+        $scope.lieuS = $scope.lieu.split(':');
+        //console.log($scope.lieuS[1]);
+        //console.log($scope.dateTrajet);
+        //console.log($scope.placeDispo);
         if($scope.lieu == null || $scope.dateTrajet == null || $scope.placeDispo == null){
             var alertPopup = $ionicPopup.alert({
                 title: 'Erreur',
                 template: 'Veuillez remplir tout les champs'
             });
-        }else{
+        }else if(new Date() > $scope.dateTrajet ){
+            console.log('Remplir une date superieur à la date d\'aujourd\'hui');
+            var alertPopup = $ionicPopup.alert({
+                title: 'Erreur sur la date',
+                template: 'Veuillez remplir une date superieur à la date d\'aujourd\'hui'
+            });
+        }
+        else{
             userTrajet = {
                 idUser: $scope.member_info._id,
-                lieu: $scope.lieu,
+                lieu: $scope.lieuS[1],
                 dateTrajet: $scope.dateTrajet,
                 nombrePlace: $scope.placeDispo,
                 lat: $scope.LatSelectedPlace,

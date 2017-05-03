@@ -142,10 +142,12 @@ app.post('/api/trajetUser', function(req, res){
 })
 
 app.post('/api/dropTrajetUser', function(req, res){
-    trajetUser.remove({_id:req.body._id},function(err, trajects){
+    trajetUser.remove({'_id':req.body._id},function(err, trajects){
+        //db.getCollection('trajetusers').remove({'_id:ObjectId("590342c70789b813e09657c1")})
         if (err) {  throw err; }
         else{
             console.log('Trajet dropé avec succes');
+            res.send('Trajet dropé avec succes');
         }
     });
 })

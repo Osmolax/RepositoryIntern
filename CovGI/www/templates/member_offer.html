@@ -6,9 +6,17 @@
                     ng-click="showDelete = !showDelete"></button>
         </div>
         <ion-list show-delete="showDelete">
-            <ion-item  ng-repeat="trajectUser in trajetsUser" class="list" class="item-icon-left item-button-right item-toggle item-icon-right" >
+            <ion-item ng-repeat="trajectUser in trajetsUser" class="list" class="item-icon-left item-button-right item-toggle item-icon-right" >
                 <ion-delete-button class="ion-minus-circled" ng-click="deleteItem(trajectUser)">
                 </ion-delete-button>
+                <ion-option-button class="button-assertive"
+                                   ng-click="deleteItem(trajectUser)">
+                    Supprimer
+                </ion-option-button>
+                <ion-option-button class="button-calm"
+                                   ng-click="edit(trajectUser)">
+                    Modifier
+                </ion-option-button>
 
 
                     <i class="icon ion-arrow-right-b"></i>

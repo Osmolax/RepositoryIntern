@@ -1,0 +1,19 @@
+<ion-modal-view controller="modalCrtl">
+    <ion-header-bar class="bar-dark">
+        <h1 class="title">Offre</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div id="map"></div>
+        <p>
+            Lieu: {{lieuOffre}}
+        </p>
+        <p>
+            Date: {{dateOffre}}
+        </p>
+        <p>
+            Nombre de place disponible: {{nbrPlaceOffre}}
+        </p>
+        <button class="button button-dark button-block" ng-click="modal.hide()">S'inscrire pour cette offre</button>
+        <button class="button button-dark button-block" ng-click="modal.hide()">Retour</button>
+    </ion-content>
+</ion-modal-view>
