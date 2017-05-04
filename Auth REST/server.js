@@ -13,11 +13,14 @@ var passport			= require('passport');
 var config				= require('./config/database');
 var User				= require('./app/models/user');
 var trajetUser			= require('./app/models/trajetUser');
+var lieu			    = require('./app/models/lieu');
 //num de port
 var port				= process.env.PORT || 8080;
 //Json Web Token
 var jwt					= require('jwt-simple');
 
+//connection to mongodb
+var MongoClient = require('mongodb').MongoClient;
 
 
 //https://github.com/expressjs/body-parser
@@ -113,6 +116,8 @@ app.post('/api/createUserTrajet', function(req, res){
 })
 
 
+
+
 app.get('/api/member', passport.authenticate('jwt', {session: false}), function(req,res){
 	res.json({message:'succes authentication', user: req.user});
 });
@@ -138,6 +143,27 @@ app.post('/api/trajetUser', function(req, res){
             console.log('liste of all trajects', trajects.length);
             res.json(trajects);
         }
+    });
+})
+
+//////////////////////////////////
+var mongojs = require('mongojs')
+global.db = mongojs('mongodb://localhost:27017/mongodb_test');
+//////////////////////////////////
+
+
+app.post('/api/LatLangLieu', function(req, res){
+    // Connect to the db
+    MongoClient.connect("mongodb://localhost:27017/mongodb_test", function(err, db) {
+        if(!err) {
+            console.log("We are connected");
+        }
+    });
+    var collection = db.collection('lieu');
+        collection.find({nomLieu:req.body.nomLieu}).toArray(function(err, docs){
+            console.log("retrieved records:");
+            console.log(docs);
+            res.send(docs);
     });
 })
 

@@ -100,14 +100,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   url: '/createOffer',
   views:{
       'menuContent':{
-          templateUrl:'templates/create_offer.html',
-
+          templateUrl:'templates/create_offer.html'
       }
   }
 })
 
 .state('menu.member_offer',{
-  url: '/createOffer',
+  url: '/checkOffers',
   views:{
       'menuContent':{
           templateUrl:'templates/member_offer.html',

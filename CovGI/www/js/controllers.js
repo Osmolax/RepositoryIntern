@@ -155,6 +155,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('StaticCtrl', function ($scope, $rootScope) {
+
     $scope.countries = {
         'Salé' : {
             'Salé Ville' : ['CAFE RAMSIS DIAR', 'BAB SABTA', 'BAB CHAAFA', 'SOUNBOULA'],
@@ -169,7 +170,22 @@ angular.module('starter.controllers', [])
             'Rostal' : ['CAFE SOUK SALAM', 'PORTE RESIDENCE DOHA'],
             'Bettana' : ['TILIWIN','LYCEE OMAR IBN KHATAB','CONSERVATION FONCIERE','ECOLE ALAMA'],
             'Karia' : ['LYCEE IBN HASSAN WAZANI','BAB KARIA','METRO','CAFE HAJAR']
+        },
+        'Rabat' : {
+            'Menzeh' : ['Terminus 57','Hay Nahda'],
+            'Qamra' : ['Résidence Assabah','Total Msarni','Qamra'],
+            'Hay Nahda' : ['ISTA Hay Nahda','Dar Al Khoubz'],
+            'Hay El Fath' : ['Terminus 30','Résidence Mimoza','Café Cata Atlas','CCM'],
+            'Hay Riad' : ['Label Vie','Bank Al Maghrib','CDG','Croisement Av.Mehdi Benbarka et Almelia'],
+            'Rabat Ville' :['Gare Rabat'],
+            'Diour Jamaa' : ['Auto Hall'],
+            'Ocean' : ['4ème arrondissement'],
+            'Akkari' : ['Hôpital Moulay Youssef'],
+            'Agdal' : ['Crédit du Maroc face à Amazone'],
+            'Takadom' : ['Château'],
+            'Youssoufia' : ['Mini Parc']
         }
+
     };
 
 
@@ -209,6 +225,7 @@ angular.module('starter.controllers', [])
 
 
         var onChangePlace = function () {
+
             if( document.getElementById('suburb').value == "string:PETIT PRINCE A COTER DE LA POSTE"){
                 $scope.LatSelectedPlace = 34.042083;
                 $scope.LongSelectedPlace = -6.793549;
@@ -220,6 +237,7 @@ angular.module('starter.controllers', [])
                 $scope.LatSelectedPlace = 33.993005;
                 $scope.LongSelectedPlace = -6.882308;
             }
+
             DisplayRoute(directionsService,directionsDisplay);
         };
 
@@ -261,7 +279,9 @@ angular.module('starter.controllers', [])
 
 
 
-    google.maps.event.addDomListener(window, 'load', function() {
+
+
+        google.maps.event.addDomListener(window, 'load', function() {
 
 
             var directionsService = new google.maps.DirectionsService;
@@ -282,9 +302,13 @@ angular.module('starter.controllers', [])
 
 
             var onChangePlace = function () {
-                $scope.lieu = null;
+
+                $scope.lieu = document.getElementById('suburb').value
+                $scope.lieuS = $scope.lieu.split(':');
+
                 //console.log($scope.suburb);
-                if( document.getElementById('suburb').value == "string:PETIT PRINCE A COTER DE LA POSTE"){
+
+                /*if( document.getElementById('suburb').value == "string:PETIT PRINCE A COTER DE LA POSTE"){
                     $scope.LatSelectedPlace = 34.042083;
                     $scope.LongSelectedPlace = -6.793549;
                     //$scope.lieu = 'PETIT PRINCE A COTER DE LA POSTE';
@@ -295,14 +319,20 @@ angular.module('starter.controllers', [])
                     $scope.LatSelectedPlace = 33.993005;
                     $scope.LongSelectedPlace = -6.882308;
                     //$scope.lieu = 'TILIWIN';
-                }
+                }*/
+                console.log($scope.lieuS[1]);
+                $http.post(API_ENDPOINT.url+'/LatLangLieu',{'nomLieu':$scope.lieuS[1]}).then(function(result){
+                    console.log(result.data);
+                    //console.log(result.data[0].latitude);
+                    //console.log(result.data[0].longitude);
+                    $scope.LatSelectedPlace = result.data[0].latitude;
+                    $scope.LongSelectedPlace = result.data[0].longitude;
+                });
                 //console.log($scope.lieu);
-                DisplayRoute(directionsService,directionsDisplay);
 
+                DisplayRoute(directionsService,directionsDisplay);
             };
             
-
-
 
             document.getElementById('suburb').addEventListener('change', onChangePlace);
 
@@ -352,25 +382,44 @@ angular.module('starter.controllers', [])
             });
         }
         else{
-            userTrajet = {
-                idUser: $scope.member_info._id,
-                lieu: $scope.lieuS[1],
-                dateTrajet: $scope.dateTrajet,
-                nombrePlace: $scope.placeDispo,
-                lat: $scope.LatSelectedPlace,
-                long: $scope.LongSelectedPlace
-            };
-            //console.log(userTrajet);
-            $http.post(API_ENDPOINT.url+'/createUserTrajet',userTrajet).then(function (result) {
-                //$scope.member_info = result.data.user;
-                console.log('offre creer avec succes ');
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Offre creer',
-                    template: 'Votre offre a été creer avec succées'
-                }).then(function () {
-                    $state.go('menu.inside', {}, { reload:'menu.inside' ,inherit: false });
-                });
+            var confirmationPopup = $ionicPopup.show({
+                title:'Confirmation',
+                template: 'Etes vous sur de vouloire ajouter cette offre',
+                buttons:[
+                    {
+                        text: 'Annuler'
+                    },{
+                        text: 'Confirmer',
+                        type: 'button-positive',
+                        onTap: function(){
+                            userTrajet = {
+                                idUser: $scope.member_info._id,
+                                lieu: $scope.lieuS[1],
+                                dateTrajet: $scope.dateTrajet,
+                                nombrePlace: $scope.placeDispo,
+                                lat: $scope.LatSelectedPlace,
+                                long: $scope.LongSelectedPlace
+                            };
+                            //console.log(userTrajet);
+                            $http.post(API_ENDPOINT.url+'/createUserTrajet',userTrajet).then(function (result) {
+                                //$scope.member_info = result.data.user;
+                                console.log('offre creer avec succes ');
+                                var alertPopup = $ionicPopup.alert({
+                                    title: 'Offre creer',
+                                    template: 'Votre offre a été creer avec succées'
+                                }).then(function () {
+                                    $state.go('menu.inside', {}, { reload:'menu.inside' ,inherit: false });
+                                });
+                            });
+                        }
+                    }
+                ]
             });
+
+
+
+
+
         }
 
     };
