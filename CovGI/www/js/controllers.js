@@ -270,19 +270,22 @@ angular.module('starter.controllers', [])
             directionsDisplay.setMap(map);
 
 
-
+            $scope.LatSelectedPlace= null;
+            $scope.LongSelectedPlace= null;
             var onChangePlace = function () {
 
                 $scope.lieu = document.getElementById('suburb').value
                 $scope.lieuS = $scope.lieu.split(':');
 
+
                 $http.post(API_ENDPOINT.url+'/LatLangLieu',{'nomLieu':$scope.lieuS[1]}).then(function(result){
                     console.log(result.data);
                    $scope.LatSelectedPlace = result.data[0].latitude;
                     $scope.LongSelectedPlace = result.data[0].longitude;
+                    DisplayRoute(directionsService,directionsDisplay);
                 });
 
-                DisplayRoute(directionsService,directionsDisplay);
+
             };
 
 
