@@ -124,14 +124,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
               }
           }
       })
-    /*  .state('inside.offre-tab',{
-          url: '/offre',
-          views:{
-            'offre-tab':{
-                templateUrl: '/templates/offre-tab.html'
-            }
-          }
-      })*/
+
 
   .state('tab.chats', {
       url: '/chats',

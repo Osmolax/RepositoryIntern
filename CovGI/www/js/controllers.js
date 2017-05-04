@@ -40,7 +40,7 @@ angular.module('starter.controllers', [])
     })
 
 
-    .controller('menuCrtl',function ($scope, AuthService, API_ENDPOINT, $http, $state, $ionicPopup, $location) {
+    .controller('menuCrtl',function ($scope, AuthService, API_ENDPOINT, $http, $state, $ionicPopup, $location, $ionicModal) {
         $http.get(API_ENDPOINT.url+'/member').then(function (result) {
             $scope.member_info = result.data.user;
             //console.log($scope.membreInfo);
@@ -87,6 +87,19 @@ angular.module('starter.controllers', [])
             console.log('liste des demandes ', result.data);
             $scope.allDemand = result.data;
         });
+
+        $ionicModal.fromTemplateUrl('templates/modal.html', {
+            scope: $scope
+        }).then(function(modal) {
+            $scope.modal = modal;
+        });
+
+        $scope.openModalOffer = function(offre){
+            $scope.lieuOffre = offre.lieu;
+            $scope.dateOffre = offre.dateTrajet;
+            $scope.nbrPlaceOffre = offre.nombrePlace;
+            $scope.modal.show();
+        }
 
     })
 
@@ -138,7 +151,23 @@ angular.module('starter.controllers', [])
                 'Rostal' : ['CAFE SOUK SALAM', 'PORTE RESIDENCE DOHA'],
                 'Bettana' : ['TILIWIN','LYCEE OMAR IBN KHATAB','CONSERVATION FONCIERE','ECOLE ALAMA'],
                 'Karia' : ['LYCEE IBN HASSAN WAZANI','BAB KARIA','METRO','CAFE HAJAR']
+            },
+
+            'Rabat' : {
+                'Menzeh' : ['Terminus 57','Hay Nahda'],
+                'Qamra' : ['Résidence Assabah','Total Msarni','Qamra'],
+                'Hay Nahda' : ['ISTA Hay Nahda','Dar Al Khoubz'],
+                'Hay El Fath' : ['Terminus 30','Résidence Mimoza','Café Cata Atlas','CCM'],
+                'Hay Riad' : ['Label Vie','Bank Al Maghrib','CDG','Croisement Av.Mehdi Benbarka et Almelia'],
+                'Rabat Ville' :['Gare Rabat'],
+                'Diour Jamaa' : ['Auto Hall'],
+                'Ocean' : ['4ème arrondissement'],
+                'Akkari' : ['Hôpital Moulay Youssef'],
+                'Agdal' : ['Crédit du Maroc face à Amazone'],
+                'Takadom' : ['Château'],
+                'Youssoufia' : ['Mini Parc']
             }
+
         };
 
 
@@ -147,7 +176,6 @@ angular.module('starter.controllers', [])
 
 
     .controller('createDemandCtrl', function ($scope) {
-        //$scope.map;
         $scope.suburb;
 
         $scope.logInfoTrajet = function () {
@@ -179,16 +207,17 @@ angular.module('starter.controllers', [])
 
 
             var onChangePlace = function () {
-                if( document.getElementById('suburb').value == "string:PETIT PRINCE A COTER DE LA POSTE"){
-                    $scope.LatSelectedPlace = 34.042083;
-                    $scope.LongSelectedPlace = -6.793549;
-                }else {
-                    //33.993005, -6.882308
-                    console.log(document.getElementById('suburb').value);
-                    $scope.lieu = document.getElementById('suburb').value;
-                    $scope.LatSelectedPlace = 33.993005;
-                    $scope.LongSelectedPlace = -6.882308;
-                }
+
+                $scope.lieu = document.getElementById('suburb').value
+                $scope.lieuS = $scope.lieu.split(':');
+
+                console.log($scope.lieuS[1]);
+                $http.post(API_ENDPOINT.url+'/LatLangLieu',{'nomLieu':$scope.lieuS[1]}).then(function(result){
+                    console.log(result.data);
+                    $scope.LatSelectedPlace = result.data[0].latitude;
+                    $scope.LongSelectedPlace = result.data[0].longitude;
+                });
+
                 DisplayRoute(directionsService,directionsDisplay);
             };
 
@@ -243,23 +272,17 @@ angular.module('starter.controllers', [])
 
 
             var onChangePlace = function () {
-                $scope.ville = document.getElementById('suburb').value;
-                //console.log($scope.suburb);
-                if( document.getElementById('suburb').value == "string:PETIT PRINCE A COTER DE LA POSTE"){
-                    $scope.LatSelectedPlace = 34.042083;
-                    $scope.LongSelectedPlace = -6.793549;
-                    $scope.lieu = 'PETIT PRINCE A COTER DE LA POSTE';
-                }else {
-                    //33.993005, -6.882308
-                    //console.log(document.getElementById('suburb').value);
 
-                    $scope.LatSelectedPlace = 33.993005;
-                    $scope.LongSelectedPlace = -6.882308;
-                    $scope.lieu = 'PETIT PRINCE A COTER DE LA POSTE';
-                }
-                console.log($scope.lieu);
+                $scope.lieu = document.getElementById('suburb').value
+                $scope.lieuS = $scope.lieu.split(':');
+
+                $http.post(API_ENDPOINT.url+'/LatLangLieu',{'nomLieu':$scope.lieuS[1]}).then(function(result){
+                    console.log(result.data);
+                   $scope.LatSelectedPlace = result.data[0].latitude;
+                    $scope.LongSelectedPlace = result.data[0].longitude;
+                });
+
                 DisplayRoute(directionsService,directionsDisplay);
-
             };
 
 
@@ -281,13 +304,6 @@ angular.module('starter.controllers', [])
                 });
             }
 
-            //var LatLingTechnopolice = {lat: 33.981979, lng: -6.726336};
-
-            /*var marker = new google.maps.Marker({
-             position: LatLingTechnopolice
-             });*/
-
-            //marker.setMap(map);
             $scope.map = map;
 
 
@@ -295,40 +311,60 @@ angular.module('starter.controllers', [])
 
 
         $scope.addOffer = function () {
-
-          /*  if($scope.lieu == null || $scope.dateTrajet == null || $scope.placeDispo ==  null){
+            $scope.lieu = document.getElementById('suburb').value
+            $scope.lieuS = $scope.lieu.split(':');
+            if($scope.lieu == null || $scope.dateTrajet == null || $scope.placeDispo == null){
                 var alertPopup = $ionicPopup.alert({
                     title: 'Erreur',
                     template: 'Veuillez remplir tout les champs'
-
-                })
-
-            }else{
-*/
-
-
-                userTrajet = {
-                    idUser: $scope.member_info._id,
-                    lieu: $scope.lieu,
-                    dateTrajet: $scope.dateTrajet,
-                    nombrePlace: $scope.placeDispo,
-                    lat: $scope.LatSelectedPlace,
-                    long: $scope.LongSelectedPlace
-                };
-
-                console.log(userTrajet);
-
-                $http.post(API_ENDPOINT.url+'/createUserTrajet',userTrajet).then(function (result) {
-                     var alertPopup = $ionicPopup.alert({
-                        title: 'Offre créée',
-                        template: 'Votre offre a été créée avec succès'
-                    }).then(function () {
-                        $state.go('menu.inside', {}, { reload: 'menu.inside' });
-
-                    });
+                });
+            }else if(new Date() > $scope.dateTrajet ){
+                console.log('Entrez une date supérieure à la date d\'aujourd\'hui');
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Erreur sur la date',
+                    template: 'Veuillez entrer une date supérieure à la date d\'aujourd\'hui'
+                });
+            }
+            else{
+                var confirmationPopup = $ionicPopup.show({
+                    title:'Confirmation',
+                    template: 'Êtes-vous sûr de vouloir ajouter cette offre ?',
+                    buttons:[
+                        {
+                            text: 'Annuler'
+                        },{
+                            text: 'Confirmer',
+                            type: 'button-positive',
+                            onTap: function(){
+                                userTrajet = {
+                                    idUser: $scope.member_info._id,
+                                    lieu: $scope.lieuS[1],
+                                    dateTrajet: $scope.dateTrajet,
+                                    nombrePlace: $scope.placeDispo,
+                                    lat: $scope.LatSelectedPlace,
+                                    long: $scope.LongSelectedPlace
+                                };
+                                //console.log(userTrajet);
+                                $http.post(API_ENDPOINT.url+'/createUserTrajet',userTrajet).then(function (result) {
+                                    //$scope.member_info = result.data.user;
+                                    console.log('offre créée avec succès ');
+                                    var alertPopup = $ionicPopup.alert({
+                                        title: 'Offre creer',
+                                        template: 'Votre offre a été créée avec succès'
+                                    }).then(function () {
+                                        $state.go('menu.inside', {}, { reload:'menu.inside' ,inherit: false });
+                                    });
+                                });
+                            }
+                        }
+                    ]
                 });
 
-          //  }
+
+
+
+
+            }
 
         };
 
@@ -362,29 +398,24 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller('memberOfferCtrl', function ($scope ,AuthService, API_ENDPOINT, $http) {
+    .controller('memberOfferCtrl', function ($scope ,AuthService, API_ENDPOINT, $http, $ionicPopup) {
         // var data=({"userId": $scope.member_info._id});
 
 
         $http.post(API_ENDPOINT.url+'/trajetUser',{'idUser':$scope.member_info._id}).then(function(result){
             console.log(result.data);
-            console.log($scope.member_info._id);
-            $scope.trajetsUser = result.data;
+
+            $scope.trajetsUser = result.data;
         });
 
-        $scope.test = function () {
-                console.log('test');
+
+        $scope.deleteItem = function (trajectUser) {
+            $scope.deleteItemWithID = trajectUser._id;
+            $scope.trajetsUser.splice($scope.trajetsUser.indexOf(trajectUser), 1);
+           $http.post(API_ENDPOINT.url+'/dropTrajetUser',{'_id':$scope.deleteItemWithID}).then(function(result){
+                console.log(result.data);
+            });
         };
 
-
-        //$scope.deleteItem = function (trajectUser) {
-        //    console.log('inside the deleteItem');
-        //    $scope.trajetsUser.splice($scope.trajetsUser.indexOf(trajectUser), 1);
-            //console.log($scope.trajectUser._id);
-            //console.log('item deleted');
-            /*$http.post(API_ENDPOINT.url+'/dropTrajetUser',{'_id':$scope.member_info._id}).then(function(result){
-                      console.log(result.data);
-                      });*/
-        //};
-
     })
+

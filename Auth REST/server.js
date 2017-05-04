@@ -19,7 +19,7 @@ var trajetDemande			= require('./app/models/trajetDemande');
 var port				= process.env.PORT || 8080;
 //Json Web Token
 var jwt					= require('jwt-simple');
-
+var MongoClient = require('mongodb').MongoClient;
 
 
 //https://github.com/expressjs/body-parser
@@ -190,9 +190,42 @@ app.post('/api/trajetUser', function(req, res){
     });
 })
 
+//////////////////////////////////
+var mongojs = require('mongojs')
+global.db = mongojs('mongodb://localhost:27017/mongodb_test');
+//////////////////////////////////
 
+MongoClient.connect("mongodb://localhost:27017/mongodb_test", function(err, db) {
+    if(!err) {
+        console.log("We are connected");
+    }
+});
 
+app.post('/api/LatLangLieu', function(req, res){
+    // Connect to the db
+    MongoClient.connect("mongodb://localhost:27017/mongodb_test", function(err, db) {
+        if(!err) {
+            console.log("We are connected");
+        }
+    });
+    var collection = db.collection('lieu');
+    collection.find({nomLieu:req.body.nomLieu}).toArray(function(err, docs){
+        console.log("retrieved records:");
+        console.log(docs);
+        res.send(docs);
+    });
+})
 
+app.post('/api/dropTrajetUser', function(req, res){
+    trajetUser.remove({'_id':req.body._id},function(err, trajects){
+        //db.getCollection('trajetusers').remove({'_id:ObjectId("590342c70789b813e09657c1")})
+        if (err) {  throw err; }
+        else{
+            console.log('Trajet dropé avec succes');
+            res.send('Trajet dropé avec succes');
+        }
+    });
+})
 
 //demarrer le serv avec port specifier
 app.listen(port);
