@@ -95,35 +95,47 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
     //controller: 'InsideCrtl'
   })
-
-
-      .state('menu.createOffer',{
-          url: '/createOffer',
-          views:{
-              'menuContent':{
-                  templateUrl:'templates/create_offer.html'
-
-              }
+  .state('menu.modalOffer',{
+      cache: false,
+      url: '/modalOffer',
+      views:{
+          'menuContent':{
+              templateUrl: '/templates/modal.html',
+              controller:'modalCrtl'
           }
-      })
+      }
 
-      .state('menu.member_offer',{
-          url: '/checkOffers',
-          views:{
-              'menuContent':{
-                  templateUrl:'templates/member_offer.html'
-              }
-          }
-      })
-      .state('menu.createDemand',{
-          url: '/createDemand',
-          views:{
-              'menuContent':{
-                  templateUrl:'templates/create_demand.html'
+      //controller: 'InsideCrtl'
+  })
 
-              }
+
+  .state('menu.createOffer',{
+      url: '/createOffer',
+      views:{
+          'menuContent':{
+              templateUrl:'templates/create_offer.html'
+
           }
-      })
+      }
+  })
+
+  .state('menu.member_offer',{
+      url: '/checkOffers',
+      views:{
+          'menuContent':{
+              templateUrl:'templates/member_offer.html'
+          }
+      }
+  })
+  .state('menu.createDemand',{
+      url: '/createDemand',
+      views:{
+          'menuContent':{
+              templateUrl:'templates/create_demand.html'
+
+          }
+      }
+  })
 
 
   .state('tab.chats', {
