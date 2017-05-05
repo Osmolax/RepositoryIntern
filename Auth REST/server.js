@@ -13,7 +13,7 @@ var passport			= require('passport');
 var config				= require('./config/database');
 var User				= require('./app/models/user');
 var trajetUser			= require('./app/models/trajetUser');
-var trajetDemande			= require('./app/models/trajetDemande');
+var trajetDemande		= require('./app/models/trajetDemande');
 
 //num de port
 var port				= process.env.PORT || 8080;
@@ -71,9 +71,9 @@ app.post('/api/createUser', function(req, res){
         var newUser = new User({ login: req.body.login, password: req.body.password, email: req.body.email, tel: req.body.tel, address: req.body.address, BU: req.body.BU, job: req.body.job });
         newUser.save(function(err){
             if (err) {
-                return res.json({ succes: false, message: 'Erreur login deja pris'});
+                return res.json({ succes: false, message: 'Erreur login déjà pris'});
             }
-            else{ return res.json({ succes: true, message: 'Utilisateur creer avec succes'}); }
+            else{ return res.json({ succes: true, message: 'Utilisateur créé avec succes'}); }
         });
     }
 });
@@ -82,13 +82,13 @@ app.post('/api/createUser', function(req, res){
 app.post('/api/authentication', function(req,res){
     User.findOne({login: req.body.login}, function(err, user){
         if (err) { throw err; }
-        if (!user) { return res.send({ succes: false, message: 'User not found'});}
+        if (!user) { return res.send({ succes: false, message: 'Utilisateur non trouvé'});}
         else{ user.comparePassword(req.body.password, function(err, isMatch){
             if (isMatch && !err) { var token = jwt.encode(user, config.secret);
                 res.json({succes: true, token: 'JWT '+token, message: 'successfully authenticated'});
             }
             else{
-                return res.send({succes: false, message:'Wrong password'});
+                return res.send({succes: false, message:'Mot de passe incorrecte'});
             }
         });}
     });
@@ -101,11 +101,11 @@ app.post('/api/createUserTrajet', function(req, res){
         var UserTrajet = new trajetUser({ idUser: req.body.idUser, lieu: req.body.lieu, dateTrajet: req.body.dateTrajet, nombrePlace: req.body.nombrePlace});
         UserTrajet.save(function(err){
             if (err) {
-                return res.json( {succes: false, message: 'Erreur creation trajetUser'});
+                return res.json( {succes: false, message: 'Erreur création trajetUser'});
 
             }
             else{
-                return res.json({ succes: true, message: 'trajetUser creer avec succes'});
+                return res.json({ succes: true, message: 'trajetUser créée avec succes'});
                 console.log('all is ok');
             }
 
@@ -140,11 +140,11 @@ app.post('/api/createUserTrajet', function(req, res){
 		var UserTrajet = new trajetUser({ idUser: req.body.idUser, lieu: req.body.lieu, dateTrajet: req.body.dateTrajet, nombrePlace: req.body.nombrePlace});
 		UserTrajet.save(function(err){
 			if (err) { 
-				return res.json( {succes: false, message: 'Erreur creation trajetUser'});
+				return res.json( {succes: false, message: 'Erreur création trajetUser'});
 
 			}
 			else{
-				return res.json({ succes: true, message: 'trajetUser creer avec succes'});
+				return res.json({ succes: true, message: 'trajetUser créée avec succes'});
 				console.log('all is ok');
 			}
 			
@@ -221,8 +221,8 @@ app.post('/api/dropTrajetUser', function(req, res){
         //db.getCollection('trajetusers').remove({'_id:ObjectId("590342c70789b813e09657c1")})
         if (err) {  throw err; }
         else{
-            console.log('Trajet dropé avec succes');
-            res.send('Trajet dropé avec succes');
+            console.log('Trajet supprimé avec succès');
+            res.send('Trajet supprimé avec succès');
         }
     });
 })

@@ -138,23 +138,8 @@ angular.module('starter.controllers', [])
 
     .controller('StaticCtrl', function ($scope, $rootScope) {
         $scope.countries = {
-            'Salé' : {
-                'Salé Ville' : ['CAFE RAMSIS DIAR', 'BAB SABTA', 'BAB CHAAFA', 'SOUNBOULA'],
-                'Hay Chmaou/Said Hajji' : ['CENTRAL LAITIERE', 'CAFE ZAYTOUNA','COCA COLA','CAFE IMANE','T13','CAFE IHSANE'],
-                'Hay Rahma' : ['CAFE HILTON', 'SUPER'],
-                'Tabriket' : ['PHARMACIE IBTISSAM','BMCI','POSTE TABRIQUET','PHARMACIE DAHAB','GARE SALE TABRIKET','RESIDENCE NAKHIL'],
-                'Hay Karima' : ['CAFE BOUCHRA'],
-                'DOUAR CHEKH MFADAL' :['EN FACE DE DOUAR CHEKH MFADAL'],
-                'HAY SALAM' : ['TIJARI WAFA BANQUE','PETIT PRINCE A COTER DE LA POSTE'],
-                'Hay Inbiat' : ['terminus 14 cafe la lugua'],
-                'La base' : ['EN FACE DE LA BASE'],
-                'Rostal' : ['CAFE SOUK SALAM', 'PORTE RESIDENCE DOHA'],
-                'Bettana' : ['TILIWIN','LYCEE OMAR IBN KHATAB','CONSERVATION FONCIERE','ECOLE ALAMA'],
-                'Karia' : ['LYCEE IBN HASSAN WAZANI','BAB KARIA','METRO','CAFE HAJAR']
-            },
-
             'Rabat' : {
-                'Menzeh' : ['Terminus 57','Hay Nahda'],
+                'Menzeh' : ['Terminus 57'],
                 'Qamra' : ['Résidence Assabah','Total Msarni','Qamra'],
                 'Hay Nahda' : ['ISTA Hay Nahda','Dar Al Khoubz'],
                 'Hay El Fath' : ['Terminus 30','Résidence Mimoza','Café Cata Atlas','CCM'],
@@ -166,7 +151,34 @@ angular.module('starter.controllers', [])
                 'Agdal' : ['Crédit du Maroc face à Amazone'],
                 'Takadom' : ['Château'],
                 'Youssoufia' : ['Mini Parc']
+            },
+
+            'Temara' : {
+                'Harhoura' : ['Club Yasmine'],
+                'Wifak' : ['Carrefour','Maroc Telecom'],
+                'Temara Centre' : ['Acima','BMCE Temara Centre','Redal'],
+                'Qrouch' : ['Chouwayate El Akhawayn'],
+                'Hay Abbadi' : ['Mosque El Houda','Pharmacie Fadlallah','Pizzeria Venezia','Lignes 3 - 8M - 40'],
+                'Massira' :['ISTA Temara','Milano','SGMB'],
+                'Guich Oudaya' : ['Banque Populaire','Pharmacie Rim']
+            },
+
+            'Salé' : {
+                'Salé Ville' : ['Bab Sabta', 'Résidence Diar', 'BAB CHAAFA', 'Gare Salé Medina'],
+                'Hay Chmaou/Said Hajji' : ['Café Le relais du jour', 'Café Zaytouna','Mosquée Hay Chmaou','Hôpital public Hay Said Hajji','Lycée Abderrahim Bouabid','CAFE IHSANE'],
+                'Hay Rahma' : ['Terminus Tramway Hay Rahma', 'Mosquée Arrahma'],
+                'Tabriket' : ['Pharmacie Ibtissam','Bureau de poste Tabriquet','Mosquée Ohoud','PHARMACIE DAHAB','Résidence Nakhil'],
+                'Hay Karima' : ['Terminus Tramway Hay Karima'],
+                'DOUAR CHEKH MFADAL' :['Hôpital Chiekh Lamfadal'],
+                'HAY SALAM' : ['Agence Maroc Telecom','Mosquée Al Qods'],
+                'Hay Inbiat' : ['Pharmacie Inbiat'],
+                'La base' : ['Cité militaire'],
+                'Bettana' : ['Poste Bettana','CPGE Salmane El Farissi'],
+                'Karia' : ['Hôpital Karia'],
+                'Salé El Jadida' : ['ISTA Sala al Jadida','Mosquée Hassan II','Station TOTAL','Pharmacie des villas']
             }
+
+
 
         };
 
@@ -242,13 +254,16 @@ angular.module('starter.controllers', [])
             $scope.map = map;
 
 
+
         })
     })
 
 
     .controller('MapsCtrl', function($scope, $ionicLoading, $rootScope, AuthService, $ionicPopup, $state, $http , API_ENDPOINT) {
 
-
+        $scope.$on( "$ionicView.enter", function( scopes, states ) {
+            google.maps.event.trigger( map, 'resize' );
+        });
 
 
         google.maps.event.addDomListener(window, 'load', function() {
