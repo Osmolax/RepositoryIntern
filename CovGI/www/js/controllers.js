@@ -41,9 +41,7 @@ angular.module('starter.controllers', [])
 
 .controller('modalCrtl', function ($scope, $rootScope) {
 
-    console.log('inside modalCrtl');
-
-
+    //console.log('inside modalCrtl');
     /*google.maps.event.addDomListener(window, 'load', function() {
         var latLng = new google.maps.LatLng(33.993207,-6.721752);
         var mapOptions = {
@@ -110,40 +108,85 @@ angular.module('starter.controllers', [])
 
 
 
+
     $ionicModal.fromTemplateUrl('templates/modal.html', {
         scope: $scope,
         controller: 'modalCrtl'
     }).then(function(modal) {
         $scope.modal = modal;
-
+        //$scope.openModalOffer();
+        //$scope.initMap();
     });
 
-    $scope.openModalOffer = function(offre){
+    $scope.initMap = function(){
 
-        console.log('show modal');
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+
+        var latLng = new google.maps.LatLng(33.993207,-6.721752);
+
+        var mapOptions = {
+            center: latLng,
+            zoom: 14,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+
+
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        directionsDisplay.setMap(map);
+
+
+        google.maps.event.addListener(directionsDisplay, 'mouseover', function(){
+            alert("moused over straight line!");
+        });
+
+        /*google.maps.event.addListener(map, 'click', function(event) {
+            placeMarker(event.latLng);
+        });
+
+        function placeMarker(location) {
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+        }*/
+
+        $http.post(API_ENDPOINT.url+'/LatLangLieu',{'nomLieu':$scope.lieuOffre}).then(function(result){
+            console.log(result.data);
+            $scope.LatSelectedPlace = result.data[0].latitude;
+            $scope.LongSelectedPlace = result.data[0].longitude;
+            DisplayRoute(directionsService,directionsDisplay);
+        });
+
+
+        function DisplayRoute(directionsService,directionsDisplay) {
+            directionsService.route({
+                origin: new google.maps.LatLng(33.981979,-6.726336),
+                destination: new google.maps.LatLng($scope.LatSelectedPlace,$scope.LongSelectedPlace),
+                travelMode: 'DRIVING'
+            },function (response, status) {
+                if (status == 'OK'){
+                    directionsDisplay.setDirections(response);
+                }else {
+                    window.alert('Error'+ status);
+                }
+            });
+        }
+
+    }
+
+    $scope.openModalOffer = function(offre){
 
         $scope.lieuOffre = offre.lieu;
         $scope.dateOffre = offre.dateTrajet;
         $scope.nbrPlaceOffre = offre.nombrePlace;
 
-        $scope.initMap = function(){
-
-            var latLng = new google.maps.LatLng(33.993207,-6.721752);
-
-            var mapOptions = {
-                center: latLng,
-                zoom: 14,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-
-            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-            console.log('load map on modal menuCrtl');
-
-        }
         $scope.modal.show();
+
+        $scope.initMap();
     }
-
-
 })
 
 
@@ -236,8 +279,6 @@ angular.module('starter.controllers', [])
         google.maps.event.trigger( map, 'resize' );
     });
 
-
-
 })
 
 
@@ -311,6 +352,7 @@ angular.module('starter.controllers', [])
         $scope.addOffer = function () {
         $scope.lieu = document.getElementById('suburb').value
         $scope.lieuS = $scope.lieu.split(':');
+
         if($scope.lieu == null || $scope.dateTrajet == null || $scope.placeDispo == null){
             var alertPopup = $ionicPopup.alert({
                 title: 'Erreur',
@@ -328,8 +370,8 @@ angular.module('starter.controllers', [])
                 title:'Confirmation',
                 template: 'Êtes-vous sûr de vouloir ajouter cette offre ?',
                 buttons:[
-                    {
-                        text: 'Annuler'
+                        {
+                            text: 'Annuler'
                     },{
                         text: 'Confirmer',
                         type: 'button-positive',
