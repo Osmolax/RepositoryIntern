@@ -1,9 +1,9 @@
-<ion-modal-view controller="modalCrtl">
+<ion-modal-view>
     <ion-header-bar class="bar-dark">
         <h1 class="title">Offre</h1>
     </ion-header-bar>
-    <ion-content>
-        <div id="map"></div>
+    <ion-content ng-controller="modalCrtl">
+        <div onload="initMap()" id="map"></div>
 
         <div class="row">
             <div class="col"> <img src="..\img\from_to_icon.png" class="icon icon-right" style="height: 30px; margin-top: 7px; margin-left: 15px;"></div>
@@ -25,5 +25,6 @@
 
         <button class="button button-dark button-block" ng-click="modal.hide()">S'inscrire pour cette offre</button>
         <button class="button button-dark button-block" ng-click="modal.hide()">Retour</button>
+
     </ion-content>
 </ion-modal-view>
