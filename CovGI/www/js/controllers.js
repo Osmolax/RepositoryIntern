@@ -120,7 +120,7 @@ angular.module('starter.controllers', [])
         $scope.initMap = function(){
 
             var directionsService = new google.maps.DirectionsService;
-            var directionsDisplay = new google.maps.DirectionsRenderer;
+            var directionsDisplay = new google.maps.DirectionsRenderer({ polylineOptions: {clickable: false}});
 
             var latLng = new google.maps.LatLng(33.993207,-6.721752);
 
@@ -141,15 +141,32 @@ angular.module('starter.controllers', [])
                 alert("moused over straight line!");
             });
 
-            /*google.maps.event.addListener(map, 'click', function(event) {
-             placeMarker(event.latLng);
+            google.maps.event.addListener(map, 'click', function(event) {
+                placeMarker(event.latLng);
+
              });
-             function placeMarker(location) {
-             var marker = new google.maps.Marker({
-             position: location,
-             map: map
-             });
-             }*/
+
+            function placeMarker(location) {
+                var marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                draggable : true
+                });
+                //alert(marker.position);
+                //$scope.latMarker = marker.position.lat();
+                //$scope.lngMarker = marker.position.lng();
+                //console.log($scope.latMarker);
+                //console.log($scope.lngMarker);
+                google.maps.event.addListener(marker, 'dragend', function (evt) {
+                    //document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat() + ' Current Lng: ' + evt.latLng.lng() + '</p>';
+                    $scope.latMarker = evt.latLng.lat();
+                    $scope.lngMarker = evt.latLng.lng();
+                });
+
+                /*google.maps.event.addListener(marker, 'dragstart', function (evt) {
+                    document.getElementById('current').innerHTML = '<p>Currently dragging marker...</p>';
+                });*/
+            }
 
             $http.post(API_ENDPOINT.url+'/LatLangLieu',{'nomLieu':$scope.lieuOffre}).then(function(result){
                 console.log(result.data);
