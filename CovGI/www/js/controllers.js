@@ -68,6 +68,11 @@ angular.module('starter.controllers', [])
 
         }
 
+        $scope.check_demands = function () {
+            $state.go('menu.member_demand');
+
+        }
+
         $scope.logout = function () {
             AuthService.logout();
             $state.go('tab.dash');
@@ -81,7 +86,7 @@ angular.module('starter.controllers', [])
             $state.go('menu.createDemand');
         };
 
-        $scope.showPopupAddOffer = function () {
+      /*  $scope.showPopupAddOffer = function () {
             var myPopup = $ionicPopup.show({
                 template: '<input type="text" placeholder="">',
                 title: 'Add new Offer',
@@ -89,7 +94,7 @@ angular.module('starter.controllers', [])
                     text: 'Cancel'
                 }]
             })
-        }
+        }*/
 
         $scope.go = function ( path ) {
             $location.path( path );
@@ -98,6 +103,7 @@ angular.module('starter.controllers', [])
         $http.get(API_ENDPOINT.url+'/allOffre').then(function (result) {
             //console.log('liste des trajets ', result.data);
             $scope.allOffer = result.data;
+
         });
 
         $http.get(API_ENDPOINT.url+'/allDemand').then(function (result) {
@@ -111,8 +117,18 @@ angular.module('starter.controllers', [])
         $ionicModal.fromTemplateUrl('templates/modal.html', {
             scope: $scope,
             controller: 'modalCrtl'
-        }).then(function(modal) {
-            $scope.modal = modal;
+        }).then(function(modalOffre) {
+            $scope.modalOffre = modalOffre;
+            //$scope.openModalOffer();
+            //$scope.initMap();
+        });
+
+
+        $ionicModal.fromTemplateUrl('templates/modalDemande.html', {
+            scope: $scope,
+            controller: 'modalCrtl'
+        }).then(function(modalDemande) {
+            $scope.modalDemande = modalDemande;
             //$scope.openModalOffer();
             //$scope.initMap();
         });
@@ -141,17 +157,59 @@ angular.module('starter.controllers', [])
                 alert("moused over straight line!");
             });
 
-            /*google.maps.event.addListener(map, 'click', function(event) {
-             placeMarker(event.latLng);
-             });
-             function placeMarker(location) {
-             var marker = new google.maps.Marker({
-             position: location,
-             map: map
-             });
-             }*/
+
 
             $http.post(API_ENDPOINT.url+'/LatLangLieu',{'nomLieu':$scope.lieuOffre}).then(function(result){
+                console.log(result.data);
+                $scope.LatSelectedPlace = result.data[0].latitude;
+                $scope.LongSelectedPlace = result.data[0].longitude;
+                DisplayRoute(directionsService,directionsDisplay);
+            });
+
+
+            function DisplayRoute(directionsService,directionsDisplay) {
+                directionsService.route({
+                    origin: new google.maps.LatLng(33.981979,-6.726336),
+                    destination: new google.maps.LatLng($scope.LatSelectedPlace,$scope.LongSelectedPlace),
+                    travelMode: 'DRIVING'
+                },function (response, status) {
+                    if (status == 'OK'){
+                        directionsDisplay.setDirections(response);
+                    }else {
+                        window.alert('Error'+ status);
+                    }
+                });
+            }
+
+        }
+
+       $scope.initMapDemande = function(){
+
+            var directionsService = new google.maps.DirectionsService;
+            var directionsDisplay = new google.maps.DirectionsRenderer;
+
+            var latLng = new google.maps.LatLng(33.993207,-6.721752);
+
+            var mapOptions = {
+                center: latLng,
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+
+
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+            directionsDisplay.setMap(map);
+
+
+            google.maps.event.addListener(directionsDisplay, 'mouseover', function(){
+                alert("moused over straight line!");
+            });
+
+
+
+            $http.post(API_ENDPOINT.url+'/LatLangLieu',{'nomLieu':$scope.lieuDemande}).then(function(result){
                 console.log(result.data);
                 $scope.LatSelectedPlace = result.data[0].latitude;
                 $scope.LongSelectedPlace = result.data[0].longitude;
@@ -180,10 +238,20 @@ angular.module('starter.controllers', [])
             $scope.lieuOffre = offre.lieu;
             $scope.dateOffre = offre.dateTrajet;
             $scope.nbrPlaceOffre = offre.nombrePlace;
-
-            $scope.modal.show();
-
+         //   $scope.login = offre.$scope.member_info.login;
+            $scope.modalOffre.show();
+            console.log(offre);
+            console.log($scope.member_info);
             $scope.initMap();
+        }
+
+      $scope.openModalDemande = function(demand){
+
+            $scope.lieuDemande = demand.lieu;
+            $scope.dateDemande = demand.dateTrajet;
+            $scope.modalDemande.show();
+
+            $scope.initMapDemande();
         }
     })
 
@@ -500,3 +568,25 @@ angular.module('starter.controllers', [])
         };
 
     })
+
+    .controller('memberDemandCtrl', function ($scope ,AuthService, API_ENDPOINT, $http, $ionicPopup) {
+        // var data=({"userId": $scope.member_info._id});
+
+
+        $http.post(API_ENDPOINT.url+'/trajetDemande',{'idUser':$scope.member_info._id}).then(function(result){
+            console.log(result.data);
+
+            $scope.trajetsDemande = result.data;
+        });
+
+
+        $scope.deleteItem = function (trajectDemande) {
+            $scope.deleteItemWithID = trajectDemande._id;
+            $scope.trajetsDemande.splice($scope.trajetsDemande.indexOf(trajectDemande), 1);
+            $http.post(API_ENDPOINT.url+'/dropDemandeUser',{'_id':$scope.deleteItemWithID}).then(function(result){
+                console.log(result.data);
+            });
+        };
+
+    })
+

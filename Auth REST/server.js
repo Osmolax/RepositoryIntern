@@ -95,24 +95,6 @@ app.post('/api/authentication', function(req,res){
 });
 
 
-app.post('/api/createUserTrajet', function(req, res){
-
-    if(!req.body.trajet){
-        var UserTrajet = new trajetUser({ idUser: req.body.idUser, lieu: req.body.lieu, dateTrajet: req.body.dateTrajet, nombrePlace: req.body.nombrePlace});
-        UserTrajet.save(function(err){
-            if (err) {
-                return res.json( {succes: false, message: 'Erreur création trajetUser'});
-
-            }
-            else{
-                return res.json({ succes: true, message: 'trajetUser créée avec succes'});
-                console.log('all is ok');
-            }
-
-        });
-    }
-})
-
 app.post('/api/createUserDemand', function(req, res){
 
     if(!req.body.trajet){
@@ -190,6 +172,16 @@ app.post('/api/trajetUser', function(req, res){
     });
 })
 
+app.post('/api/trajetDemande', function(req, res){
+    trajetDemande.find({idUser:req.body.idUser},function(err, trajects){
+        if (err) {  throw err; }
+        else{
+            //res.render('trajetList', trajects);
+            console.log('liste of user demands', trajects.length);
+            res.json(trajects);
+        }
+    });
+})
 //////////////////////////////////
 var mongojs = require('mongojs')
 global.db = mongojs('mongodb://localhost:27017/mongodb_test');
@@ -223,6 +215,16 @@ app.post('/api/dropTrajetUser', function(req, res){
         else{
             console.log('Trajet supprimé avec succès');
             res.send('Trajet supprimé avec succès');
+        }
+    });
+})
+
+app.post('/api/dropDemandeUser', function(req, res){
+    trajetDemande.remove({'_id':req.body._id},function(err, trajects){
+       if (err) {  throw err; }
+        else{
+            console.log('Demande supprimé avec succès');
+            res.send('Demande supprimé avec succès');
         }
     });
 })

@@ -5,26 +5,35 @@
     <ion-content ng-controller="modalCrtl">
         <div onload="initMap()" id="map"></div>
 
+
+
+
         <div class="row">
-            <div class="col"> <img src="..\img\from_to_icon.png" class="icon icon-right" style="height: 30px; margin-top: 7px; margin-left: 15px;"></div>
-            <div class="col" style="margin-right: 150px"> <p>Technopolis </p>
-                <p>{{lieuOffre}}</p></div>
+            <img src="..\img\from_to_icon.png" class="icon icon-right" style="height: 30px; margin-top: 7px; margin-left: 15px;">
+                        <div class="col" style="margin-right: 150px">
+
+                Technopolis
+                           <p style="margin-left: 0px;">{{lieuOffre}}</p>
+
+                        </div>
         </div>
 
         <div class="row">
-            <div class="col"><i class="icon ion-android-calendar" style="font-size: 20px;  height: 30px; margin-top: 70px; margin-left: 15px;"></i></div>
-
-            <div class="col" style="margin-right: 150px"><p> Date: {{dateOffre}}</p></div>
+               <div class="col" style="margin-right: 150px">
+                <i class="icon ion-android-calendar" style="font-size: 20px;  height: 30px; margin-top: 70px;margin-left: 15px;"></i>
+                   Date et Heure : {{dateOffre.slice(0,-8).split('T')}}
+            </div>
 
         </div>
 
         <div class="row">
-            <div class="col"><i class="icon  ion-information-circled" style="font-size: 20px; height: 30px; margin-top: 103px; margin-left: 15px;"></i></div>
-            <div class="col" style="margin-right: 150px"><p> Nombre de places disponibles : {{nbrPlaceOffre}}</p></div>
+           <div class="col" style="margin-right: 100px">
+                <i class="icon  ion-information-circled" style="font-size: 20px; height: 30px; margin-top: 103px; margin-left: 15px;"></i>
+                Nombre de places disponibles : {{nbrPlaceOffre}}</div>
         </div>
 
-        <button class="button button-dark button-block" ng-click="modal.hide()">S'inscrire pour cette offre</button>
-        <button class="button button-dark button-block" ng-click="modal.hide()">Retour</button>
+        <button class="button button-dark button-block" ng-click="modalOffre.hide()">S'inscrire pour cette offre</button>
+        <button class="button button-dark button-block" ng-click="modalOffre.hide()">Retour</button>
 
     </ion-content>
 </ion-modal-view>
