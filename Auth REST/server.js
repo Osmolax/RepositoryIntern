@@ -28,6 +28,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
+//////////////////////////////////
+var mongojs = require('mongojs')
+global.db = mongojs('mongodb://localhost:27017/mongodb_test');
+//////////////////////////////////
 
 
 
@@ -68,7 +72,7 @@ app.post('/api/createUser', function(req, res){
     }
     else{
         //sinon on enregistre le user
-        var newUser = new User({ login: req.body.login, password: req.body.password, email: req.body.email, tel: req.body.tel, address: req.body.address, BU: req.body.BU, job: req.body.job });
+        var newUser = new User({ login: req.body.login, password: req.body.password, email: req.body.email, tel: req.body.tel, address: req.body.address, BU: req.body.BU, job: req.body.job,vehicule: req.body.vehicule, matricule: req.body.matricule, nombre_place: req.body.nombre_place });
         newUser.save(function(err){
             if (err) {
                 return res.json({ succes: false, message: 'Erreur login déjà pris'});
@@ -77,6 +81,36 @@ app.post('/api/createUser', function(req, res){
         });
     }
 });
+
+//ajouter une insciption a une offre
+app.post('/api/inscriptionOffer', function(req, res){
+    MongoClient.connect("mongodb://localhost:27017/mongodb_test", function(err, db) {
+        if(!err) {
+            console.log("We are connected");
+        }
+    });
+    var collection = db.collection('inscriptionOffer');
+    var newInscription = ({idOffer: req.body.idOffer, idDemandeur: req.body.idDemandeur, statusDemande: 0, latDemande: req.body.latDemande, lngDemande: req.body.lngDemande, dateInscription: req.body.dateInscription, dateAcceptation: null});
+    collection.insert(newInscription,function(error, record){
+        if(error) throw error;
+        console.log('inscription saved');
+        res.send('inscription saved');
+    });
+})
+
+
+
+//get user by id
+app.post('/api/getUserById', function(req, res){
+    User.findOne({'_id': req.body._id}, function(err, user){
+        if (err) { throw err; }
+        else if (!user) { return res.send({ succes: false, message: 'Utilisateur non trouvé'});}
+        else{
+            res.send(user);
+        }
+    })
+})
+
 
 //comparer login et password et generer token
 app.post('/api/authentication', function(req,res){
@@ -154,8 +188,38 @@ app.post('/api/createUserTrajet', function(req, res){
 
 
 app.get('/api/member', passport.authenticate('jwt', {session: false}), function(req,res){
-    res.json({message:'succes authentication', user: req.user});
+
+    var token = getToken(req.headers);
+    //res.json({message:'succes authentication', user: req.user});
+
+    if(token){
+        var decoded = jwt.decode(token, config.secret);
+        User.findOne({
+            login: decoded.login
+        },function(err, user){
+            if(err) throw err;
+            if(!user) {
+                return res.send({Error: 'user not found'});
+            }else{
+                return res.send({success: true, user: user});
+            }
+        })
+    }else{
+        return res.send({success: false, msg: 'No token provided'});
+    }
 });
+getToken = function (headers) {
+    if (headers && headers.authorization) {
+        var parted = headers.authorization.split(' ');
+        if (parted.length === 2) {
+            return parted[1];
+        } else {
+            return null;
+        }
+    } else {
+        return null;
+    }
+};
 
 
 app.get('/api/allOffre', function(req, res){
@@ -190,16 +254,7 @@ app.post('/api/trajetUser', function(req, res){
     });
 })
 
-//////////////////////////////////
-var mongojs = require('mongojs')
-global.db = mongojs('mongodb://localhost:27017/mongodb_test');
-//////////////////////////////////
 
-MongoClient.connect("mongodb://localhost:27017/mongodb_test", function(err, db) {
-    if(!err) {
-        console.log("We are connected");
-    }
-});
 
 app.post('/api/LatLangLieu', function(req, res){
     // Connect to the db

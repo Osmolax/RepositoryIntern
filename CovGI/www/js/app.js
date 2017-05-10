@@ -73,13 +73,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
 
-      .state('menu',{
-          cache: false,
-          url: '/menu',
-          //abstract: true,
-          templateUrl: '/templates/sideMenu.html',
-          controller: 'menuCrtl'
-      })
+  .state('menu',{
+      cache: false,
+      url: '/menu',
+      //abstract: true,
+      templateUrl: '/templates/sideMenu.html',
+      controller: 'menuCrtl'
+  })
 
 
 
