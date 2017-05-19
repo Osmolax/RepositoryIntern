@@ -29,10 +29,22 @@
 
         </div>
         <div class="list" >
-            <label class="item item-input">
 
-                <span class="input-label"> <i class="icon ion-ios-people"></i>&nbsp;Nombre de passagers</span>
-                <input type="number" max="10" min="1" ng-model="placeDispo">
+            <label class="item item-input item-select">
+                <div class="input-label">
+
+                    <i class="icon ion-ios-people"></i>&nbsp; Nombre de passagers
+                    <select ng-model="placeDispo">
+                        <option value='0'>Select</option>
+                        <option value='1'>1</option>
+                        <option selected value='2'>2</option>
+                        <option value='3'>3</option>
+                        <option value='4'>4</option>
+                        <option value='5'>5</option>
+                        <option value='6'>6</option>
+                     </select>
+
+                </div>
             </label>
             <label class="item item-input">
                 <span class="input-label"><i class="icon ion-android-calendar"></i>&nbsp;Date de départ</span>

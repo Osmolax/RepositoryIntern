@@ -137,6 +137,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
   })
 
+      .state('menu.member_demand',{
+          url: '/checkDemands',
+          views:{
+              'menuContent':{
+                  templateUrl:'templates/member_demand.html'
+              }
+          }
+      })
 
   .state('tab.chats', {
       url: '/chats',
