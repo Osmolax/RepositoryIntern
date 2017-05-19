@@ -125,8 +125,7 @@ angular.module('starter.controllers', [])
             controller: 'modalCrtl'
         }).then(function(modalOffre) {
             $scope.modalOffre = modalOffre;
-            //$scope.openModalOffer();
-            //$scope.initMap();
+
         });
 
 
@@ -135,8 +134,7 @@ angular.module('starter.controllers', [])
             controller: 'modalCrtl'
         }).then(function(modalDemande) {
             $scope.modalDemande = modalDemande;
-            //$scope.openModalOffer();
-            //$scope.initMap();
+
         });
 
         $scope.initMap = function(){
@@ -224,16 +222,79 @@ angular.module('starter.controllers', [])
 
         }
 
+        $scope.initMapDemande = function(){
+
+            var directionsService = new google.maps.DirectionsService;
+            var directionsDisplay = new google.maps.DirectionsRenderer;
+
+            var latLng = new google.maps.LatLng(33.993207,-6.721752);
+
+            var mapOptions = {
+                center: latLng,
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+
+
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+            directionsDisplay.setMap(map);
+
+
+            google.maps.event.addListener(directionsDisplay, 'mouseover', function(){
+                alert("moused over straight line!");
+            });
+
+
+
+            $http.post(API_ENDPOINT.url+'/LatLangLieu',{'nomLieu':$scope.lieuDemande}).then(function(result){
+                console.log(result.data);
+                $scope.LatSelectedPlace = result.data[0].latitude;
+                $scope.LongSelectedPlace = result.data[0].longitude;
+                DisplayRoute(directionsService,directionsDisplay);
+            });
+
+
+            function DisplayRoute(directionsService,directionsDisplay) {
+                directionsService.route({
+                    origin: new google.maps.LatLng(33.981979,-6.726336),
+                    destination: new google.maps.LatLng($scope.LatSelectedPlace,$scope.LongSelectedPlace),
+                    travelMode: 'DRIVING'
+                },function (response, status) {
+                    if (status == 'OK'){
+                        directionsDisplay.setDirections(response);
+                    }else {
+                        window.alert('Error'+ status);
+                    }
+                });
+            }
+
+        }
+
 
         $scope.openModalOffer = function(offre){
 
             $scope.lieuOffre = offre.lieu;
             $scope.dateOffre = offre.dateTrajet;
             $scope.nbrPlaceOffre = offre.nombrePlace;
-         //   $scope.login = offre.$scope.member_info.login;
+            $scope.idUserOffer = offre.idUser;
+
+            $scope.idOffer = offre._id;
+
+            $scope.latMarker = null;
+            $scope.lngMarker = null;
+
+
+            console.log(offre.idUser);
+            //console.log($scope.member_info);
+            $http.post(API_ENDPOINT.url+'/getUserById',{'_id':offre.idUser}).then(function(result){
+                console.log(result.data);
+                $scope.UserOffer= result.data;
+
+            });
+
             $scope.modalOffre.show();
-            console.log(offre);
-            console.log($scope.member_info);
             $scope.initMap();
         }
 
@@ -258,6 +319,7 @@ angular.module('starter.controllers', [])
                     text: 'Confirmer',
                     type: 'button-positive',
                     onTap: function(){
+
                         $http.post(API_ENDPOINT.url+'/inscriptionOffer',{'idOffer':$scope.idOffer, 'idDemandeur': $scope.member_info._id,'latDemande': $scope.latMarker, 'lngDemande':$scope.lngMarker, 'dateInscription': new Date()}).then(function(result){
                             console.log(result.data);
                         });
@@ -265,8 +327,9 @@ angular.module('starter.controllers', [])
                             title: 'Demande envoyée',
                             template: 'Votre demande d\'inscription a été envoyée à '+ $scope.UserOffer.login
                         }).then(function () {
-                            $scope.modal.hide();
+                            $scope.modalOffre.hide();
                         });
+                        console.log($scope.idOffer);
                     }
                 }
             ]

@@ -10,8 +10,11 @@
 
                 <ion-view>
 
+
                     <ion-content style="margin-top: -45px">
+
                         <ion-list>
+
                             <ion-item ng-repeat="offre in allOffer" ng-click="openModalOffer(offre)">
 
 
@@ -24,8 +27,8 @@
                                     <img src="..\img\from_to_icon.png" class="icon icon-right" style="height: 30px; margin-top: 7px; margin-left: 15px;">
                                     <div class="col" style="margin-right: 150px">
 
-                                        Technopolis <br>
-                                       {{offre.lieu}}
+                                        &nbsp;   Technopolis <br>
+                                        &nbsp;  {{offre.lieu}}
 
                                     </div>
                                 </div>
@@ -34,17 +37,17 @@
 
                                 <div class="row">
                                     <div class="col" style="margin-right: 150px">
-                                        <i class="icon ion-android-calendar" style="font-size: 20px;  height: 30px; margin-top: 65px;margin-left: 15px;"></i>
+                                        <i class="icon ion-android-calendar" style="font-size: 20px;  height: 30px; margin-top: 65px;margin-left: 25px;"></i>
 
-                                         Date et Heure : {{offre.dateTrajet.slice(0,-8).split('T')}}
+                                        &nbsp;  Date et Heure : {{offre.dateTrajet.slice(0,-8).split('T')}}
                                      </div>
 
                                  </div>
 
                                  <div class="row">
                                      <div class="col" style="margin-right: 100px">
-                                         <i class="icon  ion-information-circled" style="font-size: 20px; height: 30px; margin-top: 103px; margin-left: 15px;"></i>
-                                         Nombre de places disponibles : {{offre.nombrePlace}}</div>
+                                         <i class="icon  ion-information-circled" style="font-size: 20px; height: 30px; margin-top: 103px; margin-left: 25px;"></i>
+                                         &nbsp;      Nombre de places disponibles : {{offre.nombrePlace}}</div>
                                  </div>
 
                              </div>
@@ -54,6 +57,8 @@
                              </ion-item>
                          </ion-list>
                      </ion-content>
+
+
                      <ion-footer-bar class="bar bar-footer" >
                          <a class="button  icon-right ion-chevron-right button-dark" href="#/menu/createOffer" style="width: 100%;"  >Créer une offre</a>
                      </ion-footer-bar>
