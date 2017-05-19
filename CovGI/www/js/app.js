@@ -155,7 +155,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/sendMail',
       views: {
         'tab-account': {
-          templateUrl: 'templates/tab-sendMail.html'
+          templateUrl: 'templates/tab-sendMail.html',
+          controller: 'sendMailCrtl'
         }
       }
     })

@@ -98,6 +98,23 @@ app.post('/api/inscriptionOffer', function(req, res){
     });
 })
 
+//liste des offres by id_offer
+app.post('/api/listOfferById', function(req, res){
+    MongoClient.connect("mongodb://localhost:27017/mongodb_test", function(err, db) {
+        if(!err) {
+            console.log("We are connected");
+        }
+    });
+    var collection = db.collection('inscriptionOffer');
+    collection.find({'idOffer': req.body.idOffer}).toArray(function(err, docs){
+        console.log("retrieved records:");
+        console.log(docs);
+        res.send(docs);
+    });
+})
+
+
+
 //get demandeInscription
 app.post('/api/getDInscription', function(req, res){
     MongoClient.connect("mongodb://localhost:27017/mongodb_test", function(err, db) {
