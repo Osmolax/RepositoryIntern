@@ -298,6 +298,8 @@ angular.module('starter.controllers', [])
             var ownOffer = $ionicPopup.alert({
                 title: 'Attention',
                 template: 'Vous ne pouvez pas etre inscrit à votre propre offre'
+            }).then(function () {
+                $scope.modal.hide();
             });
         }else{
             $http.post(API_ENDPOINT.url+'/getDInscription',{'idOffer':$scope.idOffer}).then(function(result){
@@ -366,29 +368,6 @@ angular.module('starter.controllers', [])
                     }
                 }
             });
-            /*var confirmationInscriptionPopup = $ionicPopup.show({
-                title:'Confirmation',
-                template: 'Êtes-vous sûr de vouloir envoyer votre demande à '+ $scope.UserOffer.login,
-                buttons:[
-                    {
-                        text: 'Annuler'
-                    },{
-                        text: 'Confirmer',
-                        type: 'button-positive',
-                        onTap: function(){
-                            $http.post(API_ENDPOINT.url+'/inscriptionOffer',{'idOffer':$scope.idOffer, 'idDemandeur': $scope.member_info._id,'latDemande': $scope.latMarker, 'lngDemande':$scope.lngMarker, 'dateInscription': new Date()}).then(function(result){
-                                console.log(result.data);
-                            });
-                            var inscriptionSucessPopup = $ionicPopup.alert({
-                                title: 'Demande envoyée',
-                                template: 'Votre demande d\'inscription a été envoyée à '+ $scope.UserOffer.login
-                            }).then(function () {
-                                $scope.modal.hide();
-                            });
-                        }
-                    }
-                ]
-            });*/
         }
     }
 
@@ -603,7 +582,7 @@ angular.module('starter.controllers', [])
                                     long: $scope.LongSelectedPlace
                                 };
                                 console.log(userTrajet);
-                                /*$http.post(API_ENDPOINT.url+'/createUserTrajet',userTrajet).then(function (result) {
+                                $http.post(API_ENDPOINT.url+'/createUserTrajet',userTrajet).then(function (result) {
                                     //$scope.member_info = result.data.user;
                                     console.log('offre créée avec succès ');
                                     var alertPopup = $ionicPopup.alert({
@@ -612,7 +591,7 @@ angular.module('starter.controllers', [])
                                     }).then(function () {
                                         $state.go('menu.inside', {}, { reload:'menu.inside' ,inherit: false });
                                     });
-                                });*/
+                                });
                             }
                         }
                     ]
