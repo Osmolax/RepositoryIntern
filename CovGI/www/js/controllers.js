@@ -80,7 +80,7 @@ angular.module('starter.controllers', [])
          })*/
     })
 
-.controller('menuCrtl',function ($scope, AuthService, API_ENDPOINT, $http, $state, $ionicPopup, $location, $ionicModal, $window) {
+.controller('menuCrtl',function ($scope, AuthService, API_ENDPOINT, $http, $state, $ionicPopup, $location, $ionicModal, $window,$rootScope) {
 
         $http.get(API_ENDPOINT.url+'/member').then(function (result) {
             $scope.member_info = result.data.user;
@@ -215,10 +215,10 @@ angular.module('starter.controllers', [])
 
         });
 
-        $scope.initMap = function(){
+        $rootScope.initMap = function(){
 
             var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer({ polylineOptions: {clickable: false}});
+            var directionsDisplay = new google.maps.DirectionsRenderer({ polylineOptions: {clickable: false}});
 
             var latLng = new google.maps.LatLng(33.993207,-6.721752);
 
@@ -300,7 +300,7 @@ angular.module('starter.controllers', [])
 
         }
 
-        $scope.initMapDemande = function(){
+        $rootScope.initMapDemande = function(){
 
             var directionsService = new google.maps.DirectionsService;
             var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -373,7 +373,7 @@ angular.module('starter.controllers', [])
             });
 
             $scope.modalOffre.show();
-            $scope.initMap();
+            $rootScope.initMap();
         }
 
       $scope.openModalDemande = function(demand){
@@ -382,7 +382,7 @@ angular.module('starter.controllers', [])
             $scope.dateDemande = demand.dateTrajet;
             $scope.modalDemande.show();
 
-            $scope.initMapDemande();
+          $rootScope.initMapDemande();
         }
 
 
