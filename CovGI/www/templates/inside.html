@@ -13,9 +13,11 @@
 
                     <ion-content style="margin-top: -45px">
 
-                        <ion-list>
 
-                            <ion-item ng-repeat="offre in allOffer" ng-click="openModalOffer(offre)">
+                        <ion-list>
+                            <input type="text" ng-model="searchText">
+
+                            <ion-item ng-repeat="offre in allOffer | filter:searchText" ng-click="openModalOffer(offre)">
 
 
                                 <ion-option-button class="button-calm">
@@ -75,8 +77,8 @@
                      <ion-content style="margin-top: -65px">
 
                            <div class="list">
-
-                         <a class="item item-icon-left" ng-repeat="demand in allDemand"  ng-click="openModalDemande(demand)">
+                         <input type="text" ng-model="searchText">
+                         <a class="item item-icon-left" ng-repeat="demand in allDemand | filter:searchText"  ng-click="openModalDemande(demand)">
 
                              <div class="row">
 

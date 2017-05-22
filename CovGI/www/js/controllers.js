@@ -2,22 +2,41 @@ angular.module('starter.controllers', [])
 
 
 
-    .controller('AppCrtl', function ($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS) {
-        $scope.$on(AUTH_EVENTS.notAuthentificated, function (event) {
-            AuthService.logout();
-            $state.go('tab.dash');
-            var alertPopup = $ionicPopup.alert({
-                title: 'End Session',
-                template: 'You have to login again'
-            });
+.controller('AppCrtl', function ($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS) {
+    $scope.$on(AUTH_EVENTS.notAuthentificated, function (event) {
+        AuthService.logout();
+        $state.go('tab.dash');
+        var alertPopup = $ionicPopup.alert({
+            title: 'End Session',
+            template: 'You have to login again'
         });
-    })
+    });
+})
 
 
-.controller('sendMailCrtl', function($scope){
+.controller('sendMailCrtl', function($scope,$ionicPlatform){
     $scope.sendMail = function () {
-        console.log('inside the function sendMail');
+
+        $ionicPlatform.ready(function() {
+            //$cordovaPlugin.someFunction().then(success, error);
+            console.log(window.plugins);
+            //console.log(cordova);
+        });
+        //console.log(cordova.plugins);
+
+        //console.log(window.plugins.emailComposer);
+
+        /*
+        if(window.plugins && window.plugins.emailComposer){
+            window.plugins.emailComposer.showEmailComposerWithCallback(function(result){
+                console.log('test the plugin');
+            })
+        }else{
+            console.log('no plugin installed');
+        }
+        */
     };
+
 })
 
 //controller of the login page

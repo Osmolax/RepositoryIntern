@@ -51,6 +51,29 @@ var UserSchema = new Schema({
     },
     nombre_place: {
         type: Number
+    },
+    nom:{
+        type: String,
+        required: true
+    },
+    prenom:{
+        type: String,
+        required: true
+    },
+    dateNaissance:{
+        type: String,
+        required: true
+    },
+    numCIN:{
+        type: String,
+        required: true
+    },
+    sexe:{
+        type: String,
+        required: true
+    },
+    photo:{
+        type: String
     }
 
 

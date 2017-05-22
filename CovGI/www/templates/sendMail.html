@@ -1,4 +1,4 @@
-<ion-view view-title="Contact us" ng-controller="sendMailCrtl">
+<ion-view view-title="Contact us" >
   <ion-content>
     <div class="list">
   <label class="item item-input item-stacked-label">
@@ -16,8 +16,11 @@
   <label class="item item-input">
     <textarea placeholder="Your message" style="height: 100px;"></textarea>
   </label>
-  <input type="button" class="button button-block button-positive" name="email_contact_us" style="margin-top: 4px;" value="Send" ng-click="sendMail()">
+
+  <button class="button button-block button-positive" name="email_contact_us" style="margin-top: 4px;" value="Send email" ng-click="sendMail()" ></button>
 </div>
   </ion-content>
 </ion-view>
+
+
 

@@ -72,7 +72,7 @@ app.post('/api/createUser', function(req, res){
     }
     else{
         //sinon on enregistre le user
-        var newUser = new User({ login: req.body.login, password: req.body.password, email: req.body.email, tel: req.body.tel, address: req.body.address, BU: req.body.BU, job: req.body.job,vehicule: req.body.vehicule, matricule: req.body.matricule, nombre_place: req.body.nombre_place });
+        var newUser = new User({ login: req.body.login, password: req.body.password, email: req.body.email, tel: req.body.tel, address: req.body.address, BU: req.body.BU, job: req.body.job,vehicule: req.body.vehicule, matricule: req.body.matricule, nombre_place: req.body.nombre_place,nom: req.body.nom, prenom: req.body.prenom, dateNaissance: req.body.dateNaissance, numCIN: req.body.numCIN, sexe: req.body.sexe });
         newUser.save(function(err){
             if (err) {
                 return res.json({ succes: false, message: 'Erreur login déjà pris'});
