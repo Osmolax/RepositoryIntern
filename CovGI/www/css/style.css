@@ -1,8 +1,19 @@
 /* Empty. Add your own CSS if you like */
 .menu.menu-left {
-    background-image: url('https://www.cgi.fr/sites/default/files/images/bg-left-contact.jpg');
+    background-image: url('../img/cgi-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.pane{
+    background-image: url('../img/cgi-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.oopsimage{
+    height: 15%;
+    width:  15%;
 }
 
 #map {
