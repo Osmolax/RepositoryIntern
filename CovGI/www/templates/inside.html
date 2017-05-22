@@ -1,10 +1,10 @@
-<ion-view view-title="Consultation">
+<ion-view  class="pane" view-title="Consultation">
 
     <ion-nav-buttons side="left">
         <button menu-toggle="left" class="button button-icon icon ion-navicon">
         </button>
     </ion-nav-buttons>
-    <ion-content>
+    <ion-content >
         <ion-tabs class="tabs-icon-bottom tabs-dark tabs-color-active-light">
             <ion-tab title="Offre"  icon-off="ion-ios-list" icon-on="ion-ios-list">
 
@@ -57,9 +57,11 @@
 
                      </div>
                              </ion-item>
+
                          </ion-list>
 
-                     </ion-content>
+
+                    </ion-content>
 
 
                      <ion-footer-bar class="bar bar-footer" >
@@ -96,8 +98,31 @@
 
 
                          </a>
-                     </div>
 
+                     </div>
+                         <p ng-show="!allDemand.length">
+                         <div class="card">
+                         <div  class="item item-divider">
+                             <img class="oopsimage" src="../img/oops.png">
+                             <img class="oopsimage" src="../img/oops.png">
+                             <img class="oopsimage" src="../img/oops.png">
+                             <img class="oopsimage" src="../img/oops.png">
+                             <img class="oopsimage" src="../img/oops.png">
+                             <img class="oopsimage" src="../img/oops.png">
+                         </div>
+                         <div class="item item-text-wrap">
+                             Il semble qu'il n'y ai pas de demande pour le moment !
+                         </div>
+                         <div class="item item-divider">
+                             <img class="oopsimage" src="../img/oops.png">
+                             <img class="oopsimage" src="../img/oops.png">
+                             <img class="oopsimage" src="../img/oops.png">
+                             <img class="oopsimage" src="../img/oops.png">
+                             <img class="oopsimage" src="../img/oops.png">
+                             <img class="oopsimage" src="../img/oops.png">
+                         </div>
+
+                     </div></p>
 
                      </ion-content>
                      <ion-footer-bar class="bar bar-footer">

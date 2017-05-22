@@ -5,6 +5,17 @@
     background-size: cover;
 }
 
+.pane{
+    background-image: url('../img/cgi-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.oopsimage{
+    height: 15%;
+    width:  15%;
+}
+
 #map {
 
     height: 55%;
