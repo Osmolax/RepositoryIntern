@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 
 
 //////////////////////////////////
-var mongojs = require('mongojs')
+var mongojs = require('mongojs');
 global.db = mongojs('mongodb://localhost:27017/mongodb_test');
 //////////////////////////////////
 
@@ -41,6 +41,12 @@ app.use(morgan('dev'));
 //Utiliser le package passeport dans notre appli
 app.use(passport.initialize());
 
+
+MongoClient.connect("mongodb://localhost:27017/mongodb_test", function(err, db) {
+    if(!err) {
+        console.log("We are connected");
+    }
+});
 
 
 
@@ -84,27 +90,19 @@ app.post('/api/createUser', function(req, res){
 
 //ajouter une insciption a une offre
 app.post('/api/inscriptionOffer', function(req, res){
-    MongoClient.connect("mongodb://localhost:27017/mongodb_test", function(err, db) {
-        if(!err) {
-            console.log("We are connected");
-        }
-    });
+
     var collection = db.collection('inscriptionOffer');
-    var newInscription = ({idOffer: req.body.idOffer, idDemandeur: req.body.idDemandeur, statusDemande: 0, latDemande: req.body.latDemande, lngDemande: req.body.lngDemande, dateInscription: req.body.dateInscription, dateAcceptation: null});
+    var newInscription = ({idOffer: req.body.idOffer, idDemandeur: req.body.idDemandeur, statusDemande: 0, latDemande: req.body.latDemande, lngDemande: req.body.lngDemande, dateInscription: req.body.dateInscription, dateAcceptation: null, seen: false});
     collection.insert(newInscription,function(error, record){
         if(error) throw error;
         console.log('inscription saved');
-        res.send('inscription saved');
+        res.send(newInscription);
     });
 })
 
 //liste des offres by id_offer
 app.post('/api/listOfferById', function(req, res){
-    MongoClient.connect("mongodb://localhost:27017/mongodb_test", function(err, db) {
-        if(!err) {
-            console.log("We are connected");
-        }
-    });
+
     var collection = db.collection('inscriptionOffer');
     collection.find({'idOffer': req.body.idOffer}).toArray(function(err, docs){
         console.log("retrieved records:");
@@ -117,11 +115,7 @@ app.post('/api/listOfferById', function(req, res){
 
 //get demandeInscription
 app.post('/api/getDInscription', function(req, res){
-    MongoClient.connect("mongodb://localhost:27017/mongodb_test", function(err, db) {
-        if(!err) {
-            console.log("We are connected");
-        }
-    });
+
     var collection = db.collection('inscriptionOffer');
     collection.find({'idOffer': req.body.idOffer}).toArray(function(err, docs){
         console.log("retrieved records:");
@@ -129,6 +123,70 @@ app.post('/api/getDInscription', function(req, res){
         res.send(docs);
     });
 })
+
+var mongo = require('mongodb');
+
+
+
+//collection.update({idOffer:req.body.idOffer},{$set:{seen: true}});
+app.post('/api/DInscriptionSeen', function(req, res){
+    var collection = db.collection('inscriptionOffer');
+    var o_id = new mongo.ObjectID(req.body._id);
+    collection.update({'_id':o_id},{$set:{'seen': true}}, function (err, result) {
+        if(err) throw err;
+        else res.send('update');
+    });
+    //res.send('Update Success');
+})
+
+//Accepter inscription a une offre
+app.post('/api/DInscriptionAccepted', function(req, res){
+    var collection = db.collection('inscriptionOffer');
+    var o_id = new mongo.ObjectID(req.body._id);
+    collection.update({'_id':o_id},{$set:{'statusDemande': 1, 'seen': true, 'dateAcceptation': new Date()}}, function (err, result) {
+        if(err) throw err;
+        else {
+            collection.find({'_id':o_id}).toArray(function(err, demande){
+                //console.log("retrieved records:");
+                //console.log(docs);
+                res.send(demande);
+                //res.send('id offre '+ demande.idOffer);
+                //console.log('---------------------------------- id de la demande est '+demande[0].idOffer);
+                var collection2 = db.collection('trajetusers');
+
+                var offre_id = new mongo.ObjectID(demande[0].idOffer);
+
+                collection2.find({'_id':offre_id}).toArray(function(err, offre){
+                    if(err) throw err;
+                    else{
+                        if(offre[0].nombrePlace != 0){
+                            collection2.update({'_id':offre_id},{$set:{'nombrePlace': offre[0].nombrePlace -1 }}, function (err, result) {
+                                if(err) throw err;
+                                else {
+                                    console.log('---------------------------------------- nombre de place -1' );
+                                };
+                            });
+                        }else {
+                            res.json({succes: false,  message: 'No space available'});
+                        }
+                    }
+                });
+            });
+        };
+    });
+})
+
+//check if demande accepted
+app.post('/api/getDInscriptionById', function(req, res){
+    var collection = db.collection('inscriptionOffer');
+    var o_id = new mongo.ObjectID(req.body._id);
+    collection.find({'_id':o_id}).toArray(function(err, demande){
+        //console.log("retrieved records:");
+        //console.log(docs);
+        res.send(demande);
+    });
+})
+
 
 //get user by id
 app.post('/api/getUserById', function(req, res){
@@ -284,12 +342,7 @@ global.db = mongojs('mongodb://localhost:27017/mongodb_test');
 
 
 app.post('/api/LatLangLieu', function(req, res){
-    // Connect to the db
-    MongoClient.connect("mongodb://localhost:27017/mongodb_test", function(err, db) {
-        if(!err) {
-            console.log("We are connected");
-        }
-    });
+
     var collection = db.collection('lieu');
     collection.find({nomLieu:req.body.nomLieu}).toArray(function(err, docs){
         console.log("retrieved records:");
