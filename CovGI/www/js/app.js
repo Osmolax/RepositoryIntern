@@ -181,7 +181,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 
 
-  });
+  })
+
+/*
+ .run(function ($rootScope, $state, AuthService, AUTH_EVENTS) {
+ $rootScope.$on('$stateChangeStart', function (event,next, nextParams, fromState) {
+ if (!AuthService.isAuthenticated()) {
+ console.log(next.name);
+ if (next.name !== 'tab.dash') {
+ event.preventDefault();
+ $state.go('tab.dash');
+ }
+ }
+ });
+ });
+ */
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
