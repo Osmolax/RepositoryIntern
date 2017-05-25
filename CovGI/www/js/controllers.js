@@ -147,10 +147,15 @@ angular.module('starter.controllers', [])
 
 
 
+    $scope.check_registrations = function () {
+        $state.go('menu.member_registration');
+    }
 
         $scope.check_offers = function () {
             $state.go('menu.member_offer');
         }
+
+
 
         $scope.check_demands = function () {
             $state.go('menu.member_demand');
@@ -191,8 +196,10 @@ angular.module('starter.controllers', [])
         });
 
         $http.get(API_ENDPOINT.url+'/allDemand').then(function (result) {
-            //console.log('liste des demandes ', result.data);
+
             $scope.allDemand = result.data;
+
+
         });
 
 
@@ -504,17 +511,17 @@ angular.module('starter.controllers', [])
     .controller('StaticCtrl', function ($scope, $rootScope) {
         $scope.countries = {
             'Rabat' : {
-                'Menzeh' : ['Terminus 57'],
+                'Menzeh' : ['Auto El Menzah'],
                 'Qamra' : ['Résidence Assabah','Total Msarni','Qamra'],
                 'Hay Nahda' : ['ISTA Hay Nahda','Dar Al Khoubz'],
-                'Hay El Fath' : ['Terminus 30','Résidence Mimoza','Café Cata Atlas','CCM'],
-                'Hay Riad' : ['Label Vie','Bank Al Maghrib','CDG','Croisement Av.Mehdi Benbarka et Almelia'],
+                'Hay El Fath' : ['Ecole Sanabil El Fath','Résidence Mimoza','Cité Hay Al Fath'],
+                'Hay Riad' : ['Label Vie','Bank Al Maghrib','CDG'],
                 'Rabat Ville' :['Gare Rabat'],
                 'Diour Jamaa' : ['Auto Hall'],
                 'Ocean' : ['4ème arrondissement'],
                 'Akkari' : ['Hôpital Moulay Youssef'],
-                'Agdal' : ['Crédit du Maroc face à Amazone'],
-                'Takadom' : ['Château'],
+                'Agdal' : ['Gare Rabat-Agdal','Lycée Descartes'],
+                'Takadom' : ['Château d\'eau Hay Farah'],
                 'Youssoufia' : ['Mini Parc']
             },
 
@@ -551,6 +558,50 @@ angular.module('starter.controllers', [])
 
     })
 
+
+
+    .controller('testCtrl', function ($scope, $rootScope) {
+        $scope.doHide = function () {
+
+            var listDiv =  document.getElementById("testDivList");
+            var testMessage = document.getElementById("testMessage");
+            if(listDiv.length!=0){
+                listDiv.style.visibility = "visible";
+                testMessage.style.visibility = "hidden";
+            }else {
+                listDiv.style.visibility = "hidden";
+                testMessage.style.visibility = "visible";
+
+            }
+
+            
+        }
+
+
+
+    })
+
+
+    .controller('messageCtrl', function ($scope, $rootScope) {
+
+
+            var demandeList =  document.getElementById("demandeList");
+            var cardMessage = document.getElementById("cardMessage");
+            console.log(demandeList.length);
+        console.log(cardMessage);
+
+          /*  if(demandeList.length!=0)
+          {
+                demandeList.style.visibility = "visible";
+                cardMessage.style.visibility = "hidden";
+            }else {
+                demandeList.style.visibility = "hidden";
+                cardMessage.style.visibility = "visible";
+
+            }
+*/
+
+    })
 
 
     .controller('createDemandCtrl', function ($scope, $rootScope) {
@@ -683,7 +734,7 @@ angular.module('starter.controllers', [])
                                         title: 'Offre creer',
                                         template: 'Votre offre a été créée avec succès'
                                     }).then(function () {
-                                        $state.go('menu.inside', {}, { reload:'menu.inside' ,inherit: false });
+                                        $state.go('menu.inside', {}, { reload:true ,inherit: false });
                                     });
                                 });
                             }
@@ -802,3 +853,4 @@ angular.module('starter.controllers', [])
 
     })
 
+    

@@ -136,7 +136,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           }
       }
   })
+/*****************************************************/
+      .state('menu.testVisibility',{
+          url: '/testVisibility',
+          views:{
+              'menuContent':{
+                  templateUrl:'templates/test_visibility.html'
 
+              }
+          }
+      })
+ /*****************************************************/
       .state('menu.member_demand',{
           url: '/checkDemands',
           views:{

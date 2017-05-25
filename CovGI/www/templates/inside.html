@@ -15,7 +15,11 @@
 
 
                         <ion-list>
-                            <input type="text" ng-model="searchText">
+                            <div class="row">
+                            <label class="item item-input" style="width: 100%;">
+                                <i class="icon ion-android-search placeholder-icon" style="font-size: 20px;" ></i> <input type="text"  ng-model="searchText" >
+                            </label>
+                            </div>
 
                             <ion-item ng-repeat="offre in allOffer | filter:searchText" ng-click="openModalOffer(offre)">
 
@@ -53,20 +57,43 @@
                                  </div>
 
                              </div>
-                         </a>
+
 
                      </div>
                              </ion-item>
 
                          </ion-list>
+                        <div ng-show="!allOffer.length">
+                            <div  class="item item-divider">
+                            <img class="oopsimage" src="../img/oops.png">
+                            <img class="oopsimage" src="../img/oops.png">
+                            <img class="oopsimage" src="../img/oops.png">
+                            <img class="oopsimage" src="../img/oops.png">
+                            <img class="oopsimage" src="../img/oops.png">
+                            <img class="oopsimage" src="../img/oops.png">
+                        </div>
+                            <div class="item item-text-wrap">
+                                Il semble qu'il n'y ai pas d'offre pour le moment !
+                            </div>
+                            <div class="item item-divider">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                            </div></div>
 
 
                     </ion-content>
 
 
                      <ion-footer-bar class="bar bar-footer" >
-                         <a class="button  icon-right ion-chevron-right button-dark" href="#/menu/createOffer" style="width: 100%;"  >Créer une offre</a>
+                         <a class="button  icon-right ion-chevron-right button-dark" href="#/menu/createOffer" style="width: 100%;"  >Créer une offre</a><!--<br>
+                         <a class="button  icon-right ion-chevron-right button-dark" href="#/menu/testVisibility" style="width: 100%;"  >Test</a>-->
                      </ion-footer-bar>
+
+
 
                  </ion-view>
              </ion-tab>
@@ -74,22 +101,42 @@
 
              <ion-tab title="Demande"  icon-off="ion-ios-list" icon-on="ion-ios-list">
                  <ion-view>
-                     <ion-content style="margin-top: -65px">
+                     <ion-content style="margin-top: -65px" ng-controller="messageCtrl">
 
-                           <div class="list">
-                         <input type="text" ng-model="searchText">
-                         <a class="item item-icon-left" ng-repeat="demand in allDemand | filter:searchText"  ng-click="openModalDemande(demand)">
+                         <ion-list id="demandeList" >
+                         <div class="row">
+                             <label class="item item-input" style="width: 100%;margin-top: 4%">
+                                 <i class="icon ion-android-search placeholder-icon" style="font-size: 20px;" ></i> <input type="text"  ng-model="searchText" >
+                             </label>
+                         </div>
+                         <ion-item ng-repeat="demand in allDemand | filter:searchText"  ng-click="openModalDemande(demand)">
+                             <ion-option-button class="button-calm">
+                               Contacter
+                             </ion-option-button>
 
                              <div class="row">
 
-                                 <div class="col" style="margin-right: 150px"> <img src="..\img\from_to_icon.png" class="icon icon-right" style="height: 30px; margin-top: 30px; margin-left: 15px;">Technopolis <br>
-                                    {{demand.lieu}}</div>
+                                 <div class="row">
+                                     <img src="..\img\from_to_icon.png" class="icon icon-right" style="height: 30px; margin-top: 7px; margin-left: 15px;">
+                                     <div class="col" style="margin-right: 150px">
+
+                                         &nbsp;   Technopolis <br>
+                                         &nbsp;  {{demand.lieu}}
+
+                                     </div>
+                                 </div>
+
+
                              </div>
+
+
 
                              <div class="row">
+                                 <div class="col" style="margin-right: 150px">
+                                     <i class="icon ion-android-calendar" style="font-size: 20px;  height: 30px; margin-top: 65px;margin-left: 25px;"></i>
 
-                                 <div class="col"><i class="icon ion-android-calendar" style="font-size: 20px;  height: 30px; margin-top: 70px;  margin-left: 15px;"></i>
-                                    Date et Heure : {{demand.dateTrajet.slice(0,-8).split('T')}} </div>
+                                     &nbsp;  Date et Heure : {{demand.dateTrajet.slice(0,-8).split('T')}}
+                                 </div>
 
                              </div>
 
@@ -97,32 +144,33 @@
 
 
 
-                         </a>
 
-                     </div>
-                         <p ng-show="!allDemand.length">
-                         <div class="card">
-                         <div  class="item item-divider">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                         </div>
-                         <div class="item item-text-wrap">
-                             Il semble qu'il n'y ai pas de demande pour le moment !
-                         </div>
-                         <div class="item item-divider">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                         </div>
 
-                     </div></p>
+                         </ion-item>
+
+
+                         </ion-list>
+                         <div ng-show="!allDemand.length"> <div  class="item item-divider">
+                             <img class="oopsimage" src="../img/oops.png">
+                             <img class="oopsimage" src="../img/oops.png">
+                             <img class="oopsimage" src="../img/oops.png">
+                             <img class="oopsimage" src="../img/oops.png">
+                             <img class="oopsimage" src="../img/oops.png">
+                             <img class="oopsimage" src="../img/oops.png">
+                         </div>
+                             <div class="item item-text-wrap">
+                                 Il semble qu'il n'y ai pas de demande pour le moment !
+                             </div>
+                             <div class="item item-divider">
+                                 <img class="oopsimage" src="../img/oops.png">
+                                 <img class="oopsimage" src="../img/oops.png">
+                                 <img class="oopsimage" src="../img/oops.png">
+                                 <img class="oopsimage" src="../img/oops.png">
+                                 <img class="oopsimage" src="../img/oops.png">
+                                 <img class="oopsimage" src="../img/oops.png">
+                             </div></div>
+
+
 
                      </ion-content>
                      <ion-footer-bar class="bar bar-footer">
