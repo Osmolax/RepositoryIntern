@@ -564,20 +564,20 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller('StaticCtrl', function ($scope, $rootScope) {
+    .controller('StaticCtrl', function ($scope) {
         $scope.countries = {
             'Rabat' : {
-                'Menzeh' : ['Terminus 57'],
+                'Menzeh' : ['Auto El Menzah'],
                 'Qamra' : ['Résidence Assabah','Total Msarni','Qamra'],
                 'Hay Nahda' : ['ISTA Hay Nahda','Dar Al Khoubz'],
-                'Hay El Fath' : ['Terminus 30','Résidence Mimoza','Café Cata Atlas','CCM'],
-                'Hay Riad' : ['Label Vie','Bank Al Maghrib','CDG','Croisement Av.Mehdi Benbarka et Almelia'],
+                'Hay El Fath' : ['Ecole Sanabil El Fath','Résidence Mimoza','Cité Hay Al Fath'],
+                'Hay Riad' : ['Label Vie','Bank Al Maghrib','CDG'],
                 'Rabat Ville' :['Gare Rabat'],
                 'Diour Jamaa' : ['Auto Hall'],
                 'Ocean' : ['4ème arrondissement'],
                 'Akkari' : ['Hôpital Moulay Youssef'],
-                'Agdal' : ['Crédit du Maroc face à Amazone'],
-                'Takadom' : ['Château'],
+                'Agdal' : ['Gare Rabat-Agdal','Lycée Descartes'],
+                'Takadom' : ['Château d\'eau Hay Farah'],
                 'Youssoufia' : ['Mini Parc']
             },
 
@@ -613,6 +613,7 @@ angular.module('starter.controllers', [])
 
 
     })
+
 
 
 
