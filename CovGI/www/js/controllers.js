@@ -670,7 +670,7 @@ angular.module('starter.controllers', [])
 
 
                 $http.post(API_ENDPOINT.url+'/LatLangLieu',{'nomLieu':$scope.lieuS[1]}).then(function(result){
-                    console.log(result.data);
+                    //console.log(result.data);
                     $scope.LatSelectedPlace = result.data[0].latitude;
                     $scope.LongSelectedPlace = result.data[0].longitude;
                     DisplayRoute(directionsService,directionsDisplay);
