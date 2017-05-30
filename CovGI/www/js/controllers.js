@@ -606,48 +606,9 @@ angular.module('starter.controllers', [])
 
 
 
-    .controller('testCtrl', function ($scope, $rootScope) {
-        $scope.doHide = function () {
-
-            var listDiv =  document.getElementById("testDivList");
-            var testMessage = document.getElementById("testMessage");
-            if(listDiv.length!=0){
-                listDiv.style.visibility = "visible";
-                testMessage.style.visibility = "hidden";
-            }else {
-                listDiv.style.visibility = "hidden";
-                testMessage.style.visibility = "visible";
-
-            }
-
-            
-        }
 
 
 
-    })
-
-
-    .controller('messageCtrl', function ($scope, $rootScope) {
-
-
-            var demandeList =  document.getElementById("demandeList");
-            var cardMessage = document.getElementById("cardMessage");
-            console.log(demandeList.length);
-        console.log(cardMessage);
-
-          /*  if(demandeList.length!=0)
-          {
-                demandeList.style.visibility = "visible";
-                cardMessage.style.visibility = "hidden";
-            }else {
-                demandeList.style.visibility = "hidden";
-                cardMessage.style.visibility = "visible";
-
-            }
-*/
-
-    })
 
 
     .controller('createDemandCtrl', function ($scope, $rootScope) {
@@ -876,6 +837,27 @@ angular.module('starter.controllers', [])
     })
 
     .controller('memberDemandCtrl', function ($scope ,AuthService, API_ENDPOINT, $http, $ionicPopup) {
+        // var data=({"userId": $scope.member_info._id});
+
+
+        $http.post(API_ENDPOINT.url+'/trajetDemande',{'idUser':$scope.member_info._id}).then(function(result){
+            console.log(result.data);
+
+            $scope.trajetsDemande = result.data;
+        });
+
+
+        $scope.deleteItem = function (trajectDemande) {
+            $scope.deleteItemWithID = trajectDemande._id;
+            $scope.trajetsDemande.splice($scope.trajetsDemande.indexOf(trajectDemande), 1);
+            $http.post(API_ENDPOINT.url+'/dropDemandeUser',{'_id':$scope.deleteItemWithID}).then(function(result){
+                console.log(result.data);
+            });
+        };
+
+    })
+
+    .controller('memberRegistrationCtrl', function ($scope ,AuthService, API_ENDPOINT, $http, $ionicPopup) {
         // var data=({"userId": $scope.member_info._id});
 
 

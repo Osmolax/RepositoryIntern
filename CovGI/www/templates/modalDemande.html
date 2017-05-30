@@ -20,8 +20,26 @@
 
         <div class="row">
                <div class="col" style="margin-right: 150px">
-                <i class="icon ion-android-calendar" style="font-size: 20px;  height: 30px; margin-top: 70px;margin-left: 15px;"></i>
-                   Date et Heure : {{dateDemande.slice(0,-8).split('T')}}
+
+                   <i class="icon ion-android-calendar" style="font-size: 20px;  height: 30px; margin-top: 65px;margin-left: 25px;"></i>
+
+
+                   &nbsp;  Date : {{dateDemande.slice(0,-8).split('T')[0]}}
+
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col" style="margin-right: 150px">
+
+
+                <i class="icon ion-android-time" style="font-size: 20px;  height: 30px; margin-top: 65px;margin-left: 25px;"></i>
+
+
+                &nbsp;  Heure : {{dateDemande.slice(0,-8).split('T')[1]}}<br>
+
             </div>
 
         </div>

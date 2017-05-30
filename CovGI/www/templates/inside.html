@@ -15,22 +15,16 @@
 
 
                         <ion-list>
-                    <!--  <input type="text" ng-model="searchText">-->
-                            <div class="list">
+                        <div class="list">
                             <label class="item item-input" style="height: 35px">
-                                <i class="icon item-left ion-search placeholder-icon" style="font-size: 27px; color : black; "></i>
-                                <input type="text" ng-model="searchText" required="true">
 
+                                <i class="icon item-left ion-search placeholder-icon" style="font-size: 27px; color : black;" ></i>
+                                <input type="text" ng-model="searchText" required="true">
 
 
                             </label>
                             </div>
-                            <!--<div>
-                               <i class="icon ion-ios7-search placeholder-icon"></i>
-                               <input id="searchKey" type="search" placeholder="Search" ng-model="searchText" autocorrect="off" >
-                               <button class="button button-clear" ng-click="clearSearch()">X</button>
-                           </div>-->
-                           <ion-item ng-repeat="offre in allOffer | filter:searchText" ng-click="openModalOffer(offre)" style="margin-top: -15px">
+                              <ion-item ng-repeat="offre in allOffer | filter:searchText" ng-click="openModalOffer(offre)" style="margin-top: -15px">
 
 
                                <ion-option-button class="button-calm">
@@ -195,17 +189,13 @@
 
                    </ion-content>
                    <ion-footer-bar class="bar bar-footer">
-                       <!--<button title="Create Demand"  class="button button-block button-dark">Create Demand</button>-->
-                        <a class="button  icon-right ion-chevron-right button-dark"  href="#/menu/createDemand" style="width: 100%">Créer une demande</a>
+                      <a class="button  icon-right ion-chevron-right button-dark"  href="#/menu/createDemand" style="width: 100%">Créer une demande</a>
                     </ion-footer-bar>
                 </ion-view>
             </ion-tab>
         </ion-tabs>
     </ion-content>
-    <!--<div class="tabs tabs-background-dark ">
-        <button class="tab-item tab-item-stable">Offre</button>
-        <button class="tab-item">Demande</button>
-    </div>-->
+
 
 
 </ion-view>
