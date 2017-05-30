@@ -884,75 +884,40 @@ angular.module('starter.controllers', [])
 
             latDemande = [];
             lngDemande = [];
+            var marker = [];
+            var imgMarker;
+            var myLatLng = [];
+            var j = 0;
 
-
-       /*     $http.post(API_ENDPOINT.url+'/getDInscription',{'idOffer':trajectUser._id}).then(function(result){
-                var i;
+            $http.post(API_ENDPOINT.url+'/getDInscription',{'idOffer':trajectUser._id}).then(function(result){
                 for(i=0;i<result.data.length;i++){
                     if(result.data[i].statusDemande == 1 && result.data[i].latDemande != null && result.data[i].lngDemande != null){
                         latDemande[i] = result.data[i].latDemande;
                         lngDemande[i] = result.data[i].lngDemande;
-                        var myLatLng = {lat: latDemande[i], lng: lngDemande[i]};
-                        //myLatLng[0] = {lat: 33.9950385520165, lng: -6.7701530456543};
-                        //myLatLng[1] = {lat: 34.031180658938, lng: -6.83838844299316};
-
-                        var imgMarker;
-
-                                $http.post(API_ENDPOINT.url+'/getUserById',{'_id':result.data[i].idDemandeur}).then(function(result2){
-                                    //console.log('marker demandeur '+result.data);
-                                    imgMarker = {url: result2.data.marker};
-                                //    console.log('image marker user '+imgMarker.url);
-                                    console.log('result::::'+result2);
-
-                                    var marker = new google.maps.Marker({
-                                        position: myLatLng,
-                                        map: map,
-                                        animation: google.maps.Animation.DROP,
-                                        icon : imgMarker
-                                    });
-                                })
+                        myLatLng[i] = {lat: latDemande[i], lng: lngDemande[i]};
 
 
+
+                        $http.post(API_ENDPOINT.url+'/getUserById',{'_id':result.data[i].idDemandeur}).then(function(result2){
+                            //console.log('marker demandeur '+result.data);
+                            imgMarker = {url: result2.data.marker};
+                            initMarker(imgMarker);
+                        })
+
+                        function initMarker(imgMarker) {
+                            marker[i] = new google.maps.Marker({
+                                position: myLatLng[j],
+                                map: map,
+                                animation: google.maps.Animation.DROP,
+                                icon : imgMarker
+                            });
+                            j++;
+                        }
 
                     }
                 }
-            });*/
+            });
 
-            $http.post(API_ENDPOINT.url+'/getDInscription',{'idOffer':trajectUser._id}).then(function(result){
-                var i;
-                var myLatLng;
-                var imgMarker;
-                for(i=0;i<result.data.length;i++) {
-
-                    if (result.data[i].statusDemande == 1 && result.data[i].latDemande != null && result.data[i].lngDemande != null) {
-                        latDemande[i] = result.data[i].latDemande;
-                        lngDemande[i] = result.data[i].lngDemande;
-                        myLatLng = {lat: latDemande[i], lng: lngDemande[i]};
-                        //myLatLng[0] = {lat: 33.9950385520165, lng: -6.7701530456543};
-                        //myLatLng[1] = {lat: 34.031180658938, lng: -6.83838844299316};
-
-
-
-
-                    $http.post(API_ENDPOINT.url + '/getUserById', {'_id': result.data[i].idDemandeur}).then(function (result2) {
-                        //console.log('marker demandeur '+result.data);
-                        imgMarker = {url: result2.data.marker};
-                         console.log('image marker user '+imgMarker.url);
-
-                    });
-
-                    var marker = new google.maps.Marker({
-                        position: myLatLng,
-                        map: map,
-                        animation: google.maps.Animation.DROP,
-                        icon:imgMarker
-                    });
-
-                    }
-                }
-
-
-        });
 
 
             function DisplayRoute(directionsService,directionsDisplay) {
