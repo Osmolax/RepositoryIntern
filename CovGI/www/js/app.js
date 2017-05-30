@@ -136,17 +136,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           }
       }
   })
-/*****************************************************/
-      .state('menu.testVisibility',{
-          url: '/testVisibility',
-          views:{
-              'menuContent':{
-                  templateUrl:'templates/test_visibility.html'
 
-              }
-          }
-      })
- /*****************************************************/
+
       .state('menu.member_demand',{
           url: '/checkDemands',
           views:{
@@ -155,6 +146,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
               }
           }
       })
+
+    
 
   .state('tab.chats', {
       url: '/chats',
@@ -191,7 +184,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 
 
-  });
+  })
+
+/*
+ .run(function ($rootScope, $state, AuthService, AUTH_EVENTS) {
+ $rootScope.$on('$stateChangeStart', function (event,next, nextParams, fromState) {
+ if (!AuthService.isAuthenticated()) {
+ console.log(next.name);
+ if (next.name !== 'tab.dash') {
+ event.preventDefault();
+ $state.go('tab.dash');
+ }
+ }
+ });
+ });
+ */
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
