@@ -19,8 +19,7 @@
 
                             <ion-item ng-repeat="offre in allOffer | filter:searchText" ng-click="openModalOffer(offre)">
 
-
-                                <ion-option-button class="button-calm">
+                                <ion-option-button class="button-calm" ng-click="inscriptionOfferDirect(offre)">
                                     M'inscrire
                                 </ion-option-button>
 

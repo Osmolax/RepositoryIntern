@@ -6,7 +6,7 @@
                     ng-click="showDelete = !showDelete"></button>
         </div>
         <ion-list show-delete="showDelete">
-            <ion-item ng-repeat="trajectUser in trajetsUser">
+            <ion-item ng-repeat="trajectUser in trajetsUser" ng-click="openModalMemberOffer(trajectUser)">
                 <ion-delete-button class="ion-trash-b" ng-click="deleteItem(trajectUser)">
                 </ion-delete-button>
                 <ion-option-button class="button-assertive"
