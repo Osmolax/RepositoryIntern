@@ -78,7 +78,7 @@ app.post('/api/createUser', function(req, res){
     }
     else{
         //sinon on enregistre le user
-        var newUser = new User({ login: req.body.login, password: req.body.password, email: req.body.email, tel: req.body.tel, address: req.body.address, BU: req.body.BU, job: req.body.job,vehicule: req.body.vehicule, matricule: req.body.matricule, nombre_place: req.body.nombre_place,nom: req.body.nom, prenom: req.body.prenom, dateNaissance: req.body.dateNaissance, numCIN: req.body.numCIN, sexe: req.body.sexe });
+        var newUser = new User({ login: req.body.login, password: req.body.password, email: req.body.email, tel: req.body.tel, address: req.body.address, BU: req.body.BU, job: req.body.job,vehicule: req.body.vehicule, matricule: req.body.matricule, nombre_place: req.body.nombre_place,nom: req.body.nom, prenom: req.body.prenom, dateNaissance: req.body.dateNaissance, numCIN: req.body.numCIN, sexe: req.body.sexe, photo: req.body.photo });
         newUser.save(function(err){
             if (err) {
                 return res.json({ succes: false, message: 'Erreur login déjà pris'});
@@ -115,11 +115,10 @@ app.post('/api/listOfferById', function(req, res){
 
 //get demandeInscription
 app.post('/api/getDInscription', function(req, res){
-
     var collection = db.collection('inscriptionOffer');
     collection.find({'idOffer': req.body.idOffer}).toArray(function(err, docs){
-        console.log("retrieved records:");
-        console.log(docs);
+        //console.log("retrieved records:");
+        //console.log(docs);
         res.send(docs);
     });
 })
@@ -194,7 +193,7 @@ app.post('/api/getUserById', function(req, res){
         if (err) { throw err; }
         else if (!user) { return res.send({ succes: false, message: 'Utilisateur non trouvé'});}
         else{
-            res.send(user);
+            res.json(user);
         }
     })
 })
@@ -291,6 +290,17 @@ getToken = function (headers) {
     }
 };
 
+app.get('/api/allUsers', function(req, res){
+
+    User.find({}, function(err, users){
+        if (err) {  throw err; }
+        else{
+            //res.render('trajetList', trajects);
+            console.log('liste of all trajects', users.length);
+            res.json(users);
+        }
+    });
+})
 
 app.get('/api/allOffre', function(req, res){
 
