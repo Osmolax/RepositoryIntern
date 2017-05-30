@@ -15,11 +15,19 @@
 
 
                         <ion-list>
-                            <input type="text" ng-model="searchText">
+                            <div class="list">
+                                <label class="item item-input" style="height: 35px">
 
-                            <ion-item ng-repeat="offre in allOffer | filter:searchText" ng-click="openModalOffer(offre)">
+                                    <i class="icon item-left ion-search placeholder-icon" style="font-size: 27px; color : black;" ></i>
+                                    <input type="text" ng-model="searchText" required="true">
 
-                                <ion-option-button class="button-calm" ng-click="inscriptionOfferDirect(offre)">
+
+                                </label>
+                            </div>
+                            <ion-item ng-repeat="offre in allOffer | filter:searchText" ng-click="openModalOffer(offre)" style="margin-top: -15px">
+
+
+                                <ion-option-button class="button-calm">
                                     M'inscrire
                                 </ion-option-button>
 
@@ -40,102 +48,158 @@
                                     <div class="col" style="margin-right: 150px">
                                         <i class="icon ion-android-calendar" style="font-size: 20px;  height: 30px; margin-top: 65px;margin-left: 25px;"></i>
 
-                                        &nbsp;  Date et Heure : {{offre.dateTrajet.slice(0,-8).split('T')}}
-                                     </div>
 
-                                 </div>
+                                        &nbsp;  Date : {{offre.dateTrajet.slice(0,-8).split('T')[0]}}
 
-                                 <div class="row">
-                                     <div class="col" style="margin-right: 100px">
-                                         <i class="icon  ion-information-circled" style="font-size: 20px; height: 30px; margin-top: 103px; margin-left: 25px;"></i>
-                                         &nbsp;      Nombre de places disponibles : {{offre.nombrePlace}}</div>
-                                 </div>
+                                        <i class="icon ion-android-time" style="font-size: 20px;  height: 30px; margin-top: 65px;margin-left: 25px;"></i>
 
-                             </div>
-                         </a>
 
-                     </div>
-                             </ion-item>
+                                        &nbsp;  Heure : {{offre.dateTrajet.slice(0,-8).split('T')[1]}}<br>
 
-                         </ion-list>
 
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col" style="margin-right: 100px">
+                                        <i class="icon  ion-information-circled" style="font-size: 20px; height: 30px; margin-top: 103px; margin-left: 25px;"></i>
+                                        &nbsp;      Nombre de places disponibles : {{offre.nombrePlace}}</div>
+                                </div>
+
+                                </div>
+                                </a>
+
+                                </div>
+                            </ion-item>
+
+                        </ion-list>
+
+                        <div class="card" ng-show="!allOffer.length">
+                            <div  class="item item-divider">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                            </div>
+                            <div class="item item-text-wrap">
+                                Il semble qu'il n'y ai pas d'offre pour le moment !
+                            </div>
+                            <div class="item item-divider">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                            </div>
+
+                        </div>
 
                     </ion-content>
 
 
-                     <ion-footer-bar class="bar bar-footer" >
-                         <a class="button  icon-right ion-chevron-right button-dark" href="#/menu/createOffer" style="width: 100%;"  >Créer une offre</a>
-                     </ion-footer-bar>
+                    <ion-footer-bar class="bar bar-footer" >
+                        <a class="button  icon-right ion-chevron-right button-dark" href="#/menu/createOffer" style="width: 100%;"  >Créer une offre</a>
+                    </ion-footer-bar>
 
-                 </ion-view>
-             </ion-tab>
+                </ion-view>
+            </ion-tab>
 
 
-             <ion-tab title="Demande"  icon-off="ion-ios-list" icon-on="ion-ios-list">
-                 <ion-view>
-                     <ion-content style="margin-top: -65px">
+            <ion-tab title="Demande"  icon-off="ion-ios-list" icon-on="ion-ios-list">
+                <ion-view>
+                    <ion-content style="margin-top: -45px">
 
-                           <div class="list">
-                         <input type="text" ng-model="searchText">
-                         <a class="item item-icon-left" ng-repeat="demand in allDemand | filter:searchText"  ng-click="openModalDemande(demand)">
+                        <ion-list>
 
-                             <div class="row">
-
-                                 <div class="col" style="margin-right: 150px"> <img src="..\img\from_to_icon.png" class="icon icon-right" style="height: 30px; margin-top: 30px; margin-left: 15px;">Technopolis <br>
-                                    {{demand.lieu}}</div>
-                             </div>
-
-                             <div class="row">
-
-                                 <div class="col"><i class="icon ion-android-calendar" style="font-size: 20px;  height: 30px; margin-top: 70px;  margin-left: 15px;"></i>
-                                    Date et Heure : {{demand.dateTrajet.slice(0,-8).split('T')}} </div>
-
-                             </div>
+                            <div class="list">
+                                <label class="item item-input" style="height: 35px">
+                                    <i class="icon item-left ion-search placeholder-icon" style="font-size: 27px; color : black; "></i>
+                                    <input type="text" ng-model="searchText" required="true">
 
 
 
+                                </label>
+                            </div>
+
+                            <ion-item ng-repeat="demand in allDemand | filter:searchText"  ng-click="openModalDemande(demand)"  style="margin-top: -15px">
+
+                                <ion-option-button class="button-calm">
+                                    Contacter
+                                </ion-option-button>
 
 
-                         </a>
+                                <div class="row">
+                                    <img src="..\img\from_to_icon.png" class="icon icon-right" style="height: 30px; margin-top: 7px; margin-left: 15px;">
+                                    <div class="col" style="margin-right: 150px">
 
-                     </div>
-                         <p ng-show="!allDemand.length">
-                         <div class="card">
-                         <div  class="item item-divider">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                         </div>
-                         <div class="item item-text-wrap">
-                             Il semble qu'il n'y ai pas de demande pour le moment !
-                         </div>
-                         <div class="item item-divider">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                             <img class="oopsimage" src="../img/oops.png">
-                         </div>
+                                        &nbsp;   Technopolis <br>
+                                        &nbsp;  {{demand.lieu}}
 
-                     </div></p>
+                                    </div>
+                                </div>
 
-                     </ion-content>
-                     <ion-footer-bar class="bar bar-footer">
-                         <!--<button title="Create Demand"  class="button button-block button-dark">Create Demand</button>-->
+
+
+                                <div class="row">
+                                    <div class="col" style="margin-right: 150px">
+                                        <i class="icon ion-android-calendar" style="font-size: 20px;  height: 30px; margin-top: 65px;margin-left: 25px;"></i>
+
+
+                                        &nbsp;  Date : {{demand.dateTrajet.slice(0,-8).split('T')[0]}}
+
+                                        <i class="icon ion-android-time" style="font-size: 20px;  height: 30px; margin-top: 65px;margin-left: 25px;"></i>
+
+
+                                        &nbsp;  Heure : {{demand.dateTrajet.slice(0,-8).split('T')[1]}}<br>
+
+
+
+                                    </div>
+
+                                </div>
+                            </ion-item>
+
+                        </ion-list>
+
+
+                        <div class="card" ng-show="!allDemand.length">
+                            <div  class="item item-divider">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                            </div>
+                            <div class="item item-text-wrap">
+                                Il semble qu'il n'y ai pas de demande pour le moment !
+                            </div>
+                            <div class="item item-divider">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                                <img class="oopsimage" src="../img/oops.png">
+                            </div>
+
+                        </div>
+
+                    </ion-content>
+                    <ion-footer-bar class="bar bar-footer">
                         <a class="button  icon-right ion-chevron-right button-dark"  href="#/menu/createDemand" style="width: 100%">Créer une demande</a>
                     </ion-footer-bar>
                 </ion-view>
             </ion-tab>
         </ion-tabs>
     </ion-content>
-    <!--<div class="tabs tabs-background-dark ">
-        <button class="tab-item tab-item-stable">Offre</button>
-        <button class="tab-item">Demande</button>
-    </div>-->
+
 
 
 </ion-view>

@@ -157,10 +157,15 @@ angular.module('starter.controllers', [])
 
 
 
+    $scope.check_registrations = function () {
+        $state.go('menu.member_registration');
+    }
 
         $scope.check_offers = function () {
             $state.go('menu.member_offer');
         }
+
+
 
         $scope.check_demands = function () {
             $state.go('menu.member_demand');
@@ -180,7 +185,7 @@ angular.module('starter.controllers', [])
             $state.go('menu.createDemand');
         };
 
-    /*  $scope.showPopupAddOffer = function () {
+      /*  $scope.showPopupAddOffer = function () {
             var myPopup = $ionicPopup.show({
                 template: '<input type="text" placeholder="">',
                 title: 'Add new Offer',
@@ -201,8 +206,10 @@ angular.module('starter.controllers', [])
         });
 
         $http.get(API_ENDPOINT.url+'/allDemand').then(function (result) {
-            //console.log('liste des demandes ', result.data);
+
             $scope.allDemand = result.data;
+
+
         });
 
 
@@ -390,12 +397,12 @@ angular.module('starter.controllers', [])
             $rootScope.initMap();
         }
 
-        $scope.openModalDemande = function(demand){
+      $scope.openModalDemande = function(demand){
 
             $scope.lieuDemande = demand.lieu;
             $scope.dateDemande = demand.dateTrajet;
             $scope.modalDemande.show();
-            $rootScope.initMapDemande();
+          $rootScope.initMapDemande();
         }
 
 
@@ -482,45 +489,45 @@ angular.module('starter.controllers', [])
                                 }
                             }
                             if(already == true){
-                                var confirmationInscriptionPopup = $ionicPopup.show({
+                                    var confirmationInscriptionPopup = $ionicPopup.show({
                                     title:'Confirmationnnn',
-                                    template: 'Êtes-vous sûr de vouloir envoyer votre demande à '+ $scope.UserOffer.login,
-                                    buttons:[
-                                        {
-                                            text: 'Annuler'
-                                        },{
-                                            text: 'Confirmer',
-                                            type: 'button-positive',
-                                            onTap: function(){
-                                                $http.post(API_ENDPOINT.url+'/inscriptionOffer',{'idOffer':$scope.idOffer, 'idDemandeur': $scope.member_info._id,'latDemande': $scope.latMarker, 'lngDemande':$scope.lngMarker, 'dateInscription': new Date()}).then(function(result){
+                                        template: 'Êtes-vous sûr de vouloir envoyer votre demande à '+ $scope.UserOffer.login,
+                                        buttons:[
+                                            {
+                                                text: 'Annuler'
+                                            },{
+                                                text: 'Confirmer',
+                                                type: 'button-positive',
+                                                onTap: function(){
+                                                    $http.post(API_ENDPOINT.url+'/inscriptionOffer',{'idOffer':$scope.idOffer, 'idDemandeur': $scope.member_info._id,'latDemande': $scope.latMarker, 'lngDemande':$scope.lngMarker, 'dateInscription': new Date()}).then(function(result){
                                                     console.log('--------------------------'+result.data);
                                                     $scope.idDInscription = result.data._id;
-                                                });
+                                                    });
 
-                                                var inscriptionSucessPopup = $ionicPopup.alert({
-                                                    title: 'Demande envoyée',
-                                                    template: 'Votre demande d\'inscription a été envoyée à '+ $scope.UserOffer.login
-                                                }).then(function () {
-                                                    $scope.modalOffre.hide();
-                                                });
+                                                    var inscriptionSucessPopup = $ionicPopup.alert({
+                                                        title: 'Demande envoyée',
+                                                        template: 'Votre demande d\'inscription a été envoyée à '+ $scope.UserOffer.login
+                                                    }).then(function () {
+                                                        $scope.modalOffre.hide();
+                                                    });
+                                                }
                                             }
-                                        }
-                                    ]
-                                }).then(ifDemandeAccepted = setInterval(function(){
-                                    $http.post(API_ENDPOINT.url+'/getDInscriptionById',{'_id':$scope.idDInscription}).then(function(result){
-                                        if(result.data[0].statusDemande == 1){
-                                            clearInterval(ifDemandeAccepted);
-                                            var inscriptionAccepted = $ionicPopup.alert({
-                                                title: 'Demande acceptée',
-                                                template: $scope.UserOffer.login+ ' a accepté votre demande d\'inscription a son offre'
-                                            });
-                                        }else {
-                                            console.log('not accepted yet');
-                                        }
-                                    });
-                                },1000));
+                                        ]
+                                    }).then(ifDemandeAccepted = setInterval(function(){
+                                        $http.post(API_ENDPOINT.url+'/getDInscriptionById',{'_id':$scope.idDInscription}).then(function(result){
+                                            if(result.data[0].statusDemande == 1){
+                                                clearInterval(ifDemandeAccepted);
+                                                var inscriptionAccepted = $ionicPopup.alert({
+                                                    title: 'Demande acceptée',
+                                                    template: $scope.UserOffer.login+ ' a accepté votre demande d\'inscription a son offre'
+                                                });
+                                            }else {
+                                                console.log('not accepted yet');
+                                            }
+                                        });
+                                    },1000));
+                                }
                             }
-                        }
                     });
                 }
 
@@ -613,6 +620,10 @@ angular.module('starter.controllers', [])
 
 
     })
+
+
+
+
 
 
 
@@ -747,7 +758,7 @@ angular.module('starter.controllers', [])
                                         title: 'Offre creer',
                                         template: 'Votre offre a été créée avec succès'
                                     }).then(function () {
-                                        $state.go('menu.inside', {}, { reload:'menu.inside' ,inherit: false });
+                                        $state.go('menu.inside', {}, { reload:true ,inherit: false });
                                     });
                                 });
                             }
@@ -856,6 +867,7 @@ angular.module('starter.controllers', [])
         }
 
 
+
         $rootScope.initMapMemberOffer = function(trajectUser){
 
             var directionsService = new google.maps.DirectionsService;
@@ -903,7 +915,7 @@ angular.module('starter.controllers', [])
                             //console.log('marker demandeur '+result.data);
                             imgMarker = {url: result2.data.marker};
                             initMarker(imgMarker);
-                        })
+    })
 
                         function initMarker(imgMarker) {
                             marker[i] = new google.maps.Marker({
@@ -959,3 +971,25 @@ angular.module('starter.controllers', [])
 
     })
 
+    .controller('memberRegistrationCtrl', function ($scope ,AuthService, API_ENDPOINT, $http, $ionicPopup) {
+        // var data=({"userId": $scope.member_info._id});
+
+
+        $http.post(API_ENDPOINT.url+'/trajetDemande',{'idUser':$scope.member_info._id}).then(function(result){
+            console.log(result.data);
+
+            $scope.trajetsDemande = result.data;
+        });
+
+
+        $scope.deleteItem = function (trajectDemande) {
+            $scope.deleteItemWithID = trajectDemande._id;
+            $scope.trajetsDemande.splice($scope.trajetsDemande.indexOf(trajectDemande), 1);
+            $http.post(API_ENDPOINT.url+'/dropDemandeUser',{'_id':$scope.deleteItemWithID}).then(function(result){
+                console.log(result.data);
+            });
+        };
+
+    })
+
+    

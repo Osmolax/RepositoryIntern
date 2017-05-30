@@ -20,10 +20,22 @@
             </div>
         </div>
         <div class="row">
+
             <div class="col" style="margin-right: 150px">
-                <i class="icon ion-android-calendar" style="font-size: 20px;  height: 30px; margin-top: 70px;margin-left: 25px;"></i>
-                &nbsp;  Date et Heure : {{trajetsUserInModal.dateTrajet}}
+
+
+                <i class="icon ion-android-calendar" style="font-size: 20px;  height: 30px; margin-top: 65px;margin-left: 25px;"></i>
+
+
+                &nbsp;  Date : {{trajetsUserInModal.dateTrajet.slice(0,-8).split('T')[0]}}
+
+                <i class="icon ion-android-time" style="font-size: 20px;  height: 30px; margin-top: 65px;margin-left: 25px;"></i>
+
+
+                &nbsp;  Heure : {{trajetsUserInModal.dateTrajet.slice(0,-8).split('T')[1]}}<br>
+
             </div>
+
         </div>
         <div class="row">
             <div class="col" style="margin-right: 100px">

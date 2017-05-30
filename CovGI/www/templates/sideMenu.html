@@ -24,10 +24,14 @@
                             <img  src="{{member_info.photo}}">
                         </div>
                         <span style="font-weight: bold;">{{member_info.login}}</span> <br>
+                        {{member_info.nom}}  {{member_info.prenom}}  <br>
+                        {{member_info.dateNaissance}}  <br>
                         {{member_info.email}}  <br>
                         {{member_info.tel}}   <br>
+                        {{member_info.numCIN}} <br>
                         {{member_info.BU}}  <br>
                         {{member_info.job}}
+
 
 
 
@@ -39,6 +43,8 @@
                         <ion-item ng-click="check_demands()" menu-close=""><i class="icon ion-android-car placeholder-icon"></i>Mes Demandes</ion-item>
                         <ion-item ng-click="createOffer()" menu-close=""  ><i class="icon ion-plus-circled placeholder-icon"></i>Créer une offre</ion-item>
                         <ion-item ng-click="createDemand()" menu-close="" ><i class="icon ion-plus-circled placeholder-icon"></i>Créer une demande</ion-item>
+                        <ion-item ng-click="check_registrations()" menu-close="" ><i class="icon ion-plus-circled placeholder-icon"></i>Mes inscriptions</ion-item>
+
                         <ion-item ng-click="logout()"><i class="icon ion-android-exit placeholder-icon"></i>Se déconnecter</ion-item>
                     </ion-list>
                 </div>
