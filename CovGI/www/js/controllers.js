@@ -867,6 +867,7 @@ angular.module('starter.controllers', [])
         }
 
 
+
         $rootScope.initMapMemberOffer = function(trajectUser){
 
             var directionsService = new google.maps.DirectionsService;
