@@ -113,6 +113,9 @@ app.post('/api/listOfferById', function(req, res){
 
 
 
+
+
+
 //get demandeInscription
 app.post('/api/getDInscription', function(req, res){
     var collection = db.collection('inscriptionOffer');
@@ -126,6 +129,15 @@ app.post('/api/getDInscription', function(req, res){
 var mongo = require('mongodb');
 
 
+//mes inscriptions
+app.post('/api/getUserInscriptions', function(req, res){
+    var collection = db.collection('inscriptionOffer');
+    collection.find({'idDemandeur': req.body.idDemandeur}).toArray(function(err, docs){
+        //console.log("retrieved records:");
+        //console.log(docs);
+        res.send(docs);
+    });
+})
 
 //collection.update({idOffer:req.body.idOffer},{$set:{seen: true}});
 app.post('/api/DInscriptionSeen', function(req, res){
@@ -186,6 +198,16 @@ app.post('/api/getDInscriptionById', function(req, res){
     });
 })
 
+//get trajet by id
+app.post('/api/getOfferById', function(req, res){
+    var collection = db.collection('trajetusers');
+    var o_id = new mongo.ObjectID(req.body._id);
+    collection.find({'_id':o_id}).toArray(function(err, offer){
+        //console.log("retrieved records:");
+        //console.log(docs);
+        res.send(offer);
+    });
+})
 
 //get user by id
 app.post('/api/getUserById', function(req, res){

@@ -2,11 +2,25 @@
     <ion-header-bar class="bar-dark">
         <h1 class="title">Demande</h1>
     </ion-header-bar>
-    <ion-content >
+    <ion-content ng-controller="modalCrtl">
         <div onload="initMapDemande()" id="map"></div>
 
 
+        <div class="row">
+            <div class="col" style="margin-right: 100px">
 
+                <img  src="{{UserDemand.photo}}" class="icon icon-right" style="height: 10vw;
+     width: 10vw;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 5px gray;
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: auto;" ng-click="showAvatar(UserDemand)">
+                &nbsp;  {{UserDemand.nom}} {{UserDemand.prenom}}</div>
+
+
+        </div>
 
         <div class="row">
             <img src="..\img\from_to_icon.png" class="icon icon-right" style="height: 30px; margin-top: 7px; margin-left: 15px;">

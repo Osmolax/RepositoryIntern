@@ -46,3 +46,5 @@
     width: 100%;
 }
 
+.PopupAvatar > .popup { border-radius: 20px !important; width: 100% }
+

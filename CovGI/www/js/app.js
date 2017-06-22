@@ -118,7 +118,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           }
       }
   })
-
+  .state('menu.myInscriptions',{
+      url: '/myInscriptions',
+      views:{
+          'menuContent':{
+              templateUrl:'templates/member_inscriptions.html',
+              controller: 'userInscriptions'
+          }
+      }
+  })
   .state('menu.member_offer',{
       url: '/checkOffers',
       views:{
